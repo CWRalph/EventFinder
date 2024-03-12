@@ -3,6 +3,7 @@ export type User = {
   username: string;
   email: string;
   friends?: User[];
+  pendingFriends?: User[];
 }
 
 export type Coordinates = {
