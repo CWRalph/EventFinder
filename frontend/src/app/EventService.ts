@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Event} from "./types";
+import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class EventService {
@@ -11,25 +12,25 @@ export class EventService {
   constructor(private http: HttpClient) {
   }
 
-  getEvents() {
-    return this.http.get(this.URL);
+  getEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(this.URL);
   }
 
-  getEvent(eventId: number) {
-    return this.http.get(this.URL + '/' + eventId);
-  }
-
-
-  createEvent(event: Event) {
-    return this.http.post(this.URL, event);
-  }
-
-  updateEvent(event: Event) {
-    return this.http.put(this.URL + '/' + event.eventId, event);
+  getEvent(eventId: number): Observable<Event> {
+    return this.http.get<Event>(this.URL + '/' + eventId);
   }
 
 
-  deleteEvent(id: number) {
-    return this.http.delete(this.URL + '/' + id);
+  createEvent(event: Event): Observable<Event> {
+    return this.http.post<Event>(this.URL, event);
+  }
+
+  updateEvent(event: Event): Observable<Event> {
+    return this.http.put<Event>(this.URL + '/' + event.eventId, event);
+  }
+
+
+  deleteEvent(id: number): Observable<Event> {
+    return this.http.delete<Event>(this.URL + '/' + id);
   }
 }
