@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {MapComponent} from "../map-component/map.component";
+import {Event} from "../types";
+import {EventService} from "../EventService";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,19 @@ import {MapComponent} from "../map-component/map.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'frontend';
+export class AppComponent implements OnInit {
+  events: Event[] = [];
+
+
+  constructor(private eventService: EventService) {
+  }
+
+  ngOnInit(): void {
+    this.eventService.getEvents().subscribe(events => {
+      this.events = events;
+      console.log("the events are: ", this.events);
+    });
+  }
+
+
 }

@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 import {icon, Marker} from 'leaflet';
+import {Event} from '../types';
 
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -26,6 +27,7 @@ Marker.prototype.options.icon = iconDefault;
 })
 
 export class MapComponent implements OnInit {
+  @Input() events: Event[] = [];
   private map!: L.Map;
   private markers: L.Marker[] = [];
 
@@ -35,6 +37,11 @@ export class MapComponent implements OnInit {
     this.initializeMap();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['events']) {
+      this.updateMarkers();
+    }
+  }
   private initializeMap(): void {
     this.map = L.map('mapId').setView([49.2, -123], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -55,6 +62,16 @@ export class MapComponent implements OnInit {
       this.map.removeLayer(marker);
     });
     this.markers = [];
+  }
+
+  private updateMarkers(): void {
+    this.clearMarkers();
+    this.events.forEach(event => {
+      const marker = L.marker([event.coordinates.x, event.coordinates.y])
+        .bindPopup(`${event.name} - ${event.eventType}`);
+      marker.addTo(this.map);
+      this.markers.push(marker);
+    });
   }
 
 }
