@@ -1,2 +1,2 @@
 # EventFinder
-First
+An application for finding events near you! 
