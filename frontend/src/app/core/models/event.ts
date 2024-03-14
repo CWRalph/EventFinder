@@ -1,24 +1,25 @@
-export type User = {
-  userId: number;
-  username: string;
-  email: string;
-  friends?: User[];
-  pendingFriends?: User[];
-}
+import { User } from '@core/models/user';
 
 export type Coordinates = {
   x: number;
   y: number;
-}
+};
 
 export type Visibility = 'Public' | 'Private';
 
-export type EventType = 'Birthday' | 'Wedding' | 'Concert' | 'Conference' | 'Sport' | 'School' | 'Other';
+export type EventType =
+  | 'Birthday'
+  | 'Wedding'
+  | 'Concert'
+  | 'Conference'
+  | 'Sport'
+  | 'School'
+  | 'Other';
 
 export type Event = {
   eventId: number;
   name: string;
-  owner: User;
+  ownerId: string;
   date: Date;
   address: string;
   eventType: EventType;
@@ -27,5 +28,4 @@ export type Event = {
   description?: string;
   locationName?: string;
   participants?: User[];
-}
-
+};
