@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100">
   <div class="flex-none">
-    <h1 class="btn btn-ghost text-4xl">EventFinder</h1>
+    <h1 class="navbar-title">EventFinder</h1>
   </div>
   <div class="flex-1">
     <label class="navbar-input">
@@ -30,7 +30,9 @@
       <app-user-icon></app-user-icon>
     </div>
     <ng-template #loggedOutNavbar>
-      <button class="navbar-button text-green-600">Create Event</button>
+      <button class="navbar-button text-green-600" (click)="createEvent()">
+        Create Event
+      </button>
       <button class="navbar-button" (click)="login()">Login</button>
       <button class="navbar-button" (click)="register()">Register</button>
     </ng-template>

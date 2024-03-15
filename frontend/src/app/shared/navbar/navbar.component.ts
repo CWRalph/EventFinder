@@ -3,12 +3,12 @@ import { select, Store } from '@ngrx/store';
 import { selectIsLoggedIn } from '@app/state/userReducer';
 import { takeUntil } from 'rxjs';
 import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
-import {CommonModule} from "@angular/common";
-import {UserIconComponent} from "@features/user-icon/user-icon/user-icon.component";
-import {MatIconModule} from "@angular/material/icon";
-import {UserActions} from "@app/state/userActions";
-import {MatDialog} from "@angular/material/dialog";
-import {LoginComponent} from "@core/authentication/login/login.component";
+import { CommonModule } from '@angular/common';
+import { UserIconComponent } from '@features/user-icon/user-icon/user-icon.component';
+import { MatIconModule } from '@angular/material/icon';
+import { UserActions } from '@app/state/userActions';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '@core/authentication/login/login.component';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +19,10 @@ import {LoginComponent} from "@core/authentication/login/login.component";
 })
 export class NavbarComponent extends SubscriberComponent implements OnInit {
   public isLoggedIn: boolean = false;
-  constructor(private store: Store, private dialog: MatDialog) {
+  constructor(
+    private store: Store,
+    private dialog: MatDialog,
+  ) {
     super();
   }
   ngOnInit(): void {
@@ -29,17 +32,19 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
       .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn));
   }
 
-  createEvent(){
-    if(!this.isLoggedIn) return this.login();
-
+  createEvent() {
+    if (this.isLoggedIn) {
+    } else {
+      this.login();
+    }
   }
 
-  login(){
+  login() {
     // this.store.dispatch(UserActions.loginUser());
-    this.dialog.open(LoginComponent)
+    this.dialog.open(LoginComponent);
   }
 
-  register(){
-    this.store.dispatch(UserActions.registerUser())
+  register() {
+    this.store.dispatch(UserActions.registerUser());
   }
 }

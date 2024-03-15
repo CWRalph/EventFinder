@@ -5,15 +5,15 @@ import { UserActions } from '@app/state/userActions';
 import { UserService } from '@core/services/user.service';
 import { User } from '@core/models/user';
 import { MatDialog } from '@angular/material/dialog';
-import {LoginComponent} from "@core/authentication/login/login.component";
-import {DialogStatus} from "@core/authentication/models/dialogStatus";
+import { LoginComponent } from '@core/authentication/login/login.component';
+import { DialogStatus } from '@core/authentication/models/dialogStatus';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private readonly actions$: Actions,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   printer = createEffect(
@@ -39,15 +39,11 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.loginUser),
       mergeMap(() => {
-          const dialogRef = this.dialog.open(
-            LoginComponent,
-            {
-              data:{dialogStatus: DialogStatus.LOGIN},
-            }
-          );
-          return dialogRef.afterClosed().pipe();
-        }
-      ),
+        const dialogRef = this.dialog.open(LoginComponent, {
+          data: { dialogStatus: DialogStatus.LOGIN },
+        });
+        return dialogRef.afterClosed().pipe();
+      }),
     ),
   );
 
@@ -68,13 +64,11 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.registerUser),
       mergeMap(() => {
-          const dialogRef = this.dialog.open(
-            LoginComponent,
-            {data:{dialogStatus: DialogStatus.REGISTER}}
-          );
-          return dialogRef.afterClosed().pipe();
-        }
-      ),
+        const dialogRef = this.dialog.open(LoginComponent, {
+          data: { dialogStatus: DialogStatus.REGISTER },
+        });
+        return dialogRef.afterClosed().pipe();
+      }),
     ),
   );
 

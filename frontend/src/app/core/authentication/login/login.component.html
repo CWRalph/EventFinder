@@ -1,1 +1,15 @@
-<p>login works!</p>
+<h2 mat-dialog-title>Login</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onLogin()">Login</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
