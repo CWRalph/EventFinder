@@ -7,11 +7,12 @@ import { EventService } from './core/services/EventService';
 import {Store} from "@ngrx/store";
 import {UserActions} from "@app/state/userActions";
 import {NavbarComponent} from "@shared/navbar/navbar.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MapComponent, NavbarComponent],
+  imports: [CommonModule, RouterOutlet, MapComponent, NavbarComponent, MatDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
