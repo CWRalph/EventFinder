@@ -1,0 +1,16 @@
+<div class="sidenav">
+    <div class="icon-btn-container" *ngFor="let button of buttonFields">
+        <app-icon-button [button]="button"></app-icon-button>
+    </div>
+    
+    <div class="group-btn-container">
+        <!-- <p>GROUPS</p> -->
+        <hr>
+        <div class="group-btn" *ngFor="let group of groups">
+            <app-group-button></app-group-button>
+        </div>
+
+    </div>
+
+</div>
+

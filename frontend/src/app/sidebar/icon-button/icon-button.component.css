@@ -1,0 +1,20 @@
+.btn-container {
+    text-align: center;
+}
+
+.btn {
+    display: block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    /* border: 1px solid red; */
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.btn-name {
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

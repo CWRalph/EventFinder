@@ -1,0 +1,13 @@
+.info-sidebar {
+    height: 95%;
+    width: 400px;
+    position: fixed;
+    z-index: 0;
+    top: 5%;
+    left: 85px;
+    background-color: #ffffff;
+    opacity: 50%;
+    overflow-x: hidden;
+    padding-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
