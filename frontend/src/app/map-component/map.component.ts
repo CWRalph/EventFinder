@@ -55,6 +55,10 @@ export class MapComponent implements OnInit {
         zoomOffset: -1,
       }
     ).addTo(this.map);
+    this.map.zoomControl.remove();
+    L.control.zoom({
+      position: 'topright'
+    }).addTo(this.map);
   }
 
   private clearMarkers(): void {
