@@ -3,10 +3,7 @@ import { IconButtonComponent } from "../icon-button/icon-button.component";
 import { CommonModule } from '@angular/common';
 import { GroupButtonComponent } from "../group-button/group-button.component";
 import { GroupMembershipService } from '../../../services/GroupMembershipService';
-import { Group, GroupMembership } from '../../types';
-import { GroupService } from '../../../services/GroupService';
-import { group } from '@angular/animations';
-
+import { GroupMembership } from '../../types';
 
 @Component({
     selector: 'app-static-sidebar',

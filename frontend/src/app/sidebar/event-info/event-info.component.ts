@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Event, User } from '../../types';
+import { Component, Input } from '@angular/core';
+import { Event } from '../../types';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/UserService';
 

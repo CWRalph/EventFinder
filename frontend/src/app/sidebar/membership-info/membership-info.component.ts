@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GroupMembership, Event } from '../../types';
 import { GroupService } from '../../../services/GroupService';
 import { EventService } from '../../../services/EventService';

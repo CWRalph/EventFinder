@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Group, GroupMembership } from '../../types';
 import { InfoSidebarComponent } from "../info-sidebar/info-sidebar.component";
