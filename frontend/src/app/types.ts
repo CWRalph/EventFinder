@@ -18,14 +18,16 @@ export type EventType = 'Birthday' | 'Wedding' | 'Concert' | 'Conference' | 'Spo
 export type Event = {
   eventId: number;
   name: string;
-  owner: User;
+  owner: string;
+  startTime: Date,
+  endTime: Date,
   date: Date;
   address: string;
   eventType: EventType;
   coordinates: Coordinates;
   visibility: Visibility;
   description?: string;
-  locationName?: string;
+  location?: string;
   participants?: User[];
 }
 

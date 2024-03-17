@@ -1,12 +1,9 @@
 <div class="card">
-    <h1>{{ event.name }}</h1>
     <!-- Event image goes here -->
-   
-    
-    <p> {{ event.owner }} </p>
-    <p> {{ event.date | date: 'MM-dd-yyy (h:mm a)'}} </p>
-    <p> {{ event.address }} </p>
-    <p> {{ event.eventType }} </p>
-    <p> {{ event.description }} </p>
+    <div class="temp-img"></div>
+    <h1 class="event-name">{{ event.name }}</h1>
+    <p class="event-owner">Owned by: {{ ownerName }}</p>
+    <p class="event-duration">{{ eventDuration }} </p>
+    <p class="event-location">{{ event.location }} </p>
 
   </div>

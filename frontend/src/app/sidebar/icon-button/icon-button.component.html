@@ -3,8 +3,7 @@
     <p class="btn-name"> {{ button }}</p>
 </div>
 
-<div 
-[ngStyle]="{'display':displayStyle}">
-    <app-info-sidebar></app-info-sidebar>
+<div [ngStyle]="{'display':displayStyle}">
+    <app-info-sidebar [infoType]="button"></app-info-sidebar>
 </div>
 

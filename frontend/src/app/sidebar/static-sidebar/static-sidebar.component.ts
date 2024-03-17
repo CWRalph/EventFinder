@@ -16,7 +16,7 @@ export class StaticSidebarComponent {
   groups: string[];
 
   constructor() {
-    this.buttonFields = ["Friends", "Browse", "Add"];
+    this.buttonFields = ["Friends", "Browse"];
     
     // check is user is in groups before populating
     this.groups = ["SFU", "EventFinder", "Book Club"]

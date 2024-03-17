@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EventService } from '../../EventService';
-import {CommonModule} from '@angular/common';
-import {RouterOutlet} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 import { Event } from '../../types';
 import { EventInfoComponent } from "../event-info/event-info.component";
 
@@ -13,15 +13,18 @@ import { EventInfoComponent } from "../event-info/event-info.component";
     imports: [CommonModule, RouterOutlet, EventInfoComponent]
 })
 export class InfoSidebarComponent {
+  @Input() infoType: string = "";
   events: Event[] = [];
 
-  constructor(private eventService: EventService) {
-  }
+
+  constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
     this.eventService.getEvents().subscribe(events => {
       this.events = events;
     });
+
+    console.log(this.infoType)
   }
 
 

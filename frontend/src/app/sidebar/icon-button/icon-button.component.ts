@@ -9,15 +9,12 @@ import { InfoSidebarComponent } from "../info-sidebar/info-sidebar.component";
     styleUrl: './icon-button.component.css',
     imports: [CommonModule, InfoSidebarComponent]
 })
+
 export class IconButtonComponent {
   displayStyle = "none";
-  buttonText: string;
-  @Input() button: any;
+  @Input() button: string = "";
 
-  constructor() {
-    this.buttonText = this.button;
-
-  }
+  constructor() {}
 
   toggleSidebar() {
     if (this.displayStyle == "none") {
