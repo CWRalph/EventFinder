@@ -1,9 +1,12 @@
 <div class="card">
-    <!-- <img src="img_avatar.png" alt="Avatar" style="width:100%"> -->
-    <div class="container">
-      <p> {{ event.name }} </p>
-      <p> {{ event.owner }} </p>
-      <p> {{ event.date }} </p>
-      <p> {{ event.address }} </p>
-    </div>
+    <h1>{{ event.name }}</h1>
+    <!-- Event image goes here -->
+   
+    
+    <p> {{ event.owner }} </p>
+    <p> {{ event.date | date: 'MM-dd-yyy (h:mm a)'}} </p>
+    <p> {{ event.address }} </p>
+    <p> {{ event.eventType }} </p>
+    <p> {{ event.description }} </p>
+
   </div>

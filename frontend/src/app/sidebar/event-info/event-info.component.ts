@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Event } from '../../types';
 import { CommonModule } from '@angular/common';
 
@@ -12,8 +12,14 @@ import { CommonModule } from '@angular/common';
 export class EventInfoComponent {
   @Input() event: any;
 
-  constructor() {
+  daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+  eventDate: string = "";
+
+  constructor() {}
+
+  ngOnInit() {
   }
 
 }
