@@ -20,7 +20,7 @@ export class FriendInfoComponent {
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
-    console.log(this.friend._id)
+    // console.log(this.friend._id)
     this.eventService.getEvents().subscribe(events => {
       for (let i = 0; i < events.length; i++) {
         if (events[i].owner == this.friend._id) {

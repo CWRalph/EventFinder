@@ -1,0 +1,37 @@
+.card {
+    width: 400px;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.temp-img {
+    height: 150px;
+    width: 370px;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.group-name {
+    font-weight: 700;
+    font-size: 20px;  
+}
+
+h1, p {
+    margin: 5px 0px 0px;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.leave-btn {
+    width: 100px;
+    background-color: rgb(255, 100, 100);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+}

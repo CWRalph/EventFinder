@@ -4,10 +4,12 @@
     </div>
     
     <div class="group-btn-container">
-        <!-- <p>GROUPS</p> -->
         <hr>
-        <div class="group-btn" *ngFor="let group of groups">
-            <app-group-button></app-group-button>
+        <!-- browse groups -->
+        <app-group-button [infoType]="groupType"></app-group-button>
+
+        <div class="group-btn" *ngFor="let membership of groupMemberships">
+            <app-group-button [groupMembership]="membership" [infoType]="membershipType"></app-group-button>
         </div>
 
     </div>

@@ -6,18 +6,34 @@ export type User = {
   pendingFriends?: User[];
 }
 
-export type Status = 'Pending' | 'Accepted' | 'Blocked'
-
 export type Friendship = {
   user1: User;
   user2: User;
   status: Status;
 }
 
+export type Group = {
+  _id: string;
+  groupName: string;
+  description: string;
+  visibility: Visibility;
+}
+
+export type GroupMembership = {
+  _id: string;
+  group: string;
+  user: string;
+  role: Role;
+}
+
 export type Coordinates = {
   x: number;
   y: number;
 }
+
+export type Role = 'owner' | 'admin' | 'member'
+
+export type Status = 'Pending' | 'Accepted' | 'Blocked'
 
 export type Visibility = 'Public' | 'Private';
 
@@ -27,6 +43,7 @@ export type Event = {
   eventId: number;
   name: string;
   owner: string;
+  group: string;
   startTime: Date,
   endTime: Date,
   date: Date;

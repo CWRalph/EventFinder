@@ -1,5 +1,12 @@
 <div class="btn-container">
-    <button class="btn" (click)="toggleSidebar()"></button>
+    <button class="btn" (click)="toggleSidebar()">
+        <div class="icon" *ngIf="button == 'Friends'; else showEventIcon">
+            <i class="fa-solid fa-user-group"></i>
+        </div>
+        <ng-template #showEventIcon>
+            <i class="fa-solid fa-calendar-days"></i>
+        </ng-template>
+    </button>
     <p class="btn-name"> {{ button }}</p>
 </div>
 

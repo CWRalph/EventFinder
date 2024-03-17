@@ -7,12 +7,12 @@
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    border: 1px solid black;
+    background-color: rgb(100, 183, 255);
     margin: auto;
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
 }
+
 
 /* .btn-name {
     font-size: 12px;
