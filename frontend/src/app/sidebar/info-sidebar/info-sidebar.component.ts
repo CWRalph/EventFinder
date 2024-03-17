@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { EventService } from '../../../services/EventService';
 import { FriendshipService } from '../../../services/FriendshipService';
 import { CommonModule } from '@angular/common';
@@ -6,10 +6,10 @@ import { RouterOutlet } from '@angular/router';
 import { Event, User, Friendship, GroupMembership, Group } from '../../types';
 import { EventInfoComponent } from "../event-info/event-info.component";
 import { FriendInfoComponent } from "../friend-info/friend-info.component";
-import { GroupMembershipService } from '../../../services/GroupMembershipService';
 import { GroupInfoComponent } from "../group-info/group-info.component";
 import { GroupService } from '../../../services/GroupService';
 import { MembershipInfoComponent } from "../membership-info/membership-info.component";
+import { SidebarService } from '../../../services/SidebarService';
 
 
 @Component({
@@ -34,13 +34,11 @@ export class InfoSidebarComponent {
 
   groups: Group[] = [];
 
-  // groupMemberships: GroupMembership[] =[];
 
-  constructor(private eventService: EventService, private friendshipService: FriendshipService, private groupService: GroupService) {}
+  constructor(private eventService: EventService, private friendshipService: FriendshipService, private groupService: GroupService, private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
-    
-    // console.log(this.infoType)
+
 
     if (this.infoType == "Friends") {
 
@@ -96,9 +94,11 @@ export class InfoSidebarComponent {
 
   }
 
-  
+  addGroup() {}
 
+  addEvent() {}
 
-
-
+  closeSidebar() {
+    this.sidebarService.closeModals();
+  }
 }

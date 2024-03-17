@@ -23,11 +23,11 @@ h1 {
     font-weight: 700;
 }
 
-.friends-header {
+.friends-header, .groups-header, .events-header {
     display: flex; 
     align-items: center;
 }
 
-.friends-header button {
+.friends-header button, .groups-header button, .events-header button {
     margin-left: auto;
 }

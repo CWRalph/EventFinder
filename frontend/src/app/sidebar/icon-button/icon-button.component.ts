@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfoSidebarComponent } from "../info-sidebar/info-sidebar.component";
+import { SidebarService } from '../../../services/SidebarService';
 
 @Component({
     selector: 'app-icon-button',
@@ -14,14 +15,26 @@ export class IconButtonComponent {
   displayStyle = "none";
   @Input() button: string = "";
 
-  constructor() {}
+  constructor(private sidebarService: SidebarService) {}
 
+  ngOnInit() {
+    this.sidebarService.closeModal$.subscribe(() => {
+      // Close modal in this component
+      this.displayStyle = "none";
+    });
+  }
+
+  closeSidebar() {
+    this.sidebarService.closeModals();
+  }
+  
   toggleSidebar() {
-    if (this.displayStyle == "none") {
+    let wasOpen = (this.displayStyle == "block");
+    this.closeSidebar();
+    if (wasOpen == false) {
       this.displayStyle = "block";
     } else {
       this.displayStyle = "none";
     }
-    
   }
 }

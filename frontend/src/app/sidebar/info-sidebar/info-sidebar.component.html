@@ -3,7 +3,7 @@
     <div class="friendship-info-card-container" *ngIf="infoType == 'Friends'">
         <div class="friends-header">
            <h1>Friends</h1> 
-           <button (click)="addFriend()"><i class="fa-solid fa-user-plus fa-2x"></i></button>
+           <button (click)="addFriend()"><i class="fa-solid fa-plus fa-2x"></i></button>
         </div>
         
         <div class="info-card" *ngFor="let friend of acceptedFriendships">
@@ -27,7 +27,11 @@
 
 
     <div class="info-card-container" *ngIf="infoType == 'Browse'">
-        <h1>Events</h1>
+        <div class="events-header">
+            <h1>Events</h1>
+            <button (click)="addEvent()"><i class="fa-solid fa-plus fa-2x"></i></button>
+        </div>
+        
         <div class="info-card" *ngFor="let event of events">
             <app-event-info [event]="event"></app-event-info>
         </div>
@@ -40,7 +44,10 @@
     </div>
 
     <div class="group-card-container" *ngIf="infoType == 'Group'">
-        <h1>Groups</h1>
+        <div class="groups-header">
+            <h1>Groups</h1>
+            <button (click)="addGroup()"><i class="fa-solid fa-plus fa-2x"></i></button>
+        </div>
         <div class="info-card" *ngFor="let group of groups">
             <app-group-info [group]="group"></app-group-info>
         </div>

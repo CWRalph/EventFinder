@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Group, GroupMembership } from '../../types';
 import { InfoSidebarComponent } from "../info-sidebar/info-sidebar.component";
+import { SidebarService } from '../../../services/SidebarService';
 
 @Component({
     selector: 'app-group-button',
@@ -20,11 +21,16 @@ export class GroupButtonComponent {
   groupColour: string = "";
   groups: Group[] = [];
 
-  constructor() {}
+  constructor(private sidebarService: SidebarService) {}
 
   ngOnInit() {
     // console.log(this.groupMembership)
     this.generateGroupColour();
+    this.sidebarService.closeModal$.subscribe(() => {
+      // Close modal in this component
+      this.displayStyle = "none";
+
+    });
     
 
     // this.groupService.getGroups().subscribe(groups => {
@@ -33,11 +39,17 @@ export class GroupButtonComponent {
     // });
     // console.log(this.groups)
     // this.infoType = this.groups.length === 0 ? "Group" : "Group-Browse";
-    console.log(this.infoType)
+    // console.log(this.infoType)
+  }
+
+  closeSidebar() {
+    this.sidebarService.closeModals();
   }
 
   toggleSidebar() {
-    if (this.displayStyle == "none") {
+    let wasOpen = (this.displayStyle == "block");
+    this.closeSidebar();
+    if (wasOpen == false) {
       this.displayStyle = "block";
     } else {
       this.displayStyle = "none";
