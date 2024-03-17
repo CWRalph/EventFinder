@@ -1,9 +1,17 @@
 export type User = {
-  userId: number;
+  _id: string;
   username: string;
   email: string;
   friends?: User[];
   pendingFriends?: User[];
+}
+
+export type Status = 'Pending' | 'Accepted' | 'Blocked'
+
+export type Friendship = {
+  user1: User;
+  user2: User;
+  status: Status;
 }
 
 export type Coordinates = {
@@ -30,4 +38,5 @@ export type Event = {
   location?: string;
   participants?: User[];
 }
+
 

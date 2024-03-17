@@ -17,3 +17,17 @@
     height: 95%;
     overflow-y: scroll;
 }
+
+h1 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.friends-header {
+    display: flex; 
+    align-items: center;
+}
+
+.friends-header button {
+    margin-left: auto;
+}

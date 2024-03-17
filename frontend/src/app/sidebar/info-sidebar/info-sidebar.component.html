@@ -1,7 +1,34 @@
 <div class="info-sidebar scrollable">
 
-    <div class="info-card" *ngFor="let event of events">
-        <app-event-info [event]="event"></app-event-info>
+    <div class="info-card-container" *ngIf="shouldShowEvents">
+        <h1>Events</h1>
+        <div class="info-card" *ngFor="let event of events">
+            <app-event-info [event]="event"></app-event-info>
+        </div>
     </div>
 
+    <div class="friendship-info-card-container" *ngIf="!shouldShowEvents">
+        <div class="friends-header">
+           <h1>Friends</h1> 
+           <button (click)="addFriend()"><i class="fa-solid fa-user-plus fa-2x"></i></button>
+        </div>
+        
+        <div class="info-card" *ngFor="let friend of acceptedFriendships">
+            <app-friend-info [friend]="friend"></app-friend-info>
+        </div>
+        
+        <div class="pending" *ngIf="shouldShowPendingFriendships">
+           <h1>Pending</h1>
+            <div class="info-card" *ngFor="let friend of pendingFriendships">
+                <app-friend-info [friend]="friend"></app-friend-info>
+            </div> 
+        </div>
+        
+        <div class="blocked" *ngIf="shouldShowBlockedFriendships">
+           <h1>Blocked</h1>
+            <div class="info-card" *ngFor="let friend of blockedFriendships">
+                <app-friend-info [friend]="friend"></app-friend-info>
+            </div> 
+        </div>
+    </div>
 </div>

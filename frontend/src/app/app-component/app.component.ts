@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {MapComponent} from "../map-component/map.component";
 import {Event} from "../types";
-import {EventService} from "../EventService";
+import {EventService} from "../../services/EventService";
 import { StaticSidebarComponent } from "../sidebar/static-sidebar/static-sidebar.component";
 
 @Component({

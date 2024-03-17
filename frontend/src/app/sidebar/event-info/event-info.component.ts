@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Event, User } from '../../types';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../UserService';
+import { UserService } from '../../../services/UserService';
 
 @Component({
   selector: 'app-event-info',

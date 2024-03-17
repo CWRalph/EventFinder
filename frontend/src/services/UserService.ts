@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { User } from "./types";
+import { User } from "../app/types";
 import { Observable } from "rxjs";
 
 @Injectable({providedIn: 'root'})
@@ -21,16 +21,16 @@ export class UserService {
   }
 
 
-  createUser(User: User): Observable<User> {
-    return this.http.post<User>(this.URL, User);
-  }
+  // createUser(User: User): Observable<User> {
+  //   return this.http.post<User>(this.URL, User);
+  // }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.URL + '/' + user.userId, user);
-  }
+  // updateUser(user: User): Observable<User> {
+  //   return this.http.put<User>(this.URL + '/' + user.userId, user);
+  // }
 
 
-  deleteUser(id: number): Observable<User> {
-    return this.http.delete<User>(this.URL + '/' + id);
-  }
+  // deleteUser(id: number): Observable<User> {
+  //   return this.http.delete<User>(this.URL + '/' + id);
+  // }
 }
