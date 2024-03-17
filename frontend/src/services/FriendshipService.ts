@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Friendship } from "../app/types";
+import { Friendship, Status } from "../app/types";
 import { Observable } from "rxjs";
 
 @Injectable({providedIn: 'root'})
@@ -12,25 +12,27 @@ export class FriendshipService {
   constructor(private http: HttpClient) {
   }
 
-//   getEvents(): Observable<User[]> {
-//     return this.http.get<User[]>(this.URL);
-//   }
+  getFriendships(): Observable<Friendship[]> {
+    return this.http.get<Friendship[]>(this.URL);
+  }
+
+  getFriendshipByFriendshipId(friendshipId: string): Observable<Friendship[]> {
+    return this.http.get<Friendship[]>(this.URL + '/' + friendshipId);
+  }
 
   getFriendshipsByUser(userId: string): Observable<Friendship[]> {
     return this.http.get<Friendship[]>(this.URL + '/user/' + userId);
   }
 
+  createFriendship(friendship: Friendship): Observable<Friendship> {
+    return this.http.post<Friendship>(this.URL, friendship);
+  }
 
-//   createEvent(event: User): Observable<User> {
-//     return this.http.post<User>(this.URL, event);
-//   }
+  updateFriendship(friendship: Friendship): Observable<Friendship> {
+    return this.http.put<Friendship>(this.URL + '/' + friendship._id + '/update-status', friendship.status);
+  }
 
-//   updateEvent(event: User): Observable<User> {
-//     return this.http.put<User>(this.URL + '/' + event.eventId, event);
-//   }
-
-
-//   deleteEvent(id: number): Observable<User> {
-//     return this.http.delete<User>(this.URL + '/' + id);
-//   }
+  deleteFriendship(friendshipId: string): Observable<Friendship> {
+    return this.http.delete<Friendship>(this.URL + '/' + friendshipId);
+  }
 }

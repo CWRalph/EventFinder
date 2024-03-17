@@ -5,12 +5,9 @@
     z-index: 0;
     top: 5%;
     left: 85px;
-    /* background-color: #ffffff; */
-    /* opacity: 50%; */
     background-color: rgba(255, 255, 255, 0); 
     overflow-x: hidden;
     padding-top: 20px;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .scrollable {

@@ -20,7 +20,6 @@ export class EventService {
     return this.http.get<Event>(this.URL + '/' + eventId);
   }
 
-
   createEvent(event: Event): Observable<Event> {
     return this.http.post<Event>(this.URL, event);
   }
@@ -28,7 +27,6 @@ export class EventService {
   updateEvent(event: Event): Observable<Event> {
     return this.http.put<Event>(this.URL + '/' + event.eventId, event);
   }
-
 
   deleteEvent(id: number): Observable<Event> {
     return this.http.delete<Event>(this.URL + '/' + id);

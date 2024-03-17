@@ -20,17 +20,15 @@ export class UserService {
     return this.http.get<User>(this.URL + '/' + userId);
   }
 
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.URL, user);
+  }
 
-  // createUser(User: User): Observable<User> {
-  //   return this.http.post<User>(this.URL, User);
-  // }
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(this.URL + '/' + user._id, user);
+  }
 
-  // updateUser(user: User): Observable<User> {
-  //   return this.http.put<User>(this.URL + '/' + user.userId, user);
-  // }
-
-
-  // deleteUser(id: number): Observable<User> {
-  //   return this.http.delete<User>(this.URL + '/' + id);
-  // }
+  deleteUser(userId: string): Observable<User> {
+    return this.http.delete<User>(this.URL + '/' + userId);
+  }
 }

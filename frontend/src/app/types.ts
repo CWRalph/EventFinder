@@ -7,6 +7,7 @@ export type User = {
 }
 
 export type Friendship = {
+  _id: string;
   user1: User;
   user2: User;
   status: Status;

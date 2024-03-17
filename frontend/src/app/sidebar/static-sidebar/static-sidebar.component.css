@@ -24,8 +24,8 @@
 }
 
 .main {
-    margin-left: 160px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
+    margin-left: 160px;
+    font-size: 28px;
     padding: 0px 10px;
 }
 
@@ -35,13 +35,6 @@ hr {
     margin-bottom: 10px;
     border-top: 2px solid black
 }
-
-/* p {
-    font-size: 10px;
-    color: #818181;
-    font-weight: 700;
-    margin-left: 10px;
-} */
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}

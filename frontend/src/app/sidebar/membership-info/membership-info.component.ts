@@ -4,6 +4,8 @@ import { GroupService } from '../../../services/GroupService';
 import { EventService } from '../../../services/EventService';
 import { EventInfoComponent } from "../event-info/event-info.component";
 import { CommonModule } from '@angular/common';
+import { GroupMembershipService } from '../../../services/GroupMembershipService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-membership-info',
@@ -20,7 +22,10 @@ export class MembershipInfoComponent {
 
   groupEvents: Event[] = [];
 
-  constructor(private groupService: GroupService, private eventService: EventService) {}
+  constructor(private groupService: GroupService, 
+              private eventService: EventService, 
+              private groupMembershipService: GroupMembershipService,
+              private router: Router) {}
 
   ngOnInit() {
     this.groupService.getGroupbyId(this.groupMembership.group).subscribe(group => {
@@ -34,8 +39,14 @@ export class MembershipInfoComponent {
           this.groupEvents.push(events[i]);
         }
       }
-
-      // console.log(this.groupEvents)
     })
   }
+
+  leaveGroup() {
+    this.groupMembershipService.deleteGroupMembership(this.groupMembership._id).subscribe(res => {
+      console.log(res);
+      window.location.reload();
+    })
+  }
+
 }

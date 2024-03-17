@@ -16,21 +16,19 @@ export class GroupMembershipService {
     return this.http.get<GroupMembership[]>(this.URL);
   }
 
-//   getGroupMembershipsByUser(userId: string): Observable<GroupMembership[]> {
-//     return this.http.get<GroupMembership[]>(this.URL + '/' + userId);
-//   }
+  getGroupMembershipsByUser(userId: string): Observable<GroupMembership[]> {
+    return this.http.get<GroupMembership[]>(this.URL + '/' + userId);
+  }
 
+  createGroupMembership(membership: GroupMembership): Observable<GroupMembership> {
+    return this.http.post<GroupMembership>(this.URL, membership);
+  }
 
-//   createEvent(event: User): Observable<User> {
-//     return this.http.post<User>(this.URL, event);
-//   }
+  updateGroupMembership(membership: GroupMembership): Observable<GroupMembership> {
+    return this.http.put<GroupMembership>(this.URL + '/' + membership._id, membership);
+  }
 
-//   updateEvent(event: User): Observable<User> {
-//     return this.http.put<User>(this.URL + '/' + event.eventId, event);
-//   }
-
-
-//   deleteEvent(id: number): Observable<User> {
-//     return this.http.delete<User>(this.URL + '/' + id);
-//   }
+  deleteGroupMembership(membershipId: string): Observable<GroupMembership> {
+    return this.http.delete<GroupMembership>(this.URL + '/' + membershipId);
+  }
 }

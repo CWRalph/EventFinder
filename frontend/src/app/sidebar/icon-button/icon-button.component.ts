@@ -19,7 +19,6 @@ export class IconButtonComponent {
 
   ngOnInit() {
     this.sidebarService.closeModal$.subscribe(() => {
-      // Close modal in this component
       this.displayStyle = "none";
     });
   }

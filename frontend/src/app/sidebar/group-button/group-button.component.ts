@@ -14,32 +14,18 @@ import { SidebarService } from '../../../services/SidebarService';
 export class GroupButtonComponent {
   @Input() groupMembership!: GroupMembership;
   @Input() infoType: string = "";
-  // @Input() groups: Group[] = [];
 
   displayStyle = "none";
-  // infoType = "Group";
   groupColour: string = "";
   groups: Group[] = [];
 
   constructor(private sidebarService: SidebarService) {}
 
   ngOnInit() {
-    // console.log(this.groupMembership)
     this.generateGroupColour();
     this.sidebarService.closeModal$.subscribe(() => {
-      // Close modal in this component
       this.displayStyle = "none";
-
     });
-    
-
-    // this.groupService.getGroups().subscribe(groups => {
-    //   this.groups = groups;
-    //   // console.log(this.groups.length)
-    // });
-    // console.log(this.groups)
-    // this.infoType = this.groups.length === 0 ? "Group" : "Group-Browse";
-    // console.log(this.infoType)
   }
 
   closeSidebar() {
@@ -56,17 +42,12 @@ export class GroupButtonComponent {
     }
   }
 
+  // TODO: do we want to store the colour somewhere so the user doesn't get the new colours everytime? LocalStorage?
+  // should users be able to customize the group's colour?
   generateGroupColour() {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
     this.groupColour = `rgb(${r}, ${g}, ${b})`;
   }
-
-  // setInfoType() {
-  //   this.infoType = this.groups.length === 0 ? "Group" : "Group-Browse";
-  //   console.log(this.infoType)
-  // }
-
-
 }

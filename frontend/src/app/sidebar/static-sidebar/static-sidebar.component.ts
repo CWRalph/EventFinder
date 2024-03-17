@@ -16,16 +16,16 @@ import { group } from '@angular/animations';
     imports: [CommonModule, IconButtonComponent, GroupButtonComponent]
 })
 export class StaticSidebarComponent {
-  userID: string = "65f4d7bea84a230f2d8a73e4" // change to get the user's userId
-  buttonFields: string[] = ["Friends", "Browse"];
+  userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to get the user's userId
+  buttonFields: string[] = ["Friends", "Browse", "Saved"];
   groupMemberships: GroupMembership[] = [];
-  // groups: Group[] = [];
   membershipType = "Membership";
   groupType = "Group";
 
   constructor(private groupMembershipService: GroupMembershipService) {}
 
   ngOnInit() {
+    // TODO: get the current user's userId, then check their memberships
     this.groupMembershipService.getGroupMemberships().subscribe(memberships => {
       for (let i = 0; i < memberships.length; i++) {
         if (memberships[i].user == this.userID) {
@@ -33,18 +33,5 @@ export class StaticSidebarComponent {
         }
       }
     });
-
-    // this.groupService.getGroups().subscribe(groups => {
-    //   this.groups = groups;
-    //   console.log(this.groups)
-    // });
-
-
-
   }
-
-
-
-
-
 }

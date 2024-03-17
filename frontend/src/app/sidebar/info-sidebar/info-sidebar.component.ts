@@ -20,7 +20,7 @@ import { SidebarService } from '../../../services/SidebarService';
     imports: [CommonModule, RouterOutlet, EventInfoComponent, FriendInfoComponent, GroupInfoComponent, MembershipInfoComponent]
 })
 export class InfoSidebarComponent {
-  userID: string = "65f4d7bea84a230f2d8a73e4"
+  userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to use the user's userId
   @Input() infoType: string = "";
   @Input() groupMembership!: GroupMembership;
   events: Event[] = [];
@@ -34,18 +34,16 @@ export class InfoSidebarComponent {
 
   groups: Group[] = [];
 
-
-  constructor(private eventService: EventService, private friendshipService: FriendshipService, private groupService: GroupService, private sidebarService: SidebarService) {}
+  constructor(private eventService: EventService, 
+              private friendshipService: FriendshipService, 
+              private groupService: GroupService, 
+              private sidebarService: SidebarService) {}
 
   ngOnInit(): void {
-
-
     if (this.infoType == "Friends") {
-
-      // question: how to get current userId?
+      // TODO: use the user's userID to get the friendships of the user
       this.friendshipService.getFriendshipsByUser(this.userID).subscribe(friendships => {
         this.friendships = friendships
-        // console.log(this.friendships)
 
         for (let i = 0; i < this.friendships.length; i++) {
           var friendship = this.friendships[i];
@@ -76,7 +74,8 @@ export class InfoSidebarComponent {
         this.shouldShowPendingFriendships = this.pendingFriendships.length > 0
       })
 
-    } else if (this.infoType == "Browse") {
+      // TODO: get the user's saved events for infotype == Saved
+    } else if (this.infoType == "Browse" || this.infoType == "Saved") {
       this.eventService.getEvents().subscribe(events => {
         this.events = events;
       });
@@ -84,19 +83,19 @@ export class InfoSidebarComponent {
     } else if (this.infoType == "Group") {
       this.groupService.getGroups().subscribe(groups => {
         this.groups = groups;
-        // console.log(this.groups.length)
       });
 
     }
   }
 
-  addFriend() {
+  // TODO: how do we want to allow users to add friends?
+  createFriendship() {}
 
-  }
+  // TODO: how do we want to allow users to create a new group?
+  createGroup() {}
 
-  addGroup() {}
-
-  addEvent() {}
+  // TODO: how do we want to allow users to create an event?
+  createEvent() {}
 
   closeSidebar() {
     this.sidebarService.closeModals();

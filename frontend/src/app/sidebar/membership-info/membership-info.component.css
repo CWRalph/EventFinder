@@ -34,4 +34,12 @@ h1 {
     border-radius: 10px;
     margin-top: 10px;
     margin-left: auto;
+    transition: background-color 0.3s transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leave-btn:hover {
+    background-color: rgb(186, 43, 43);
+    box-shadow: none;
+    transform: scale(0.95);
 }

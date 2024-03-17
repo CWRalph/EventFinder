@@ -20,17 +20,15 @@ export class GroupService {
     return this.http.get<Group>(this.URL + '/' + groupId);
   }
 
+  createGroup(group: Group): Observable<Group> {
+    return this.http.post<Group>(this.URL, group);
+  }
 
-//   createEvent(event: User): Observable<User> {
-//     return this.http.post<User>(this.URL, event);
-//   }
+  updateGroup(group: Group): Observable<Group> {
+    return this.http.put<Group>(this.URL + '/' + group._id, group);
+  }
 
-//   updateEvent(event: User): Observable<User> {
-//     return this.http.put<User>(this.URL + '/' + event.eventId, event);
-//   }
-
-
-//   deleteEvent(id: number): Observable<User> {
-//     return this.http.delete<User>(this.URL + '/' + id);
-//   }
+  deleteEvent(groupId: string): Observable<Group> {
+    return this.http.delete<Group>(this.URL + '/' + groupId);
+  }
 }

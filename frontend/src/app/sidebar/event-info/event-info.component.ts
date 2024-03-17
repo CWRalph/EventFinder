@@ -14,7 +14,6 @@ export class EventInfoComponent {
   @Input() event!: Event;
 
   ownerName: string = "";
-
   daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   eventDuration: string = "";
@@ -26,6 +25,10 @@ export class EventInfoComponent {
       this.ownerName = user.username
     });
 
+    this.setEventDuration();
+  }
+
+  setEventDuration() {
     let startDate: Date = new Date(this.event.startTime)
     let eventStart = this.daysOfWeek[startDate.getDay()] + ', ' +
                                     this.months[startDate.getMonth()] + ' ' +
@@ -40,8 +43,6 @@ export class EventInfoComponent {
                                   endDate.getFullYear() + ' at ' +
                                   endDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
-    
     this.eventDuration = eventStart + ' - ' + eventEnd;
   }
-
 }

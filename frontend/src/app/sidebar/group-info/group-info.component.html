@@ -4,15 +4,12 @@
     <h1 class="group-name"> {{ groupName }} </h1>
     <p class="group-description"> {{ groupDescription }} </p>
 
-    <button class="join-btn">JOIN</button>
-
-    <!-- possible info to add: number of members, date created -->
-
-</div>
-
-<!-- <div class="group-events">
-    <h1>Events</h1>
-    <div class="group-event-card" *ngFor="let event of groupEvents">
-        <app-event-info [event]="event"></app-event-info>
+    <div class="join" *ngIf="!isInGroup; else showJoinedButton">
+        <button class="join-btn" (click)="joinGroup()">JOIN</button>
     </div>
-</div> -->
+    <ng-template #showJoinedButton>
+        <button class="joined-btn"><i class="fa-regular fa-circle-check"></i> JOINED</button>
+    </ng-template>
+
+    
+</div>
