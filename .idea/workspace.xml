@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/userActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/userActions.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +31,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "colwyn-state-navbar",
     "last_opened_file_path": "C:/Users/colwy/WebstormProjects/CMPT372FinalProject/EventFinder",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -36,17 +40,17 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\frontend\\node_modules\\prettier",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\backend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\backend" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\backend\src" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\features\map" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\core\models" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\core\services" />
-      <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -67,6 +71,7 @@
       <workItem from="1710493341609" duration="410000" />
       <workItem from="1710629836199" duration="1503000" />
       <workItem from="1710631371376" duration="2015000" />
+      <workItem from="1710792677893" duration="5641000" />
     </task>
     <servers />
   </component>
