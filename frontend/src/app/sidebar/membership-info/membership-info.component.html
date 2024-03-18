@@ -1,0 +1,17 @@
+<div class="card">
+    <!-- TODO: Event image goes here -->
+    <div class="temp-img"></div>
+    <h1 class="group-name"> {{ groupName }} </h1>
+    <p class="group-description"> {{ groupDescription }} </p>
+
+    <button class="leave-btn" (click)="leaveGroup()">LEAVE</button>
+
+    <!-- possible info to add: number of members, capacty, date created, deadline to rsvp-->
+</div>
+
+<div class="group-events">
+    <h1>Events</h1>
+    <div class="group-event-card" *ngFor="let event of groupEvents">
+        <app-event-info [event]="event"></app-event-info>
+    </div>
+</div>
