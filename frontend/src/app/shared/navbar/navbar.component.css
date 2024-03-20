@@ -1,5 +1,10 @@
+.navbar {
+  position: fixed;
+  z-index: 10;
+}
+
 .navbar-button {
-  @apply btn btn-lg flex flex-col w-fit text-lg bg-white font-medium;
+  @apply btn btn-lg flex flex-col w-fit text-lg bg-gray-800 font-medium;
   height: 80px;
 }
 

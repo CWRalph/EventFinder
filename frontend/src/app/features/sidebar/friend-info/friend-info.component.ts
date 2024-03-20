@@ -23,7 +23,7 @@ export class FriendInfoComponent {
   ngOnInit() {
     this.eventService.getEvents().subscribe(events => {
       for (let i = 0; i < events.length; i++) {
-        if (events[i].ownerId == this.friend._id) {
+        if (events[i].owner == this.friend._id) {
           this.friendEvents.push(events[i]);
         }
       }
@@ -33,5 +33,4 @@ export class FriendInfoComponent {
   toggleEventList() {
     this.displayStyle = (this.displayStyle === "none") ? "block" : "none";
   }
-
 }

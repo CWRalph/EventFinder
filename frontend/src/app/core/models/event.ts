@@ -44,7 +44,7 @@ export type EventType =
 export type Event = {
   eventId: number;
   name: string;
-  ownerId: string;
+  owner: string;
   group: string;
   startTime: Date,
   endTime: Date,

@@ -1,6 +1,5 @@
 .card {
     width: 400px;
-    background-color: #ffffff;
     margin-bottom: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
@@ -39,7 +38,8 @@ h1 {
 }
 
 .leave-btn:hover {
-    background-color: rgb(186, 43, 43);
+    /* background-color: rgb(186, 43, 43); */
+    opacity: 80%;
     box-shadow: none;
     transform: scale(0.95);
 }
