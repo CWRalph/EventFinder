@@ -1,0 +1,19 @@
+.login-modal{
+  @apply py-8 px-12 justify-center items-center flex flex-col;
+}
+
+.login-modal .input-label{
+  @apply input input-bordered flex items-center text-lg gap-8;
+}
+
+.login-modal .input-label-above{
+  @apply label-text text-lg font-bold;
+}
+
+.login-modal .login-form{
+  @apply flex  flex-col gap-1;
+}
+
+.login-modal .login-button{
+  @apply btn w-full my-2 text-lg;
+}

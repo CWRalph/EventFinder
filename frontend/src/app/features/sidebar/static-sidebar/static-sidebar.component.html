@@ -1,0 +1,22 @@
+<div class="sidenav bg-base-100">
+    <div class="icon-btn-container">
+        <div class="icon-btn" *ngFor="let button of buttonFields">
+        <app-icon-button [button]="button"></app-icon-button>
+        </div> 
+    </div>
+   
+    
+    <div class="group-btn-container">
+        <hr>
+        <!-- browse groups -->
+        <app-group-button [infoType]="groupType"></app-group-button>
+
+        <!-- group memberships -->
+        <div class="group-btn" *ngFor="let membership of groupMemberships">
+            <app-group-button [groupMembership]="membership" [infoType]="membershipType"></app-group-button>
+        </div>
+
+    </div>
+
+</div>
+

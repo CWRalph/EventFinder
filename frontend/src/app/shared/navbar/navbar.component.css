@@ -1,0 +1,17 @@
+.navbar {
+  position: fixed;
+  z-index: 10;
+}
+
+.navbar-button {
+  @apply btn btn-lg flex flex-col w-fit text-lg bg-gray-800 font-medium;
+  height: 80px;
+}
+
+.navbar-input {
+  @apply input input-lg input-bordered flex flex-1 items-center gap-2 m-4 font-medium;
+}
+
+.navbar-title {
+  @apply btn btn-ghost text-4xl font-medium;
+}

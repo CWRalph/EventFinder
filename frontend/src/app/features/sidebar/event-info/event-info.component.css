@@ -1,0 +1,43 @@
+.card {
+    width: 400px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.event-name {
+    font-weight: 700;
+    font-size: 20px;  
+}
+
+.event-duration {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.event-location, .event-owner {
+    font-size: 14px;
+    color: #858585;
+}
+
+h1, p {
+    margin: 5px 0px 0px;
+}
+
+.event-owner {
+    margin-top: 0px
+}
+
+.temp-img {
+    height: 150px;
+    width: 370px;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.rsvp-btn {
+    background-color: rgb(100, 183, 255);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}

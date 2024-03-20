@@ -1,0 +1,27 @@
+.info-sidebar {
+    height: 95%;
+    width: 400px;
+    position: fixed;
+    top: 100px;
+    left: 90px;
+    padding-top: 20px;
+}
+
+.scrollable {
+    height: 88%;
+    overflow-y: scroll;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.friends-header, .groups-header, .events-header {
+    display: flex;
+    align-items: center;
+}
+
+.friends-header button, .groups-header button, .events-header button {
+    margin-left: auto;
+}
