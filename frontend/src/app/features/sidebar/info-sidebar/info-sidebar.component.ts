@@ -97,8 +97,4 @@ export class InfoSidebarComponent {
 
   // TODO: how do we want to allow users to create an event?
   createEvent() {}
-
-  closeSidebar() {
-    this.sidebarService.closeModals();
-  }
 }

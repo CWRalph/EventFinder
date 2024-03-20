@@ -4,7 +4,7 @@
 }
 
 .navbar-button {
-  @apply btn btn-lg flex flex-col w-fit text-lg bg-gray-800 font-medium;
+  @apply btn btn-lg flex flex-col w-fit text-lg text-neutral font-medium bg-primary;
   height: 80px;
 }
 

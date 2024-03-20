@@ -8,7 +8,7 @@ import { SidebarService } from '@app/services/SidebarService';
     standalone: true,
     templateUrl: './icon-button.component.html',
     styleUrl: './icon-button.component.css',
-    imports: [CommonModule, InfoSidebarComponent]
+    imports: [CommonModule, InfoSidebarComponent],
 })
 
 export class IconButtonComponent {
@@ -34,6 +34,6 @@ export class IconButtonComponent {
       this.displayStyle = "block";
     } else {
       this.displayStyle = "none";
-    }
+    }    
   }
 }
