@@ -5,7 +5,6 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import {MatNativeDateModule, MAT_DATE_LOCALE, provideNativeDateAdapter} from "@angular/material/core";
-import {User} from "@core/models/user";
 import {EventCreationService} from "@features/event-creation/services/event-creation.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -28,7 +27,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./event-creation-dialog.component.css']
 })
 export class EventCreationDialogComponent {
-  private user!: User;
   public eventData!: Event;
 
   constructor(

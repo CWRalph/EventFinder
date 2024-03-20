@@ -3,22 +3,31 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   EventCreationDialogComponent
 } from "@features/event-creation/components/event-creation-dialog/event-creation-dialog.component";
-import {Observable, of, Subject, switchMap, take} from "rxjs";
+import {map, Observable, of, Subject, switchMap, take} from "rxjs";
 import {Actions, ofType} from "@ngrx/effects";
 import {EventActions} from "@state/event/eventActions";
 import {Coordinates, Event} from "@core/models/event";
+import {select, Store} from "@ngrx/store";
+import {selectUser} from "@state/user/userReducer";
+import {User} from "@core/models/user";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventCreationService {
+  private readonly URL = 'http://localhost:3000/events';
+
   private locationSubject: Subject<Coordinates> = new Subject<Coordinates>()
   private eventDraft?:Event;
   private isListeningForLocation = false;
 
+
   constructor(
     private dialog: MatDialog,
     private readonly actions$: Actions,
+    private store: Store,
+    private http: HttpClient
   ) {
 
   }
@@ -64,8 +73,19 @@ export class EventCreationService {
     })
   }
 
-  public createEvent(event:Event){
-    //TODO actually create an event and get the user ID who will be the owner
-    console.log("Creating event", event);
+  public createEvent(event: Event): void {
+    this.store.pipe(
+      select(selectUser),
+      map((user: User|undefined) => {
+        console.log("Posting event", user, event)
+        event.owner = user?._id;
+        this.store.dispatch(EventActions.createEventWithProps({event}));
+        return of();
+      })
+    ).subscribe();
+  }
+
+  public closeDialog(){
+    this.dialog.closeAll();
   }
 }

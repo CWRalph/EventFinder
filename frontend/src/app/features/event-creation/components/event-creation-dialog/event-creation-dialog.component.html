@@ -5,6 +5,9 @@
       <input class="input w-full" placeholder="Event name:" [(ngModel)]="eventData.name" name="eventName">
     </div>
     <div>
+      <input class="input w-full" placeholder="Event address:" [(ngModel)]="eventData.address" name="eventAddress">
+    </div>
+    <div>
       <label class="input input-bordered flex items-center gap-2 w-full">
         <input [matDatepicker]="startTimePicker" placeholder="Start time:" [(ngModel)]="eventData.startTime" name="startTime">
         <mat-datepicker-toggle [for]="startTimePicker"></mat-datepicker-toggle>

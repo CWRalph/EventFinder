@@ -39,11 +39,11 @@ const friendshipSchema = new mongoose.Schema({
 const eventSchema = new mongoose.Schema({
     name: {type: String, required: true},
     description: {type: String},
-    location: {type: String, required: true},
+    location: {type: String},
     address: {type: String, required: true},
     startTime: {type: Date, required: true},
     endTime: {type: Date, required: true},
-    date: {type: Date, required: true},
+    date: {type: Date},
     owner: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
     visibility: {type: String, enum: ['Public', 'Private'], default: 'Public'},
