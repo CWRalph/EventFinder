@@ -8,11 +8,12 @@ import {Store} from "@ngrx/store";
 import {UserActions} from "@app/state/userActions";
 import {NavbarComponent} from "@shared/navbar/navbar.component";
 import {MatDialogModule} from "@angular/material/dialog";
+import {StaticSidebarComponent} from "@features/sidebar/static-sidebar/static-sidebar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MapComponent, NavbarComponent, MatDialogModule],
+  imports: [CommonModule, RouterOutlet, MapComponent, NavbarComponent, MatDialogModule, StaticSidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

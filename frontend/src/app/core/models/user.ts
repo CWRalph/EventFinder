@@ -1,5 +1,5 @@
 export type User = {
-  userId: number;
+  _id: string;
   username: string;
   email: string;
   friends?: User[];
