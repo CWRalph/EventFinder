@@ -1,0 +1,40 @@
+<div class="navbar bg-base-100">
+  <div class="flex-none">
+    <h1 class="navbar-title">EventFinder</h1>
+  </div>
+  <div class="flex-1">
+    <label class="navbar-input">
+      <input type="text" class="grow" placeholder="Search Events" />
+      <mat-icon>search</mat-icon>
+    </label>
+    <label class="navbar-input">
+      <input type="text" class="grow" placeholder="Search Groups" />
+      <mat-icon>groups</mat-icon>
+    </label>
+  </div>
+
+  <div class="flex-none gap-4">
+    <div *ngIf="isLoggedIn; else loggedOutNavbar">
+      <button class="navbar-button text-green-600">
+        <mat-icon>add</mat-icon>
+        Create Event
+      </button>
+      <button class="navbar-button text-red-600">
+        <mat-icon>favorite</mat-icon>
+        Liked Events
+      </button>
+      <button class="navbar-button text-blue-600">
+        <mat-icon>mark_email_read</mat-icon>
+        My Events
+      </button>
+      <app-user-icon></app-user-icon>
+    </div>
+    <ng-template #loggedOutNavbar>
+      <button class="navbar-button text-green-600" (click)="createEvent()">
+        Create Event
+      </button>
+      <button class="navbar-button" (click)="login()">Login</button>
+      <button class="navbar-button" (click)="register()">Register</button>
+    </ng-template>
+  </div>
+</div>
