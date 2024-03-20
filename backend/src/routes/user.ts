@@ -130,38 +130,38 @@ userRouter.delete('/:id', async (req, res) => {
 });
 
 //TEMP LOGIN ENDPOINTS
-userRouter.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+// userRouter.post('/login', async (req, res) => {
+//     const { username, password } = req.body;
 
-    try {
-        const user = await User.findOne({ username, password });
-        if (!user) {
-            return notFound(res, 'User');
-        }
-        res.json(user);
-    } catch (e) {
-        catchError(e, res);
-    }
-});
+//     try {
+//         const user = await User.findOne({ username, password });
+//         if (!user) {
+//             return notFound(res, 'User');
+//         }
+//         res.json(user);
+//     } catch (e) {
+//         catchError(e, res);
+//     }
+// });
 
-userRouter.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
+// userRouter.post('/register', async (req, res) => {
+//     const { username, email, password } = req.body;
 
-    try {
-        // Check if a user with the provided username or email already exists
-        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
-        if (existingUser) {
-            return res.status(400).json({ error: 'User with the same username or email already exists' });
-        }
+//     try {
+//         // Check if a user with the provided username or email already exists
+//         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+//         if (existingUser) {
+//             return res.status(400).json({ error: 'User with the same username or email already exists' });
+//         }
 
-        // Create a new user
-        const newUser = new User({ username, email, password });
-        await newUser.save();
+//         // Create a new user
+//         const newUser = new User({ username, email, password });
+//         await newUser.save();
 
-        res.status(201).json(newUser); // Return the newly created user
-    } catch (e) {
-        catchError(e, res);
-    }
-});
+//         res.status(201).json(newUser); // Return the newly created user
+//     } catch (e) {
+//         catchError(e, res);
+//     }
+// });
 
 export default userRouter;
