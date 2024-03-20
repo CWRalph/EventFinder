@@ -7,8 +7,7 @@ module.exports = function(req:any, res:any, next: () => void) {
 
     try {
         // this throws us back the ID that we had from user
-        const verified = jwt.verify(token, process.env.JWT_TOKEN);
-        req.user = verified;
+        req.user = jwt.verify(token, process.env.JWT_TOKEN);
         next();
     } catch (err) {
         res.status(400).send('Invalid Token');
