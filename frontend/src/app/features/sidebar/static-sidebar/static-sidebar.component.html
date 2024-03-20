@@ -1,7 +1,10 @@
-<div class="sidenav">
-    <div class="icon-btn-container" *ngFor="let button of buttonFields">
+<div class="sidenav bg-base-100">
+    <div class="icon-btn-container">
+        <div class="icon-btn" *ngFor="let button of buttonFields">
         <app-icon-button [button]="button"></app-icon-button>
+        </div> 
     </div>
+   
     
     <div class="group-btn-container">
         <hr>

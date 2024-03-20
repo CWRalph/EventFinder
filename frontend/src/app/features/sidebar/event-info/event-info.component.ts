@@ -21,7 +21,7 @@ export class EventInfoComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUser(this.event.ownerId).subscribe(user => {
+    this.userService.getUser(this.event.owner).subscribe(user => {
       this.ownerName = user.username
     });
 
