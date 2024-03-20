@@ -1,7 +1,7 @@
 <div class="login-modal">
   <h1 class="font-bold text-4xl">{{formTitle}}</h1>
   <form #myForm="ngForm" class="login-form" (ngSubmit)="onFormSubmission(myForm)">
-    <div *ngIf="isRegistration">
+    <div>
       <div class="label"><span class="input-label-above">Email</span></div>
       <label class="input-label">
         <mat-icon>email</mat-icon>
@@ -15,14 +15,14 @@
           required
         />
       </label>
-      <div
-        [hidden]="!myForm.controls['email']?.touched || !myForm.controls['email']?.invalid"
-        class="text-red-600">
-        Email is required.
-      </div>
+<!--      <div-->
+<!--        [hidden]="!myForm.controls['email']?.touched || !myForm.controls['email']?.invalid"-->
+<!--        class="text-red-600">-->
+<!--        Email is required.-->
+<!--      </div>-->
     </div>
 
-    <div>
+    <div *ngIf="isRegistration">
       <div class="label"><span class="input-label-above">Username</span></div>
       <label class="input-label">
         <mat-icon>person</mat-icon>
@@ -36,11 +36,11 @@
           required
         />
       </label>
-      <div
-        [hidden]="!myForm.controls['username']?.touched || !myForm.controls['username']?.invalid"
-        class="text-red-600">
-        Please enter a valid username.
-      </div>
+<!--      <div-->
+<!--        [hidden]="!myForm.controls['username']?.touched || !myForm.controls['username']?.invalid"-->
+<!--        class="text-red-600">-->
+<!--        Please enter a valid username.-->
+<!--      </div>-->
     </div>
 
     <div>
@@ -60,11 +60,11 @@
           <mat-icon>remove_red_eye</mat-icon>
         </div>
       </label>
-      <div
-        [hidden]="!myForm.controls['password']?.touched || !myForm.controls['password']?.invalid"
-        class="text-red-600">
-        Password is required.
-      </div>
+<!--      <div-->
+<!--        [hidden]="!myForm.controls['password']?.touched || !myForm.controls['password']?.invalid"-->
+<!--        class="text-red-600">-->
+<!--        Password is required.-->
+<!--      </div>-->
     </div>
 
     <button

@@ -14,7 +14,7 @@
   </div>
 
   <div class="flex-none gap-4">
-    <div *ngIf="isLoggedIn; else loggedOutNavbar">
+    <div *ngIf="isLoggedIn; else loggedOutNavbar" class="flex">
       <button class="navbar-button text-green-600">
         <mat-icon>add</mat-icon>
         Create Event
@@ -30,11 +30,13 @@
       <app-user-icon></app-user-icon>
     </div>
     <ng-template #loggedOutNavbar>
-      <button class="navbar-button text-green-600" (click)="createEvent()">
-        Create Event
-      </button>
-      <button class="navbar-button" (click)="login()">Login</button>
-      <button class="navbar-button" (click)="register()">Register</button>
+      <div class="flex">
+        <button class="navbar-button text-green-600" (click)="createEvent()">
+          Create Event
+        </button>
+        <button class="navbar-button" (click)="login()">Login</button>
+        <button class="navbar-button" (click)="register()">Register</button>
+      </div>
     </ng-template>
   </div>
 </div>

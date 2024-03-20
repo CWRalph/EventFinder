@@ -51,8 +51,8 @@ export class UserEffects {
   loginUserWithProps$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.loginUserWithProps),
-      mergeMap(({ username, password }) =>
-        this.userService.loginWithUsernamePassword(username, password).pipe(
+      mergeMap(({ email, password }) =>
+        this.userService.loginWithEmailPassword(email, password).pipe(
           map((user: User) => UserActions.loginUserSuccess({ user })),
           catchError(() => of(UserActions.loginUserFailure())),
         ),

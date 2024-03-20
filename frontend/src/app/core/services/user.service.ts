@@ -16,9 +16,9 @@ export class UserService {
   }
 
   //Log the user in with username and password
-  public loginWithUsernamePassword(username: string, password: string,): Observable<any> {
+  public loginWithEmailPassword(email: string, password: string,): Observable<any> {
     return this.http.post(this.URL + '/login', {
-      username: username,
+      email: email,
       password: password,
     });
   }

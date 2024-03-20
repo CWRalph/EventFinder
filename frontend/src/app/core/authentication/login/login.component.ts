@@ -40,9 +40,11 @@ export class LoginComponent {
   public showPassword: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<LoginComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: LoginFormState,
     private store: Store
-  ) {}
+  ) {
+    this.currentFormState = data??LoginFormState.LOGIN;
+  }
 
   get isRegistration() {
     return this.currentFormState == LoginFormState.REGISTER;
@@ -78,7 +80,7 @@ export class LoginComponent {
 
   public onFormSubmission(form: any) {
     if(this.currentFormState == LoginFormState.LOGIN){
-      this.store.dispatch(UserActions.loginUserWithProps({username: this.username, password: this.password}));
+      this.store.dispatch(UserActions.loginUserWithProps({email: this.email, password: this.password}));
     }else{
       this.store.dispatch(UserActions.registerUserWithProps({username: this.username, password: this.password, email:this.email}))
     }

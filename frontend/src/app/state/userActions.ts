@@ -6,7 +6,7 @@ export const UserActions = createActionGroup({
   events: {
     'Authenticate User': emptyProps(),
     'Login User': emptyProps(),
-    'Login User With Props': props<{ username: string; password: string }>(),
+    'Login User With Props': props<{ email: string; password: string }>(),
     'Login User Success': props<{ user: User }>(),
     'Login User Failure': emptyProps(),
     'Register User': emptyProps(),
