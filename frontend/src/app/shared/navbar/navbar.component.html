@@ -15,7 +15,7 @@
 
   <div class="flex-none gap-4">
     <div *ngIf="isLoggedIn; else loggedOutNavbar" class="flex">
-      <button class="navbar-button text-green-600">
+      <button class="navbar-button text-green-600" (click)="createEvent()">
         <mat-icon>add</mat-icon>
         Create Event
       </button>

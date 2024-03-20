@@ -5,12 +5,10 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { User } from '@core/models/user';
 import { MatIconModule } from '@angular/material/icon';
 import {Store} from "@ngrx/store";
-import {UserActions} from "@app/state/userActions";
+import {UserActions} from "@state/user/userActions";
 
 export interface LoginFormDetails {
   username: string;

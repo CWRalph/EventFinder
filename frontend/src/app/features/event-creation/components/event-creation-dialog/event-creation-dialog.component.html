@@ -1,0 +1,31 @@
+<div class="event-creation-modal">
+  <h1 mat-dialog-title>Create Event</h1>
+  <form #myForm="ngForm">
+    <div>
+      <input placeholder="Event Name" [(ngModel)]="eventData.name">
+    </div>
+    <div>
+      <input placeholder="Event Address" [(ngModel)]="eventData.address">
+    </div>
+    <div>
+<!--      <div>Start Time</div>-->
+<!--      <input matInput [matDatepicker]="startTimePicker" [(ngModel)]="eventData.startTime">-->
+<!--      <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>-->
+<!--      <mat-datepicker #startTimePicker></mat-datepicker>-->
+    </div>
+    <div>
+<!--      <mat-label>End Time</mat-label>-->
+<!--      <input matInput [matDatepicker]="endTimePicker" [(ngModel)]="eventData.endTime">-->
+<!--      <mat-datepicker-toggle matSuffix [for]="endTimePicker"></mat-datepicker-toggle>-->
+<!--      <mat-datepicker #endTimePicker></mat-datepicker>-->
+    </div>
+    <div>
+<!--      <textarea matInput placeholder="Event Description" [(ngModel)]="eventData.description"></textarea>-->
+    </div>
+  </form>
+  <div>
+    <button (click)="cancel()">Cancel</button>
+    <button [disabled]="myForm.invalid" (click)="onSubmit()">Save</button>
+  </div>
+
+</div>

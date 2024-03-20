@@ -40,6 +40,7 @@ export class MapComponent implements OnInit, OnChanges {
       this.updateMarkers();
     }
   }
+
   private initializeMap(): void {
     this.map = L.map('mapId').setView([49.2, -123], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -57,6 +58,8 @@ export class MapComponent implements OnInit, OnChanges {
     L.control.zoom({
       position: 'topright'
     }).addTo(this.map);
+
+    this.initializeClickEvents();
   }
 
   private clearMarkers(): void {
@@ -78,4 +81,9 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
+  private initializeClickEvents(){
+    this.map.on("click", e => {
+      console.log("ADDING MARKER",e.latlng); // get the coordinates
+    });
+  }
 }

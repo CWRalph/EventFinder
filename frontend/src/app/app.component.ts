@@ -5,15 +5,24 @@ import { MapComponent } from '@features/map/map-component/map.component';
 import { Event } from './core/models/event';
 import { EventService } from './core/services/EventService';
 import {Store} from "@ngrx/store";
-import {UserActions} from "@app/state/userActions";
+import {UserActions} from "@app/state/user/userActions";
 import {NavbarComponent} from "@shared/navbar/navbar.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {StaticSidebarComponent} from "@features/sidebar/static-sidebar/static-sidebar.component";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MapComponent, NavbarComponent, MatDialogModule, StaticSidebarComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    MapComponent,
+    NavbarComponent,
+    MatDialogModule,
+    StaticSidebarComponent,
+    MatSnackBarModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -32,6 +41,6 @@ export class AppComponent implements OnInit {
     });
 
     //Log the user in if cookie exists
-    this.store.dispatch(UserActions.authenticateUser());
+    //TODO this.store.dispatch(UserActions.authenticateUser());
   }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
-import { UserActions } from '@app/state/userActions';
+import { UserActions } from '@app/state/user/userActions';
 import { UserService } from '@core/services/user.service';
 import { User } from '@core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '@core/authentication/login/login.component';
 import { DialogStatus } from '@core/authentication/models/dialogStatus';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable()
 export class UserEffects {
@@ -14,6 +15,7 @@ export class UserEffects {
     private readonly actions$: Actions,
     private userService: UserService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   printer = createEffect(
@@ -40,7 +42,7 @@ export class UserEffects {
       ofType(UserActions.loginUser),
       mergeMap(() => {
         const dialogRef = this.dialog.open(LoginComponent, {
-          data: { dialogStatus: DialogStatus.LOGIN },
+          data: DialogStatus.LOGIN,
         });
         return dialogRef.afterClosed().pipe();
       }),
@@ -53,19 +55,27 @@ export class UserEffects {
       ofType(UserActions.loginUserWithProps),
       mergeMap(({ email, password }) =>
         this.userService.loginWithEmailPassword(email, password).pipe(
-          map((user: User) => UserActions.loginUserSuccess({ user })),
-          catchError(() => of(UserActions.loginUserFailure())),
+          map((user: User) => {
+            this.dialog.closeAll();
+            this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
+            return UserActions.loginUserSuccess({ user })
+          }),
+          catchError((error) => {
+            this.snackBar.open(error.error ?? "Login unsuccessful", "Dismiss", { duration: 5000 });
+            return of(UserActions.loginUserFailure())
+          }),
         ),
       ),
     ),
   );
 
+  //Open the login component with the REGISTER dialog status
   registerUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.registerUser),
       mergeMap(() => {
         const dialogRef = this.dialog.open(LoginComponent, {
-          data: { dialogStatus: DialogStatus.REGISTER },
+          data: DialogStatus.REGISTER,
         });
         return dialogRef.afterClosed().pipe();
       }),
@@ -78,8 +88,15 @@ export class UserEffects {
       ofType(UserActions.registerUserWithProps),
       mergeMap(({ username, password, email }) =>
         this.userService.register(username, password, email).pipe(
-          map((user: User) => UserActions.registerUserSuccess({ user })),
-          catchError(() => of(UserActions.registerUserFailure())),
+          map((user: User) => {
+            this.dialog.closeAll();
+            this.snackBar.open("Registration Successful", "Dismiss", { duration: 5000 });
+            return UserActions.registerUserSuccess({ user })
+          }),
+          catchError((error) => {
+            this.snackBar.open(error.error ?? "Registration unsuccessful", "Dismiss", { duration: 5000 });
+            return of(UserActions.registerUserFailure())
+          }),
         ),
       ),
     ),

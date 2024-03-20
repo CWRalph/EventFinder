@@ -1,6 +1,6 @@
 import {createFeatureSelector, createReducer, createSelector, on} from "@ngrx/store";
-import {initialUserState, UserState} from "@app/state/userState";
-import {UserActions} from "@app/state/userActions";
+import {initialUserState, UserState} from "@app/state/user/userState";
+import {UserActions} from "@app/state/user/userActions";
 
 export const UserReducer = createReducer(
   initialUserState,

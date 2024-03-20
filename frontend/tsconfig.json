@@ -26,6 +26,7 @@
       "@core/*": ["app/core/*"],
       "@features/*": ["app/features/*"],
       "@services/*": ["app/services/*"],
+      "@state/*": ["app/state/*"],
     }
   },
   "angularCompilerOptions": {
