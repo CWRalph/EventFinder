@@ -42,18 +42,20 @@ export type EventType =
   | 'Other';
 
 export type Event = {
-  eventId: number;
+  eventId?: number;
+
   name: string;
-  owner: string;
-  group: string;
-  startTime: Date,
-  endTime: Date,
-  date: Date;
-  address: string;
-  eventType: EventType;
-  coordinates: Coordinates;
-  visibility: Visibility;
-  description?: string;
+  description: string;
+
+  owner?: string;
+  group?: string;
+  startTime?: Date,
+  endTime?: Date,
+  date?: Date;
+  address?: string;
+  eventType?: EventType;
+  coordinates?: Coordinates;
+  visibility?: Visibility;
   location?: string;
   participants?: User[];
 };

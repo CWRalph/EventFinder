@@ -1,31 +1,33 @@
 <div class="event-creation-modal">
-  <h1 mat-dialog-title>Create Event</h1>
-  <form #myForm="ngForm">
+  <h1 class="text-3xl font-bold">Create Event</h1>
+  <form #myForm="ngForm" class="create-event-form">
     <div>
-      <input placeholder="Event Name" [(ngModel)]="eventData.name">
+      <input class="input w-full" placeholder="Event name:" [(ngModel)]="eventData.name" name="eventName">
     </div>
     <div>
-      <input placeholder="Event Address" [(ngModel)]="eventData.address">
+      <label class="input input-bordered flex items-center gap-2 w-full">
+        <input [matDatepicker]="startTimePicker" placeholder="Start time:" [(ngModel)]="eventData.startTime" name="startTime">
+        <mat-datepicker-toggle [for]="startTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startTimePicker></mat-datepicker>
+      </label>
     </div>
     <div>
-<!--      <div>Start Time</div>-->
-<!--      <input matInput [matDatepicker]="startTimePicker" [(ngModel)]="eventData.startTime">-->
-<!--      <mat-datepicker-toggle matSuffix [for]="startTimePicker"></mat-datepicker-toggle>-->
-<!--      <mat-datepicker #startTimePicker></mat-datepicker>-->
+      <label class="input input-bordered flex items-center gap-2 w-full">
+        <input [matDatepicker]="endTimePicker" placeholder="End time:" [(ngModel)]="eventData.endTime" name="endTime">
+        <mat-datepicker-toggle [for]="endTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endTimePicker></mat-datepicker>
+      </label>
+    </div>
+    <div class="flex">
+      <span>Latitude: {{eventData.coordinates?.y ?? "not set"}}</span>
+      <span>Longitude: {{eventData.coordinates?.x ?? "not set"}}</span>
+      <mat-icon (click)="chooseLocation()">add_location</mat-icon>
     </div>
     <div>
-<!--      <mat-label>End Time</mat-label>-->
-<!--      <input matInput [matDatepicker]="endTimePicker" [(ngModel)]="eventData.endTime">-->
-<!--      <mat-datepicker-toggle matSuffix [for]="endTimePicker"></mat-datepicker-toggle>-->
-<!--      <mat-datepicker #endTimePicker></mat-datepicker>-->
-    </div>
-    <div>
-<!--      <textarea matInput placeholder="Event Description" [(ngModel)]="eventData.description"></textarea>-->
+      <textarea class="textarea w-full" placeholder="Event Description" [(ngModel)]="eventData.description" name="description"></textarea>
     </div>
   </form>
-  <div>
-    <button (click)="cancel()">Cancel</button>
-    <button [disabled]="myForm.invalid" (click)="onSubmit()">Save</button>
-  </div>
+  <button class="btn btn-error w-full" [disabled]="myForm.invalid" (click)="onSubmit()">Save</button>
+  <button class="btn btn-primary w-full" (click)="cancel()">Cancel</button>
 
 </div>

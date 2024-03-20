@@ -1,3 +1,7 @@
 .event-creation-modal{
   @apply py-8 px-12 justify-center items-center flex flex-col;
 }
+
+.create-event-form{
+  @apply flex flex-col gap-4;
+}

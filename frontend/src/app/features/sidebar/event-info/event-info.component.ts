@@ -21,7 +21,7 @@ export class EventInfoComponent {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUser(this.event.owner).subscribe(user => {
+    this.userService.getUser(this.event?.owner??"").subscribe(user => {
       this.ownerName = user.username
     });
 
@@ -29,14 +29,14 @@ export class EventInfoComponent {
   }
 
   setEventDuration() {
-    let startDate: Date = new Date(this.event.startTime)
+    let startDate: Date = new Date(this.event?.startTime ?? Date.now())
     let eventStart = this.daysOfWeek[startDate.getDay()] + ', ' +
                                     this.months[startDate.getMonth()] + ' ' +
                                     startDate.getDate() + ' ' +
                                     startDate.getFullYear() + ' at ' +
                                     startDate.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
-    let endDate: Date = new Date(this.event.endTime)
+    let endDate: Date = new Date(this.event?.endTime ?? Date.now())
     let eventEnd = this.daysOfWeek[endDate.getDay()] + ', ' +
                                   this.months[endDate.getMonth()] + ' ' +
                                   endDate.getDate() + ' ' +

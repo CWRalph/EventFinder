@@ -1,5 +1,5 @@
 import {createActionGroup, emptyProps, props} from "@ngrx/store";
-import {Event} from "@core/models/event";
+import {Coordinates, Event} from "@core/models/event";
 
 export const EventActions = createActionGroup({
   source: 'EventActions',
@@ -11,5 +11,7 @@ export const EventActions = createActionGroup({
     'Create Event With Props': props<{ event: Event }>(),
     'Create Event Success': props<{ event: Event }>(),
     'Create Event Failure': emptyProps(),
+    'Select Location From Map': props<{ location: Coordinates }>(),
+    'Null Action': emptyProps(),
   },
 });

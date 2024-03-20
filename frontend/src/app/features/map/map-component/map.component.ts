@@ -2,6 +2,8 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
 import { Event } from '@core/models/event';
+import {Store} from "@ngrx/store";
+import {EventActions} from "@state/event/eventActions";
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -29,7 +31,7 @@ export class MapComponent implements OnInit, OnChanges {
   private map!: L.Map;
   private markers: L.Marker[] = [];
 
-  constructor() {}
+  constructor(private store:Store) {}
 
   ngOnInit(): void {
     this.initializeMap();
@@ -73,8 +75,8 @@ export class MapComponent implements OnInit, OnChanges {
     this.clearMarkers();
     this.events.forEach((event) => {
       const marker = L.marker([
-        event.coordinates.x,
-        event.coordinates.y,
+        event?.coordinates?.x??0,
+        event?.coordinates?.y??0,
       ]).bindPopup(`${event.name} - ${event.eventType}`);
       marker.addTo(this.map);
       this.markers.push(marker);
@@ -83,7 +85,7 @@ export class MapComponent implements OnInit, OnChanges {
 
   private initializeClickEvents(){
     this.map.on("click", e => {
-      console.log("ADDING MARKER",e.latlng); // get the coordinates
+      this.store.dispatch(EventActions.selectLocationFromMap({location: {y: e.latlng.lat, x: e.latlng.lng}}));
     });
   }
 }
