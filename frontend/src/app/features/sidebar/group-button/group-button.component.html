@@ -1,15 +1,14 @@
-<div class="group-container">
+<div class="btn-container">
     <div class="group-btn" *ngIf="infoType == 'Group'; else showMembershipIcon">
-        <button class="group-btn" (click)="toggleSidebar()">
-            <i class="fa-solid fa-magnifying-glass"></i>
+        <button class="btn bg-primary" (click)="toggleSidebar()">
+            <i class="fa-solid fa-magnifying-glass text-neutral"></i>
         </button>
     </div>
 
     <ng-template #showMembershipIcon>
-        <button class="group-btn" [style.backgroundColor]="groupColour" (click)="toggleSidebar()">
-            <i class="fa-solid fa-people-group"></i>
+        <button class="btn " [ngClass]="groupColour" (click)="toggleSidebar()">
+            <i class="fa-solid fa-people-group text-neutral"></i>
         </button>
-        
     </ng-template>
 </div>
 

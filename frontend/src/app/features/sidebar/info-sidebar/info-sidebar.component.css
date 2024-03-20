@@ -17,11 +17,19 @@ h1 {
     font-weight: 700;
 }
 
-.friends-header, .groups-header, .events-header {
+.header {
+    @apply bg-gray-800;
     display: flex;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.friends-header button, .groups-header button, .events-header button {
+.header button {
     margin-left: auto;
 }

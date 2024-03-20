@@ -16,6 +16,7 @@ export class GroupButtonComponent {
   @Input() infoType: string = "";
 
   displayStyle = "none";
+  colours = ["info", "success", "error"];
   groupColour: string = "";
   groups: Group[] = [];
 
@@ -45,9 +46,7 @@ export class GroupButtonComponent {
   // TODO: do we want to store the colour somewhere so the user doesn't get the new colours everytime? LocalStorage?
   // should users be able to customize the group's colour?
   generateGroupColour() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    this.groupColour = `rgb(${r}, ${g}, ${b})`;
+    let index = Math.floor(Math.random() * this.colours.length);
+    this.groupColour = "bg-" + this.colours[index];
   }
 }
