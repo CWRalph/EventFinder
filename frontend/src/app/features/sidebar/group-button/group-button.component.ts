@@ -48,6 +48,5 @@ export class GroupButtonComponent {
   generateGroupColour() {
     let index = Math.floor(Math.random() * this.colours.length);
     this.groupColour = "bg-" + this.colours[index];
-    console.log(this.groupColour)
   }
 }
