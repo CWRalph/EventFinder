@@ -1,12 +1,10 @@
 .info-sidebar {
+  @apply bg-white fixed z-0 overflow-hidden;
     height: 95%;
     width: 400px;
     position: fixed;
-    z-index: 0;
-    top: 5%;
+    top: 100px;
     left: 85px;
-    background-color: rgba(255, 255, 255, 0); 
-    overflow-x: hidden;
     padding-top: 20px;
 }
 
@@ -21,7 +19,7 @@ h1 {
 }
 
 .friends-header, .groups-header, .events-header {
-    display: flex; 
+    display: flex;
     align-items: center;
 }
 
