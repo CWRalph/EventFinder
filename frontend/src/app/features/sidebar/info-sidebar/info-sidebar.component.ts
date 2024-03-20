@@ -24,6 +24,7 @@ export class InfoSidebarComponent {
   userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to use the user's userId
   @Input() infoType: string = "";
   @Input() groupMembership!: GroupMembership;
+  @Input() activePane: string = "left";
   events: Event[] = [];
 
   friendships: Friendship[] = [];
@@ -98,7 +99,7 @@ export class InfoSidebarComponent {
   // TODO: how do we want to allow users to create an event?
   createEvent() {}
 
-  closeSidebar() {
-    this.sidebarService.closeModals();
-  }
+  // closeSidebar() {
+  //   this.sidebarService.closeModals();
+  // }
 }

@@ -5,10 +5,10 @@
     <p class="group-description"> {{ groupDescription }} </p>
 
     <div class="join" *ngIf="!isInGroup; else showJoinedButton">
-        <button class="join-btn" (click)="joinGroup()">JOIN</button>
+        <button class="join-btn bg-success text-neutral" (click)="joinGroup()">JOIN</button>
     </div>
     <ng-template #showJoinedButton>
-        <button class="joined-btn"><i class="fa-regular fa-circle-check"></i> JOINED</button>
+        <button class="joined-btn bg-neutral"><i class="fa-regular fa-circle-check"></i> JOINED</button>
     </ng-template>
 
     

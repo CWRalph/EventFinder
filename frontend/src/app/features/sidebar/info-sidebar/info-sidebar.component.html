@@ -1,7 +1,7 @@
 <div class="info-sidebar scrollable">
 
     <div class="friendship-info-card-container" *ngIf="infoType == 'Friends'">
-        <div class="friends-header">
+        <div class="header">
            <h1>Friends</h1> 
            <button (click)="createFriendship()"><i class="fa-solid fa-plus fa-2x"></i></button>
         </div>
@@ -11,14 +11,18 @@
         </div>
         
         <div class="pending" *ngIf="shouldShowPendingFriendships">
-           <h1>Pending</h1>
+            <div class="header">
+                <h1>Pending</h1>
+            </div>
             <div class="info-card" *ngFor="let friend of pendingFriendships">
                 <app-friend-info [friend]="friend"></app-friend-info>
             </div> 
         </div>
         
         <div class="blocked" *ngIf="shouldShowBlockedFriendships">
-           <h1>Blocked</h1>
+           <div class="header">
+            <h1>Blocked</h1>
+        </div>
             <div class="info-card" *ngFor="let friend of blockedFriendships">
                 <app-friend-info [friend]="friend"></app-friend-info>
             </div> 
@@ -27,7 +31,7 @@
 
     <!-- TODO: Update to load the saved events if infotype is Saves -->
     <div class="info-card-container" *ngIf="infoType == 'Browse' || infoType == 'Saved'">
-        <div class="events-header">
+        <div class="header">
             <h1>Events</h1>
             <button (click)="createEvent()"><i class="fa-solid fa-plus fa-2x"></i></button>
         </div>
@@ -38,12 +42,14 @@
     </div>
 
     <div class="group-membership-card-container" *ngIf="infoType == 'Membership'">
-        <h1>Group</h1>
+        <div class="header">
+            <h1>Group</h1>
+        </div>
         <app-membership-info [groupMembership]="groupMembership"></app-membership-info>
     </div>
 
     <div class="group-card-container" *ngIf="infoType == 'Group'">
-        <div class="groups-header">
+        <div class="header">
             <h1>Groups</h1>
             <button (click)="createGroup()"><i class="fa-solid fa-plus fa-2x"></i></button>
         </div>
