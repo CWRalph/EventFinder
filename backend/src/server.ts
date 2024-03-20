@@ -1,3 +1,5 @@
+import path from "path";
+
 require('dotenv').config()
 import express from 'express';
 import cors from 'cors';
@@ -37,6 +39,13 @@ app.use('/events', eventRouter);
 app.use('/friendships', friendshipRouter);
 app.use('/users', userRouter);
 app.use('/login', loginRouter);
+
+const angularAppPath = path.join(__dirname, '../../frontend/dist/frontend/browser');
+app.use(express.static(angularAppPath));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(angularAppPath, 'index.html'));
+});
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
