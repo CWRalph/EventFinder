@@ -1,3 +1,5 @@
+import path from "path";
+
 require('dotenv').config()
 import express from 'express';
 import cors from 'cors';
@@ -38,18 +40,17 @@ app.use('/friendships', friendshipRouter);
 app.use('/users', userRouter);
 app.use('/login', loginRouter);
 
+const angularAppPath = path.join(__dirname, '../../frontend/dist/frontend/browser');
+app.use(express.static(angularAppPath));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(angularAppPath, 'index.html'));
+});
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
 
-// Added functions for graceful exits
-// mongoose.connection.on('error', (err) => {
-//     console.log(err.message)
-// });
-//
-// mongoose.connection.on('disconnected', () => {
-//     console.log('Mongoose connection is disconnected.')
-// });
 process.on('SIGINT', async () => {
     await mongoose.connection.close()
     process.exit(0)
