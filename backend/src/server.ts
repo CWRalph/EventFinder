@@ -6,6 +6,7 @@ import eventRouter from "./routes/event";
 import friendshipRouter from "./routes/friendship";
 import userRouter from "./routes/user";
 import groupRouter from "./routes/group";
+import loginRouter from './routes/login';
 
 const app = express();
 const port = 3000;
@@ -35,7 +36,21 @@ app.use('/groups', groupRouter);
 app.use('/events', eventRouter);
 app.use('/friendships', friendshipRouter);
 app.use('/users', userRouter);
+app.use('/login', loginRouter);
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
+
+// Added functions for graceful exits
+mongoose.connection.on('error', (err) => {
+    console.log(err.message)
+});
+mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose connection is disconnected.')
+});
+process.on('SIGINT', async () => {
+    await mongoose.connection.close()
+    process.exit(0)
+});
+

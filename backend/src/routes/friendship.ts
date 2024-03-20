@@ -2,9 +2,16 @@ import express from 'express';
 import {Friendship, User} from "../database/schema";
 import {catchError, notFound} from "../error";
 
+// This is how you limit access to verified users
+// this verify function checks whether a user has a valid token
+// Place this anywhere you want to protect routes
+const verify = require('./verifyToken');
+
 const friendshipRouter = express.Router();
 
-friendshipRouter.post('/', async (req, res) => {
+// This will deny access if user isn't verified
+// friendshipRouter.post('/', verify , async (req, res) => {
+friendshipRouter.post('/' , async (req, res) => {
     const {user1: user1Id, user2: user2Id, status} = req.body;
 
     try {
