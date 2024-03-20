@@ -7,7 +7,7 @@ import { User } from '@core/models/user';
   providedIn: 'root',
 })
 export class UserService {
-  private readonly URL = 'http://localhost:3000/user';
+  private readonly URL = 'http://localhost:3000/users';
   constructor(private http: HttpClient) {}
 
   //Check if the user has already logged in IE does there exist a cookie with their user ID
@@ -24,10 +24,11 @@ export class UserService {
   }
 
   //Create a new user (or return an existing one) with this username and password
-  public register(username: string, password: string): Observable<any> {
-    return this.http.post(this.URL + '/login', {
+  public register(username: string, password: string, email:string): Observable<any> {
+    return this.http.post(this.URL + '/register', {
       username: username,
       password: password,
+      email: email
     });
   }
 }

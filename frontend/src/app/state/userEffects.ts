@@ -76,8 +76,8 @@ export class UserEffects {
   registerUserWithProps$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.registerUserWithProps),
-      mergeMap(({ username, password }) =>
-        this.userService.register(username, password).pipe(
+      mergeMap(({ username, password, email }) =>
+        this.userService.register(username, password, email).pipe(
           map((user: User) => UserActions.registerUserSuccess({ user })),
           catchError(() => of(UserActions.registerUserFailure())),
         ),
