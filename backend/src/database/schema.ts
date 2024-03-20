@@ -1,7 +1,16 @@
 import mongoose from "mongoose";
 
+// this can be in mongoDB backend online - external DB
 const userSchema = new mongoose.Schema({
     username: {type: String, required: true},
+    email: {type: String, required: true},
+    password: {type: String, required: true},
+
+});
+
+// this can be stored on the gcp instance - internal DB
+const loginSchema = new mongoose.Schema({
+    username: {type: String, required: true, unique: true},
     email: {type: String, required: true},
     password: {type: String, required: true},
 
@@ -80,6 +89,7 @@ userSchema.pre('deleteOne', {document: true, query: false}, async function (next
 });
 
 // Create models
+export const Login = mongoose.model('Login', loginSchema);
 export const User = mongoose.model('User', userSchema);
 export const Event = mongoose.model('Event', eventSchema);
 export const Group = mongoose.model('Group', groupSchema);
