@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '@core/models/user';
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly URL = 'http://localhost:3000/users';
-  constructor(private http: HttpClient) {}
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
+  URL = this.document.location.origin + '/users';
   //Check if the user has already logged in IE does there exist a cookie with their user ID
   public authenticate(): Observable<any> {
     return this.http.get(this.URL + '/login');

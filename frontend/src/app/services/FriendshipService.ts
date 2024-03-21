@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import {Friendship} from "@core/models/event";
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({providedIn: 'root'})
 export class FriendshipService {
 
   //TODO: Change this URL according to your backend
-  private readonly URL = 'http://localhost:3000/friendships';
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-  }
+  URL = this.document.location.origin + '/friendships';
 
   getFriendships(): Observable<Friendship[]> {
     return this.http.get<Friendship[]>(this.URL);
