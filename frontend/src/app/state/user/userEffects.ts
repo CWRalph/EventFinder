@@ -9,6 +9,24 @@ import { LoginComponent } from '@core/authentication/login/login.component';
 import { DialogStatus } from '@core/authentication/models/dialogStatus';
 import {MatSnackBar} from "@angular/material/snack-bar";
 
+//TODO remove these in favour of storing an auth token cookie
+const getLoginCookies = () => {
+  return {
+    email: localStorage.getItem('email')??"",
+    password: localStorage.getItem('pw')??""
+  }
+}
+const setLoginCookies = (email:string, password:string) => {
+  localStorage.setItem('email', email);
+  localStorage.setItem('pw', password);
+}
+
+const clearLoginCookies = () => {
+  localStorage.removeItem('email');
+  localStorage.removeItem('pw');
+}
+/////////////////////////////////////////////////////////////////
+
 @Injectable()
 export class UserEffects {
   constructor(
@@ -27,11 +45,13 @@ export class UserEffects {
   authenticateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.authenticateUser),
-      mergeMap(() =>
-        this.userService.authenticate().pipe(
-          map((user: User) => UserActions.loginUserSuccess({ user })),
-          catchError(() => of(UserActions.loginUserFailure())),
-        ),
+      mergeMap(() => {
+          const { email, password } = getLoginCookies();
+          return this.userService.loginWithEmailPassword(email, password).pipe(
+            map((user: User) => UserActions.loginUserSuccess({ user })),
+            catchError(() => of(UserActions.loginUserFailure())),
+          );
+        }
       ),
     ),
   );
@@ -57,6 +77,7 @@ export class UserEffects {
         this.userService.loginWithEmailPassword(email, password).pipe(
           map((user: User) => {
             this.dialog.closeAll();
+            setLoginCookies(email, password);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
             return UserActions.loginUserSuccess({ user })
           }),
@@ -90,6 +111,7 @@ export class UserEffects {
         this.userService.register(username, password, email).pipe(
           map((user: User) => {
             this.dialog.closeAll();
+            setLoginCookies(email, password);
             this.snackBar.open("Registration Successful", "Dismiss", { duration: 5000 });
             return UserActions.registerUserSuccess({ user })
           }),
@@ -99,6 +121,16 @@ export class UserEffects {
           }),
         ),
       ),
+    ),
+  );
+
+  logoutUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.logoutUser),
+      map(() => {
+        clearLoginCookies();
+        return UserActions.logoutUserSuccess();
+      }),
     ),
   );
 }

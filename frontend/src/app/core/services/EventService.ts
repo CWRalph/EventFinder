@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Event} from "@core/models/event";
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -19,6 +19,7 @@ export class EventService {
   }
 
   createEvent(event: Event): Observable<Event> {
+    console.log("Creating event", event)
     return this.http.post<Event>(this.URL, event);
   }
 
@@ -28,5 +29,10 @@ export class EventService {
 
   deleteEvent(id: number): Observable<Event> {
     return this.http.delete<Event>(this.URL + '/' + id);
+  }
+
+  clearEvents(){
+    console.log("Clearing events")
+    return this.http.delete(this.URL);
   }
 }

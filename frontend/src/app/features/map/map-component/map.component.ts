@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, Renderer2, SimpleChanges, ViewChild} from '@angular/core';
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
 import { Event } from '@core/models/event';
 import {Store} from "@ngrx/store";
 import {EventActions} from "@state/event/eventActions";
+import {EventCreationService} from "@features/event-creation/services/event-creation.service";
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -27,14 +28,29 @@ Marker.prototype.options.icon = iconDefault;
   styleUrl: 'map.component.css',
 })
 export class MapComponent implements OnInit, OnChanges {
+  @ViewChild('eventMap') mapElement!: ElementRef;
   @Input() events: Event[] = [];
   private map!: L.Map;
   private markers: L.Marker[] = [];
 
-  constructor(private store:Store) {}
+  //Variables for location listening
+  private isListeningForLocation = false;
+
+  constructor(
+    private store:Store,
+    private eventCreationService: EventCreationService,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
     this.initializeMap();
+
+    //Subscribe to location listener to select location from map
+    this.eventCreationService.locationListener.subscribe(
+      (isListening) => {
+        this.isListeningForLocation = isListening;
+        this.updateMapZIndex(isListening ? 'front' : 'back');
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -44,7 +60,7 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   private initializeMap(): void {
-    this.map = L.map('mapId').setView([49.2, -123], 11);
+    this.map = L.map('eventMap').setView([49.2, -123], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
         maxZoom: 14,
@@ -56,12 +72,16 @@ export class MapComponent implements OnInit, OnChanges {
         zoomOffset: -1,
       }
     ).addTo(this.map);
+
     this.map.zoomControl.remove();
+
     L.control.zoom({
       position: 'topright'
     }).addTo(this.map);
 
-    this.initializeClickEvents();
+    this.map.on("click", e => {
+      this.onLocationClick(e);
+    });
   }
 
   private clearMarkers(): void {
@@ -83,9 +103,16 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
-  private initializeClickEvents(){
-    this.map.on("click", e => {
-      this.store.dispatch(EventActions.selectLocationFromMap({location: {y: e.latlng.lat, x: e.latlng.lng}}));
-    });
+  private onLocationClick(event:any){
+    if(this.isListeningForLocation){
+      this.store.dispatch(EventActions.selectLocationFromMap({location: {y: event.latlng.lng, x: event.latlng.lat}}));
+    }
+  }
+
+  private updateMapZIndex(status:'front'|'back'){
+    if(this.mapElement){
+      const zIndex = status === 'front' ? 1000 : 0;
+      this.renderer.setStyle(this.mapElement.nativeElement, 'z-index', zIndex);
+    }
   }
 }

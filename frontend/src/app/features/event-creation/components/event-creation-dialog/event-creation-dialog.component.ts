@@ -47,9 +47,11 @@ export class EventCreationDialogComponent {
   }
 
   chooseLocation(){
-    this.eventCreationService.saveDraft(this.eventData);
-    this.eventCreationService.listenForLocation(true);
-    this.snackbar.open("Click on the map to select a location for your event", "Dismiss");
+    this.eventCreationService.beginListeningForLocation(this.eventData)
+    const snackRef = this.snackbar.open("Click on the map to select a location for your event", "Cancel");
+    snackRef.onAction().subscribe(() => {
+      this.eventCreationService.stopListeningForLocation();
+    });
     this.dialogRef.close();
   }
 }

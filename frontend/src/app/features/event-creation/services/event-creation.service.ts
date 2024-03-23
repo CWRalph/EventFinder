@@ -3,7 +3,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {
   EventCreationDialogComponent
 } from "@features/event-creation/components/event-creation-dialog/event-creation-dialog.component";
-import {map, Observable, of, Subject, switchMap, take} from "rxjs";
+import {BehaviorSubject, map, Observable, of, Subject, switchMap, take} from "rxjs";
 import {Actions, ofType} from "@ngrx/effects";
 import {EventActions} from "@state/event/eventActions";
 import {Coordinates, Event} from "@core/models/event";
@@ -16,11 +16,9 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class EventCreationService {
-  private readonly URL = 'http://localhost:3000/events';
-
-  private locationSubject: Subject<Coordinates> = new Subject<Coordinates>()
+  private locationListenerSubject:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private eventDraft?:Event;
-  private isListeningForLocation = false;
+  private user?: User;
 
 
   constructor(
@@ -29,60 +27,75 @@ export class EventCreationService {
     private store: Store,
     private http: HttpClient
   ) {
+    this.store.pipe(
+      select(selectUser),
+    ).subscribe((user: User|undefined) => {
+      this.user = user;
+    });
+  }
 
+  private get currentUserId(){
+    return this.user?._id;
+  }
+
+  private get currentEventDraft(){
+    return this.eventDraft ?? this.getDefaultEventData();
+  }
+
+  private get isListeningForLocation() {
+    return this.locationListenerSubject.value;
+  }
+
+  private set isListeningForLocation(value: boolean) {
+    this.locationListenerSubject.next(value);
+  }
+
+  public get locationListener(): Observable<boolean> {
+    return this.locationListenerSubject.asObservable();
   }
 
   private getDefaultEventData(){
     return {
-      name: "",
-      owner: "",
-      startTime: undefined,
-      endTime: undefined,
-      address: "",
-      eventType: "Other",
-      coordinates: undefined,
-      visibility: "Private",
-      description: "",
+      name: "Untitled Event",
+      owner: this.currentUserId,
+      description: "Lorem Ipsum",
     }
   }
 
-  public openEventCreator(){
+  private openEventCreatorDialog(event: Event){
     this.dialog.open(EventCreationDialogComponent, {
-      data: this.getDefaultEventData()
-    })
-    return of();
+      data: event
+    });
   }
 
-  public saveDraft(event:Event){
+  public openEventCreator(){
+    this.openEventCreatorDialog(this.getDefaultEventData());
+  }
+
+  public beginListeningForLocation(event: Event){
     this.eventDraft = event;
+    this.isListeningForLocation = true;
   }
 
-  public listenForLocation(status:boolean) {
-    this.isListeningForLocation = status;
+  public stopListeningForLocation(){
+    this.chooseLocation(undefined);
   }
 
-  public chooseLocation(location:Coordinates)  {
+  public chooseLocation(location?:Coordinates)  {
     if(!this.isListeningForLocation) return;
     this.isListeningForLocation = false;
 
-    this.dialog.open(EventCreationDialogComponent, {
-      data: {
-        ...(this.eventDraft??this.getDefaultEventData()),
+    if(location){
+      this.openEventCreatorDialog({
+        ...this.currentEventDraft,
         coordinates: location
-      }
-    })
+      })
+    }
+    else this.openEventCreatorDialog(this.currentEventDraft);
   }
 
   public createEvent(event: Event): void {
-    this.store.pipe(
-      select(selectUser),
-      map((user: User|undefined) => {
-        console.log("Posting event", user, event)
-        event.owner = user?._id;
-        this.store.dispatch(EventActions.createEventWithProps({event}));
-        return of();
-      })
-    ).subscribe();
+    this.store.dispatch(EventActions.createEventWithProps({event}));
   }
 
   public closeDialog(){

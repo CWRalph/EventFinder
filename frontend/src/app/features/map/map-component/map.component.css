@@ -1,9 +1,9 @@
-#map {
+#eventMap {
   width: 100%;
   height: 100%;
 }
 
-#mapId {
-  height: 100vh; 
+#eventMap {
+  height: 100vh;
   z-index: 0;
 }

@@ -80,4 +80,13 @@ eventRouter.delete('/:id', async (req, res) => {
     }
 });
 
+eventRouter.delete('/', async (req, res) => {
+    try {
+        await Event.deleteMany({});
+        res.status(200).json({ message: 'All events cleared successfully.' });
+    } catch (e) {
+        catchError(e, res);
+    }
+});
+
 export default eventRouter;

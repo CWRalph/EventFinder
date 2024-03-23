@@ -41,6 +41,9 @@ export class AppComponent implements OnInit {
     });
 
     //Log the user in if cookie exists
-    //TODO this.store.dispatch(UserActions.authenticateUser());
+    this.store.dispatch(UserActions.authenticateUser());
+
+    //TODO remove this, only used for debugging purposes
+    // this.eventService.clearEvents().subscribe();
   }
 }

@@ -4,22 +4,25 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {EventActions} from "@state/event/eventActions";
 import {catchError, map, mergeMap, of, tap} from "rxjs";
 import {EventService} from "@core/services/EventService";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class EventEffects {
   constructor(
     private readonly actions$: Actions,
     private eventCreationService: EventCreationService,
-    private eventService: EventService
+    private eventService: EventService,
   ) {}
 
   createEvent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EventActions.createEvent),
-      mergeMap(() => this.eventCreationService.openEventCreator().pipe(
-        map(()=>EventActions.createEventFailure()
-      ))),
-    )
+      tap(()=>{
+        this.eventCreationService.openEventCreator();
+      }),
+    ),
+    { dispatch: false}
   )
 
   createEventWithProps$ = createEffect(() =>
