@@ -111,7 +111,7 @@ export class MapComponent implements OnInit, OnChanges {
 
   private updateMapZIndex(status:'front'|'back'){
     if(this.mapElement){
-      const zIndex = status === 'front' ? 1000 : 0;
+      const zIndex = status === 'front' ? 10 : 0;
       this.renderer.setStyle(this.mapElement.nativeElement, 'z-index', zIndex);
     }
   }

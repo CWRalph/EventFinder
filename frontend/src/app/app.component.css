@@ -1,3 +1,8 @@
 .main {
   height: 100%;
 }
+::ng-deep .cdk-overlay-container {
+  /* Do you changes here */
+  position: fixed;
+  z-index: 100 !important;
+}
