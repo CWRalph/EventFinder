@@ -1,5 +1,5 @@
 <div class="event-creation-modal">
-  <h1 class="text-3xl font-bold">Create Event</h1>
+  <h1 class="text-3xl font-bold p-4">Create Event</h1>
   <form #myForm="ngForm" class="create-event-form">
     <div>
       <input class="input w-full" placeholder="Event name:" [(ngModel)]="eventData.name" name="eventName">
@@ -7,24 +7,37 @@
     <div>
       <input class="input w-full" placeholder="Event address:" [(ngModel)]="eventData.address" name="eventAddress">
     </div>
-    <div>
-      <label class="input input-bordered flex items-center gap-2 w-full">
-        <input [matDatepicker]="startTimePicker" placeholder="Start time:" [(ngModel)]="eventData.startTime" name="startTime">
-        <mat-datepicker-toggle [for]="startTimePicker"></mat-datepicker-toggle>
+    <div class="flex gap-2">
+      <label class="input-label">
+        <input [matDatepicker]="startTimePicker" placeholder="Start date:" [(ngModel)]="startDate" name="startDate">
+        <mat-datepicker-toggle class="hover:scale-125" [for]="startTimePicker"></mat-datepicker-toggle>
         <mat-datepicker #startTimePicker></mat-datepicker>
       </label>
-    </div>
-    <div>
-      <label class="input input-bordered flex items-center gap-2 w-full">
-        <input [matDatepicker]="endTimePicker" placeholder="End time:" [(ngModel)]="eventData.endTime" name="endTime">
-        <mat-datepicker-toggle [for]="endTimePicker"></mat-datepicker-toggle>
-        <mat-datepicker #endTimePicker></mat-datepicker>
+      <label class="input-label">
+        <input placeholder="Start time:" [(ngModel)]="startTime" name="startTime">
+        <mat-icon class="hover:cursor-pointer hover:scale-125 hover:bg-base-200" [ngxTimepicker]="startHourPicker" [(ngModel)]="startTime" name="startTimeToggle">access_time</mat-icon>
+
+        <ngx-material-timepicker #startHourPicker></ngx-material-timepicker>
       </label>
     </div>
-    <div class="flex">
-      <span>Latitude: {{eventData.coordinates?.y ?? "not set"}}</span>
-      <span>Longitude: {{eventData.coordinates?.x ?? "not set"}}</span>
-      <mat-icon (click)="chooseLocation()">add_location</mat-icon>
+    <div class="flex gap-2">
+      <label class="input-label">
+        <input [matDatepicker]="endTimePicker" placeholder="End date:" [(ngModel)]="endDate" name="endDate">
+        <mat-datepicker-toggle class="hover:scale-125" [for]="endTimePicker"></mat-datepicker-toggle>
+        <mat-datepicker  #endTimePicker></mat-datepicker>
+      </label>
+      <label class="input-label">
+        <input placeholder="End time:" name="endTime" [(ngModel)]="endTime">
+        <mat-icon class="hover:cursor-pointer hover:scale-125 hover:bg-base-200" [ngxTimepicker]="endHourPicker" [(ngModel)]="endTime" name="endTimeToggle">access_time</mat-icon>
+        <ngx-material-timepicker #endHourPicker>gh</ngx-material-timepicker>
+      </label>
+    </div>
+    <div class="flex w-full items-center justify-center gap-8">
+      <div class="flex flex-col">
+        <span>Latitude: {{latitude}}</span>
+        <span>Longitude: {{longitude}}</span>
+      </div>
+      <mat-icon class="event-icon" (click)="chooseLocation()">add_location</mat-icon>
     </div>
     <div>
       <textarea class="textarea w-full" placeholder="Event Description" [(ngModel)]="eventData.description" name="description"></textarea>

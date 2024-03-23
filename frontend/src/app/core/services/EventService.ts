@@ -10,7 +10,7 @@ export class EventService {
 
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL = this.document.location.origin + '/events';
+  URL =  'http://localhost:3000/events';
 
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.URL);

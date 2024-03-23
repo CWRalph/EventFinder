@@ -54,11 +54,13 @@ export class EventCreationService {
     return this.locationListenerSubject.asObservable();
   }
 
-  private getDefaultEventData(){
+  private getDefaultEventData():Event{
     return {
       name: "Untitled Event",
       owner: this.currentUserId,
       description: "Lorem Ipsum",
+      startTime: new Date(Date.now()),
+      endTime: new Date(Date.now() + 3600000),
     }
   }
 

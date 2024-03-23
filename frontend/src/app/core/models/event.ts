@@ -49,8 +49,8 @@ export type Event = {
 
   owner?: string;
   group?: string;
-  startTime?: Date,
-  endTime?: Date,
+  startTime: Date,
+  endTime: Date,
   date?: Date;
   address?: string;
   eventType?: EventType;
