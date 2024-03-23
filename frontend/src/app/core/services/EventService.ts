@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Event} from "@core/models/event";
-import {Observable, of} from 'rxjs';
+import { Observable } from 'rxjs';
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
-  //TODO: Change this URL according to your backend
-  private readonly URL = 'http://localhost:3000/events';
+  //TODO: Change this URL according to your backen
 
-  constructor(private http: HttpClient) {}
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
+
+  URL = this.document.location.origin + '/events';
 
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.URL);
@@ -19,7 +21,6 @@ export class EventService {
   }
 
   createEvent(event: Event): Observable<Event> {
-    console.log("Creating event", event)
     return this.http.post<Event>(this.URL, event);
   }
 

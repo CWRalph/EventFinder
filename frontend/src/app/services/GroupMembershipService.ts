@@ -1,17 +1,16 @@
-import { Injectable } from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import {GroupMembership} from "@core/models/event";
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({providedIn: 'root'})
 export class GroupMembershipService {
 
   //TODO: Change this URL according to your backend
-  private readonly URL = 'http://localhost:3000/group-memberships';
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-  }
-
+  URL = this.document.location.origin + '/group-memberships';
   getGroupMemberships(): Observable<GroupMembership[]> {
     return this.http.get<GroupMembership[]>(this.URL);
   }

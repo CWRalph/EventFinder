@@ -1,16 +1,15 @@
-import { Injectable } from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import {User} from "@core/models/user";
+import {DOCUMENT} from "@angular/common";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
 
-  //TODO: Change this URL according to your backend
-  private readonly URL = 'http://localhost:3000/users';
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-  }
+  URL = this.document.location.origin + '/users';
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.URL);
