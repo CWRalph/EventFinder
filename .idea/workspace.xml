@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/FriendshipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/FriendshipService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/UserService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,7 @@
       <workItem from="1710792677893" duration="5641000" />
       <workItem from="1711173055608" duration="380000" />
       <workItem from="1711401546176" duration="1302000" />
-      <workItem from="1711579271387" duration="985000" />
+      <workItem from="1711579271387" duration="1830000" />
     </task>
     <servers />
   </component>

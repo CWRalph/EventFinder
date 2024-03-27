@@ -3,15 +3,19 @@
   z-index: 10;
 }
 
+.navbar-button-container {
+  @apply flex gap-4 h-full w-fit items-center justify-center;
+}
+
 .navbar-button {
-  @apply btn flex flex-col w-fit gap-0 text-neutral bg-primary;
-  height: 80px;
+  @apply btn btn-outline flex flex-col w-fit;
+  height: 60px;
   line-height: 1rem;
   font-size:1rem;
 }
 
 .navbar-input {
-  @apply input input-lg input-bordered flex flex-1 items-center gap-2 m-4 font-medium;
+  @apply input input-lg input-bordered flex flex-1 items-center gap-2 mx-4 font-medium;
 }
 
 .navbar-title {
