@@ -6,7 +6,7 @@ import { Event } from './core/models/event';
 import { EventService } from './core/services/EventService';
 import {Store} from "@ngrx/store";
 import {UserActions} from "@app/state/user/userActions";
-import {NavbarComponent} from "@shared/navbar/navbar.component";
+import {NavbarComponent} from "@features/navbar-feature/navbar/navbar.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {StaticSidebarComponent} from "@features/sidebar/static-sidebar/static-sidebar.component";
 import {MatSnackBarModule} from "@angular/material/snack-bar";

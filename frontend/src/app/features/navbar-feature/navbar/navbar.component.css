@@ -4,8 +4,10 @@
 }
 
 .navbar-button {
-  @apply btn btn-lg flex flex-col w-fit text-lg text-neutral font-medium bg-primary;
+  @apply btn flex flex-col w-fit gap-0 text-neutral bg-primary;
   height: 80px;
+  line-height: 1rem;
+  font-size:1rem;
 }
 
 .navbar-input {
