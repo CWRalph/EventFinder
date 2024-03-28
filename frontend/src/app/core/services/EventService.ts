@@ -10,7 +10,9 @@ export class EventService {
 
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL =  'http://localhost:3000/events';
+  private readonly LOCAL_URL = 'http://localhost:3000/events';
+  private readonly PROD_URL = this.document.location.origin + '/events';
+  URL = this.LOCAL_URL;
 
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.URL);

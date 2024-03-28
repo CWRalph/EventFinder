@@ -10,7 +10,9 @@ export class FriendshipService {
   //TODO: Change this URL according to your backend
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL = this.document.location.origin + '/friendships';
+  private readonly LOCAL_URL = 'http://localhost:3000/friendships';
+  private readonly PROD_URL = this.document.location.origin + '/friendships';
+  URL = this.LOCAL_URL;
 
   getFriendships(): Observable<Friendship[]> {
     return this.http.get<Friendship[]>(this.URL);

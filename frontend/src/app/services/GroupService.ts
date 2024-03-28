@@ -10,7 +10,10 @@ export class GroupService {
   //TODO: Change this URL according to your backend
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL = this.document.location.origin + '/groups';
+  private readonly LOCAL_URL = 'http://localhost:3000/groups';
+  private readonly PROD_URL = this.document.location.origin + '/groups';
+  URL = this.LOCAL_URL;
+
   getGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(this.URL);
   }
