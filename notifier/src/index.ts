@@ -11,7 +11,7 @@ app.use(cors());
 const port = process.env.PORT || 4000;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Default setup for internal service");
+  res.send("Default setup for notifier service");
 });
 
 // Create a transporter object with SMTP configuration
