@@ -9,8 +9,8 @@ export class UserService {
 
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL = this.document.location.origin + '/users';
-
+  // URL = this.document.location.origin + '/users';
+  URL = 'http://localhost:3000/users';
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.URL);
   }

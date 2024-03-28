@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { UserActions } from '@app/state/user/userActions';
-import { UserService } from '@core/services/user.service';
+import { UserService } from '@core/services/UserService';
 import { User } from '@core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '@core/authentication/login/login.component';

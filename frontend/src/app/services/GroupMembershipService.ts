@@ -10,7 +10,8 @@ export class GroupMembershipService {
   //TODO: Change this URL according to your backend
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL = this.document.location.origin + '/group-memberships';
+  // URL = this.document.location.origin + '/group-memberships';
+  URL = 'http://localhost:3000/group-memberships';
   getGroupMemberships(): Observable<GroupMembership[]> {
     return this.http.get<GroupMembership[]>(this.URL);
   }
