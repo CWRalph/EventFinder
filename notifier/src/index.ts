@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-const nodemailer = require("nodemailer");
-const cors = require("cors");
+import cors from "cors";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
