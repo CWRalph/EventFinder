@@ -4,7 +4,7 @@ import {sendEmail} from "../emailService";
 
 const friendshipRouter = express.Router();
 
-friendshipRouter.get('/', async (req, res) => {
+friendshipRouter.post('/', async (req, res) => {
     const {userEmail, friend} = req.body;
     sendEmail('Friendship request', `User ${friend} wants to be friends with you`, userEmail).then(() => {
         res.json({message: 'Friendship request sent'});
