@@ -1,10 +1,8 @@
 import friendshipRouter from "./routes/friendship";
-
-require('dotenv').config()
-
 import express, {Express} from "express";
 import cors from "cors";
-import nodemailer from "nodemailer";
+
+require('dotenv').config()
 
 
 const app: Express = express();
