@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
 
 });
 
-// this can be stored on the gcp instance - notifier DB
+// this can be stored on the gcp instance - internal DB
 const loginSchema = new mongoose.Schema({
     username: {type: String, required: true, unique: true},
     email: {type: String, required: true},
