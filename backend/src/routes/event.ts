@@ -1,5 +1,6 @@
 import express from 'express';
 import {Event} from '../database/schema';
+import {getFuzzyFindQuery} from "../routes/queries";
 import {catchError, notFound} from "../error";
 
 const eventRouter = express.Router();
@@ -84,6 +85,18 @@ eventRouter.delete('/', async (req, res) => {
     try {
         await Event.deleteMany({});
         res.status(200).json({ message: 'All events cleared successfully.' });
+    } catch (e) {
+        catchError(e, res);
+    }
+});
+
+eventRouter.get('/search', async (req, res) => {
+    try {
+        // @ts-ignore
+        const {query} = req.body.query as string;
+        if(!query || query.trim().length == 0) return;
+        const results = await Event.aggregate(getFuzzyFindQuery(query, ["name", "description"]))
+        res.status(200).json({results});
     } catch (e) {
         catchError(e, res);
     }

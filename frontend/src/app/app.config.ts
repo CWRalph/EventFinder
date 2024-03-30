@@ -8,12 +8,13 @@ import { UserReducer } from '@app/state/user/userReducer';
 import { UserEffects } from '@app/state/user/userEffects';
 import {EventEffects} from "@state/event/eventEffects";
 import { routes } from './app.routes';
+import {EventReducer} from "@state/event/eventReducer";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ user: UserReducer }),
+    provideStore({ user: UserReducer, event:EventReducer }),
     provideEffects([UserEffects, EventEffects]),
     provideAnimations()
   ],

@@ -90,10 +90,14 @@ export class InfoSidebarComponent {
   }
 
   // TODO: how do we want to allow users to add friends?
-  createFriendship() {}
+  createFriendship() {
+
+  }
 
   // TODO: how do we want to allow users to create a new group?
-  createGroup() {}
+  createGroup() {
+
+  }
 
   // TODO: how do we want to allow users to create an event?
   createEvent() {}

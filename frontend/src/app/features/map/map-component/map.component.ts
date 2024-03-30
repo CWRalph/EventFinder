@@ -5,6 +5,7 @@ import { Event } from '@core/models/event';
 import {Store} from "@ngrx/store";
 import {EventActions} from "@state/event/eventActions";
 import {EventCreationService} from "@features/event-creation/services/event-creation.service";
+import {selectEvents} from "@state/event/eventReducer";
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -51,6 +52,10 @@ export class MapComponent implements OnInit, OnChanges {
         this.isListeningForLocation = isListening;
         this.updateMapZIndex(isListening ? 'front' : 'back');
       });
+
+    this.store.select(selectEvents).subscribe(
+      (events:Event[])=>this.events = events
+    )
   }
 
   ngOnChanges(changes: SimpleChanges): void {

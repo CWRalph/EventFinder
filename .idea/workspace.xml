@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/routes/eventMembership.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/routes/queries.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/userActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/userActions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/event.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/event-creation/components/event-creation-dialog/event-creation-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/event-creation/components/event-creation-dialog/event-creation-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/map/map-component/map.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/map/map-component/map.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventState.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,30 +36,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "colwyn-state-navbar",
-    "last_opened_file_path": "C:/Users/colwy/WebstormProjects/CMPT372FinalProject/EventFinder",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\frontend\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;event-creation&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/colwy/WebstormProjects/CMPT372FinalProject/EventFinder&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\frontend\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\backend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\backend\src\routes" />
+      <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\backend\src\routes\events" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\backend" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\backend\src" />
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\features\map" />
-      <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\core\models" />
-      <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\core\services" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -72,6 +81,16 @@
       <workItem from="1710629836199" duration="1503000" />
       <workItem from="1710631371376" duration="2015000" />
       <workItem from="1710792677893" duration="5641000" />
+      <workItem from="1711515000379" duration="2416000" />
+      <workItem from="1711522065576" duration="7000" />
+      <workItem from="1711647181462" duration="121000" />
+      <workItem from="1711648022675" duration="1295000" />
+      <workItem from="1711698161775" duration="1401000" />
+      <workItem from="1711699597646" duration="328000" />
+      <workItem from="1711699950692" duration="1143000" />
+      <workItem from="1711771195119" duration="1234000" />
+      <workItem from="1711783202716" duration="587000" />
+      <workItem from="1711823688683" duration="1694000" />
     </task>
     <servers />
   </component>
@@ -80,5 +99,16 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

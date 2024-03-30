@@ -116,7 +116,7 @@ export class EventCreationDialogComponent {
   }
 
   onSubmit() {
-    this.eventCreationService. createEvent(this.eventData);
+    this.eventCreationService.createEvent(this.eventData);
   }
 
   chooseLocation(){

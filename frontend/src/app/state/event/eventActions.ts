@@ -1,4 +1,4 @@
-import {createActionGroup, emptyProps, props} from "@ngrx/store";
+import {createAction, createActionGroup, emptyProps, props} from "@ngrx/store";
 import {Coordinates, Event} from "@core/models/event";
 
 export const EventActions = createActionGroup({

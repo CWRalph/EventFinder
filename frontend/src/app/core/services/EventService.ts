@@ -32,7 +32,12 @@ export class EventService {
     return this.http.delete<Event>(this.URL + '/' + id);
   }
 
+  searchEvents(query: string): Observable<Event[]> {
+    return this.http.post<Event[]>(this.URL + '/search', query);
+  }
+
   clearEvents(){
+    //TODO remove this
     console.log("Clearing events")
     return this.http.delete(this.URL);
   }
