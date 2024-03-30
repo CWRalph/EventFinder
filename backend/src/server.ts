@@ -4,13 +4,14 @@ require('dotenv').config()
 import express from 'express';
 import cors from 'cors';
 import * as mongoose from "mongoose";
-import groupRouter from "../src/routes/group";
-import eventRouter from "../src/routes//event";
-import friendshipRouter from "../src/routes//friendship";
-import userRouter from "../src/routes/user";
-import loginRouter from "../src/routes/login";
-import groupMembershipRouter from "../src/routes/groupMembership";
-import eventMembershipRouter from "../src/routes/eventMembership";
+import eventRouter from "./routes/event";
+import friendshipRouter from "./routes/friendship";
+import userRouter from "./routes/user";
+import groupRouter from "./routes/group";
+import loginRouter from './routes/login';
+import groupMembershipRouter from "./routes/groupMembership";
+import eventMembershipRouter from "./routes/eventMembership";
+
 
 const app = express();
 const port = process.env.PORT || 3000 ;
@@ -37,12 +38,12 @@ mongoose.connect(process.env.MONGO_URL!, {})
 
 // Setting up routes
 app.use('/groups', groupRouter);
+app.use('/group-memberships', groupMembershipRouter);
 app.use('/events', eventRouter);
 app.use('/event-memberships', eventMembershipRouter);
 app.use('/friendships', friendshipRouter);
 app.use('/users', userRouter);
 app.use('/login', loginRouter);
-app.use('group-memberships', groupMembershipRouter);
 
 const angularAppPath = path.join(__dirname, '../../frontend/dist/frontend/browser');
 app.use(express.static(angularAppPath));
