@@ -10,14 +10,12 @@ import { LoginComponent } from '@core/authentication/login/login.component';
 import {selectIsLoggedIn} from "@state/user/userReducer";
 import {EventActions} from "@state/event/eventActions";
 import {UserIconComponent} from "@features/navbar-feature/user-icon/user-icon.component";
+import {SearchBarComponent} from "@features/search-bar/search-bar/search-bar.component";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [
-    CommonModule,
-    UserIconComponent,
-    MatIconModule],
+  imports: [CommonModule, UserIconComponent, MatIconModule, SearchBarComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
