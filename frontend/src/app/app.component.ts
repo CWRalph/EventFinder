@@ -43,10 +43,6 @@ export class AppComponent implements OnInit {
     //Log the user in if cookie exists
     this.store.dispatch(UserActions.authenticateUser());
 
-    this.eventService.searchEvents("test").subscribe((events) => {
-      console.log("Queried events: ",events);
-    });
-
     //TODO remove this, only used for debugging purposes
     // this.eventService.clearEvents().subscribe();
   }

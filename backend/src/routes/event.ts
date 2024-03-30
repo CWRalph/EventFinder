@@ -50,25 +50,32 @@ eventRouter.delete('/', async (req, res) => {
 eventRouter.get('/search', async (req, res) => {
     const { query } = req.query as any;
 
-    try {
-        const result = await Event
-            .find({
-                $text: {
-                    $search: query,
-                    $caseSensitive: false,
-                    $diacriticSensitive: false
-             }
-            })
-            .select({ score: { $meta: 'textScore' } })
-            .sort({ score: { $meta: 'textScore' } })
-            .limit(10)
+    const pipeline = [
+        {
+        $search:{
+            index: 'EventSearchIndex',
+            text: {
+                query,
+                path:['name', 'description'],
+                fuzzy:{}
+            }
+        }
+        },
+        {
+            $project:{
+               _id: 0,
+               score: { $meta: 'searchScore' },
+                name: 1,
+                description: 1,
+                location: 1,
+            }
+        }
+    ]
 
-        console.log(result)
-        res.status(200).json("Searched");
-    } catch (error) {
-        console.error("Error occurred during search:", error);
-        res.status(500).json({ message: "An error occurred during search" });
-    }
+    //Sort descending order
+    const result = await Event.aggregate(pipeline).sort({score:-1});
+    console.log("Search results: ", result);
+    res.status(200).json(result);
 });
 
 eventRouter.get('/:id', async (req, res) => {
