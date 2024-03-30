@@ -1,5 +1,5 @@
-export const getFuzzyFindQuery = (query:string, fields:string|string[]) => [
-    {
+export const getFuzzyFindQuery = (query:string, fields:string|string[]) => ({
+    $text:{
         $search: {
             text: {
                 query: query,
@@ -8,4 +8,4 @@ export const getFuzzyFindQuery = (query:string, fields:string|string[]) => [
             }
         }
     }
-]
+});

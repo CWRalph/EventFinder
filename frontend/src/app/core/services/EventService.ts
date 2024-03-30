@@ -33,7 +33,7 @@ export class EventService {
   }
 
   searchEvents(query: string): Observable<Event[]> {
-    return this.http.post<Event[]>(this.URL + '/search', query);
+    return this.http.get<Event[]>(this.URL + '/search', { params: {query} });
   }
 
   clearEvents(){

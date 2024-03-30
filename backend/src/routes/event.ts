@@ -38,6 +38,39 @@ eventRouter.post('/', async (req, res) => {
     }
 });
 
+eventRouter.delete('/', async (req, res) => {
+    try {
+        await Event.deleteMany({});
+        res.status(200).json({ message: 'All events cleared successfully.' });
+    } catch (e) {
+        catchError(e, res);
+    }
+});
+
+eventRouter.get('/search', async (req, res) => {
+    const { query } = req.query as any;
+
+    try {
+        const result = await Event
+            .find({
+                $text: {
+                    $search: query,
+                    $caseSensitive: false,
+                    $diacriticSensitive: false
+             }
+            })
+            .select({ score: { $meta: 'textScore' } })
+            .sort({ score: { $meta: 'textScore' } })
+            .limit(10)
+
+        console.log(result)
+        res.status(200).json("Searched");
+    } catch (error) {
+        console.error("Error occurred during search:", error);
+        res.status(500).json({ message: "An error occurred during search" });
+    }
+});
+
 eventRouter.get('/:id', async (req, res) => {
     const {id} = req.params;
 
@@ -76,27 +109,6 @@ eventRouter.delete('/:id', async (req, res) => {
             return notFound(res, 'Event');
         }
         res.json({message: 'Event deleted'});
-    } catch (e) {
-        catchError(e, res);
-    }
-});
-
-eventRouter.delete('/', async (req, res) => {
-    try {
-        await Event.deleteMany({});
-        res.status(200).json({ message: 'All events cleared successfully.' });
-    } catch (e) {
-        catchError(e, res);
-    }
-});
-
-eventRouter.get('/search', async (req, res) => {
-    try {
-        // @ts-ignore
-        const {query} = req.body.query as string;
-        if(!query || query.trim().length == 0) return;
-        const results = await Event.aggregate(getFuzzyFindQuery(query, ["name", "description"]))
-        res.status(200).json({results});
     } catch (e) {
         catchError(e, res);
     }
