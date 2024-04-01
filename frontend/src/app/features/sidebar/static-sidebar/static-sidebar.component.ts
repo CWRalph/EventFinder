@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GroupButtonComponent } from "../group-button/group-button.component";
 import { GroupMembershipService } from '@app/services/GroupMembershipService';
 import { GroupMembership } from "@core/models/event";
+import {SidebarType} from "@services/SidebarService";
 
 @Component({
     selector: 'app-static-sidebar',
@@ -14,7 +15,6 @@ import { GroupMembership } from "@core/models/event";
 })
 export class StaticSidebarComponent {
   userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to get the user's userId
-  buttonFields: string[] = ["Friends", "Browse", "Saved"];
   groupMemberships: GroupMembership[] = [];
   membershipType = "Membership";
   groupType = "Group";
@@ -31,4 +31,6 @@ export class StaticSidebarComponent {
       }
     });
   }
+
+  protected readonly SidebarType = SidebarType;
 }

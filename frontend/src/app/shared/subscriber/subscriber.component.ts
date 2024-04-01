@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Subject} from "rxjs";
+import {Observable, Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-subscriber',
@@ -10,8 +10,13 @@ import {Subject} from "rxjs";
 })
 export class SubscriberComponent implements OnDestroy{
   protected unsubscribe: Subject<void> = new Subject<void>()
+
   ngOnDestroy(): void {
     this.unsubscribe.next()
     this.unsubscribe.complete()
+  }
+
+  protected unsubscribeOnDestroy<T>(obs: Observable<T>): Observable<T> {
+    return obs.pipe(takeUntil(this.unsubscribe));
   }
 }

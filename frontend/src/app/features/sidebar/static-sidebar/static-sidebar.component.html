@@ -1,11 +1,16 @@
 <div class="sidenav bg-base-100">
     <div class="icon-btn-container">
-        <div class="icon-btn" *ngFor="let button of buttonFields">
-        <app-icon-button [button]="button"></app-icon-button>
-        </div> 
+      <app-icon-button button="Friends" [sidebarType]="SidebarType.Friend">
+        <i class="fa-solid fa-user-group"></i>
+      </app-icon-button>
+      <app-icon-button button="Browse" [sidebarType]="SidebarType.Event">
+        <i class="fa-solid fa-calendar-days"></i>
+      </app-icon-button>
+      <app-icon-button button="Saved" [sidebarType]="SidebarType.SavedEvents">
+        <i class="fa-solid fa-bookmark"></i>
+      </app-icon-button>
     </div>
-   
-    
+
     <div class="group-btn-container">
         <hr>
         <!-- browse groups -->
@@ -15,7 +20,6 @@
         <div class="group-btn" *ngFor="let membership of groupMemberships">
             <app-group-button [groupMembership]="membership" [infoType]="membershipType"></app-group-button>
         </div>
-
     </div>
 
 </div>
