@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
-import {CommonModule, NgForOf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-search-bar',
@@ -11,6 +11,8 @@ import {CommonModule, NgForOf} from "@angular/common";
   styleUrl: './search-bar.component.css',
 })
 export class SearchBarComponent {
+  @ViewChild('searchInput') searchInput!: ElementRef;
+  @ViewChild('searchDropdown') dropdown!: ElementRef;
   private _value: string = '';
   private isFocused: boolean = false;
   constructor() {}
@@ -21,6 +23,13 @@ export class SearchBarComponent {
   @Output() onBlur: EventEmitter<void> = new EventEmitter<void>();
   @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
   @Output() onChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onEnter: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onDropdownClick: EventEmitter<string> = new EventEmitter<string>();
+
+  private blurSearchBar(){
+    this.searchInput?.nativeElement?.blur();
+    this.dropdown?.nativeElement?.blur();
+  }
 
   public get value(): string {
     return this._value;
@@ -63,5 +72,15 @@ export class SearchBarComponent {
     this.value = '';
     this.onClear.emit();
     this.onChange.emit(this.value);
+  }
+
+  public onEnterPressed(){
+    this.onEnter.emit();
+    this.blurSearchBar();
+  }
+
+  public onDropdownItemClicked(item: string){
+    this.onDropdownClick.emit(item);
+    this.blurSearchBar();
   }
 }

@@ -7,10 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserActions } from '@state/user/userActions';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '@core/authentication/login/login.component';
-import {selectIsLoggedIn} from "@state/user/userReducer";
-import {EventActions} from "@state/event/eventActions";
-import {UserIconComponent} from "@features/navbar-feature/user-icon/user-icon.component";
-import {SearchBarComponent} from "@features/search-bar/search-bar/search-bar.component";
+import { selectIsLoggedIn } from '@state/user/userReducer';
+import { EventActions } from '@state/event/eventActions';
+import { UserIconComponent } from '@features/navbar-feature/user-icon/user-icon.component';
+import { SearchBarComponent } from '@features/search-bar/search-bar/search-bar.component';
+import { SearchBarService } from '@features/search-bar/search-bar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
+    private searchbarService: SearchBarService,
   ) {
     super();
   }
@@ -49,5 +51,18 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
 
   register() {
     this.store.dispatch(UserActions.registerUser());
+  }
+
+  onChange(query: string) {
+    this.searchbarService.setQuery(query);
+  }
+
+  onEnter() {
+    this.searchbarService.fireSearch();
+  }
+
+  onDropdownClick(query: string) {
+    this.searchbarService.setQuery(query);
+    this.searchbarService.fireSearch();
   }
 }

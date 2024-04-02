@@ -25,7 +25,7 @@ export class EventService {
   }
 
   updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(this.URL + '/' + event.eventId, event);
+    return this.http.put<Event>(this.URL + '/' + event._id, event);
   }
 
   deleteEvent(id: number): Observable<Event> {

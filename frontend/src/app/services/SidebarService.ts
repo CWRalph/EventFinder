@@ -4,7 +4,7 @@ import { Subject, BehaviorSubject, Observable } from 'rxjs';
 export enum SidebarType {
   Event = 'Event',
   SavedEvents = 'SavedEvents',
-  EventList = 'EventList',
+  MyEvents = 'MyEvents',
   Friend = 'Friend',
   BrowseGroups = 'BrowseGroups',
   Group = 'Group',

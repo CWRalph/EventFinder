@@ -1,12 +1,14 @@
 <div class="event-sidebar">
   <div role="tablist" class="event-sidebar-tabs">
-    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 1" />
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 1</div>
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Browse Events" />
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <app-event-info *ngFor="let event of queriedEventsList" [event]="event"></app-event-info>
+    </div>
 
-    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 2" checked />
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Saved Events" checked />
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 2</div>
 
-    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Tab 3" />
+    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="My Events" />
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 3</div>
   </div>
 </div>

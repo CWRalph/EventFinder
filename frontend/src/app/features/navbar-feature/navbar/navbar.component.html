@@ -1,5 +1,10 @@
 <div class="navbar-container">
-  <app-search-bar class="ml-28 mt-8"></app-search-bar>
+  <app-search-bar
+    (onChange)="onChange($event)"
+    (onEnter)="onEnter()"
+    (onDropdownClick)="onDropdownClick($event)"
+    class="ml-28 mt-8"
+  ></app-search-bar>
 </div>
 <!--<div class="navbar bg-base-100">-->
 <!--  <div class="flex-none">-->

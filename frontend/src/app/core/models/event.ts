@@ -42,7 +42,7 @@ export type EventType =
   | 'Other';
 
 export type Event = {
-  eventId?: number;
+  _id?: number;
 
   name: string;
   description: string;

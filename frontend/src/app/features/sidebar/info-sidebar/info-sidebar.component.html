@@ -1,5 +1,7 @@
 <div *ngIf="sidebarVisibility" [ngSwitch]="sidebarType" class="info-sidebar scrollable">
   <app-event-sidebar *ngSwitchCase="SidebarType.Event"></app-event-sidebar>
+  <app-event-sidebar *ngSwitchCase="SidebarType.MyEvents"></app-event-sidebar>
+  <app-event-sidebar *ngSwitchCase="SidebarType.SavedEvents"></app-event-sidebar>
 <!--    <div class="friendship-info-card-container" *ngIf="infoType == 'Friends'">-->
 <!--        <div class="header">-->
 <!--           <h1>Friends</h1> -->
