@@ -6,22 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/models/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/models/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/abstract-sidebar/abstract-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/abstract-sidebar/abstract-sidebar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/SidebarService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/SidebarService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventState.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

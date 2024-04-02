@@ -5,13 +5,19 @@ import { SidebarService, SidebarType } from '@services/SidebarService';
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
 import {takeUntil} from "rxjs";
 import {EventSidebarComponent} from "@features/sidebar-variants/event-sidebar/event-sidebar.component";
+import {GroupSidebarComponent} from "@features/sidebar-variants/group-sidebar/group-sidebar.component";
 
 @Component({
   selector: 'app-info-sidebar',
   standalone: true,
   templateUrl: './info-sidebar.component.html',
   styleUrl: './info-sidebar.component.css',
-  imports: [CommonModule, RouterOutlet, EventSidebarComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    EventSidebarComponent,
+    GroupSidebarComponent,
+  ],
 })
 export class InfoSidebarComponent
   extends SubscriberComponent
