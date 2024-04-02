@@ -23,6 +23,7 @@ import { SearchBarService } from '@features/search-bar/search-bar.service';
 })
 export class NavbarComponent extends SubscriberComponent implements OnInit {
   public isLoggedIn: boolean = false;
+  public recommendations: string[] = [];
   constructor(
     private store: Store,
     private dialog: MatDialog,
@@ -35,6 +36,10 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
       .select(selectIsLoggedIn)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn));
+
+    this.searchbarService.getRecommendations().subscribe((recommendations) => {
+      this.recommendations = recommendations;
+    });
   }
 
   createEvent() {
