@@ -5,6 +5,7 @@ import { SidebarService, SidebarType } from '@services/SidebarService';
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
 import {EventSidebarComponent} from "@features/sidebar-variants/event-sidebar/event-sidebar.component";
 import {GroupSidebarComponent} from "@features/sidebar-variants/group-sidebar/group-sidebar.component";
+import {MembershipSidebarComponent} from "@features/sidebar-variants/membership-sidebar/membership-sidebar.component";
 
 @Component({
   selector: 'app-info-sidebar',
@@ -16,6 +17,7 @@ import {GroupSidebarComponent} from "@features/sidebar-variants/group-sidebar/gr
     RouterOutlet,
     EventSidebarComponent,
     GroupSidebarComponent,
+    MembershipSidebarComponent,
   ],
 })
 export class InfoSidebarComponent

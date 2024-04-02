@@ -6,20 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/models/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/models/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-info/group-info.component.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-info/group-info.component.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-info/group-info.component.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-sidebar/group-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-sidebar/group-sidebar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-sidebar/group-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-sidebar/group-sidebar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/membership-info/membership-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/membership-info/membership-info.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/group-button/group-button.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/group-button/group-button.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/group-button/group-button.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/group-button/group-button.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/static-sidebar/static-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/static-sidebar/static-sidebar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/SidebarService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/SidebarService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

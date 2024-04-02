@@ -35,6 +35,8 @@ export class EventSidebarComponent
         this.searchQuery = query;
       }
     )
+
+    this.searchbarService.setRecommendations(["Event 1", "Event 2", "Event 3"])
   }
 
   get savedEventsList(): Event[] {
