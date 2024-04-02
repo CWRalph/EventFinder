@@ -1,19 +1,7 @@
 <div class="btn-container">
     <button class="btn bg-primary text-neutral" (click)="toggleSidebar()">
-        <div class="icon" *ngIf="button == 'Friends'">
-            <i class="fa-solid fa-user-group"></i>
-        </div>
-        <div class="icon" *ngIf="button == 'Browse'">
-            <i class="fa-solid fa-calendar-days"></i>
-        </div>
-        <div class="icon" *ngIf="button == 'Saved'">
-            <i class="fa-solid fa-bookmark"></i>
-        </div>
+        <ng-content></ng-content>
     </button>
     <p class="btn-name"> {{ button }}</p>
-</div>
-
-<div [ngStyle]="{'display':displayStyle}">
-    <app-info-sidebar [infoType]="button"></app-info-sidebar>
 </div>
 

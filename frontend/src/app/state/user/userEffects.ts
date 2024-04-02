@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '@core/authentication/login/login.component';
 import { DialogStatus } from '@core/authentication/models/dialogStatus';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Store} from "@ngrx/store";
+import {EventActions} from "@state/event/eventActions";
 
 //TODO remove these in favour of storing an auth token cookie
 const getLoginCookies = () => {
@@ -33,7 +35,8 @@ export class UserEffects {
     private readonly actions$: Actions,
     private userService: UserService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private store:Store
   ) {}
 
   printer = createEffect(
@@ -45,12 +48,9 @@ export class UserEffects {
   authenticateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.authenticateUser),
-      mergeMap(() => {
+      map(() => {
           const { email, password } = getLoginCookies();
-          return this.userService.loginWithEmailPassword(email, password).pipe(
-            map((user: User) => UserActions.loginUserSuccess({ user })),
-            catchError(() => of(UserActions.loginUserFailure())),
-          );
+          return UserActions.loginUserWithProps({ email, password });
         }
       ),
     ),
@@ -79,6 +79,8 @@ export class UserEffects {
             this.dialog.closeAll();
             setLoginCookies(email, password);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
+
+            this.store.dispatch(EventActions.getEvents());
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {

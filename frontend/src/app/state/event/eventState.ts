@@ -1,12 +1,15 @@
 import {Event} from "@core/models/event";
 
-
 export interface EventState{
-  userEvents: Event[]; //Events owned by the user
-  fetchedEvents: Event[]; //Current fetched list of events matching filters
+  savedEvents: Event[];
+  myEvents: Event[];
+  queriedEvents: Event[];
+  events: Event[];
 }
 
-export const initialEventState : EventState = {
-  userEvents: [],
-  fetchedEvents: []
+export const initialEventState: EventState = {
+  savedEvents: [],
+  myEvents: [],
+  queriedEvents: [],
+  events: [],
 }

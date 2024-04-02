@@ -1,35 +1,36 @@
 .info-sidebar {
-    height: 95%;
-    width: 400px;
-    position: fixed;
-    top: 100px;
-    left: 90px;
-    padding-top: 20px;
+  @apply h-full absolute top-0 left-[80px] bg-primary w-96 p-8;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .scrollable {
-    height: 88%;
-    overflow-y: scroll;
+  @apply h-full overflow-y-scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollable::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {
-    font-size: 30px;
-    font-weight: 700;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 .header {
-    @apply bg-gray-800;
-    display: flex;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  @apply bg-gray-800;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header button {
-    margin-left: auto;
+  margin-left: auto;
 }

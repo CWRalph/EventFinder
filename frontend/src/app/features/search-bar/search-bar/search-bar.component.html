@@ -1,0 +1,29 @@
+<div class="dropdown">
+  <label
+    tabindex="0"
+    class="search-input"
+    [class.search-input-focused]="isSearchFocused"
+    [class.search-input-blurred]="!isSearchFocused"
+  >
+    <input
+      #searchInput
+      type="text"
+      placeholder="{{ inputPlaceholder }}"
+      [(ngModel)]="value"
+      (focus)="focus()"
+      (blur)="blur()"
+      (change)="change()"
+      (keyup.enter)="onEnterPressed()"
+    />
+    <mat-icon>search</mat-icon>
+    <mat-icon class="search-button" (click)="clearInput()">close</mat-icon>
+  </label>
+  <div #searchDropdown tabindex="0" class="search-dropdown-container">
+    <table class="w-full">
+      <tr *ngFor="let item of dropdownContent" (click)="onDropdownItemClicked(item)">
+        <td><mat-icon>location_on</mat-icon></td>
+        <td class="search-dropdown-item">{{ item }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

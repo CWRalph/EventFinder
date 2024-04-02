@@ -10,6 +10,8 @@ import userRouter from "./routes/user";
 import groupRouter from "./routes/group";
 import loginRouter from './routes/login';
 import groupMembershipRouter from "./routes/groupMembership";
+import eventMembershipRouter from "./routes/eventMembership";
+
 
 const app = express();
 const port = process.env.PORT || 3000 ;
@@ -38,6 +40,7 @@ mongoose.connect(process.env.MONGO_URL!, {})
 app.use('/groups', groupRouter);
 app.use('/group-memberships', groupMembershipRouter);
 app.use('/events', eventRouter);
+app.use('/event-memberships', eventMembershipRouter);
 app.use('/friendships', friendshipRouter);
 app.use('/users', userRouter);
 app.use('/login', loginRouter);

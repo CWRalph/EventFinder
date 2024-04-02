@@ -1,5 +1,6 @@
 import express from 'express';
 import {Event} from '../database/schema';
+import {getFuzzyFindQuery} from "../routes/queries";
 import {catchError, notFound} from "../error";
 
 const eventRouter = express.Router();
@@ -35,6 +36,46 @@ eventRouter.post('/', async (req, res) => {
     } catch (e) {
         catchError(e, res);
     }
+});
+
+eventRouter.delete('/', async (req, res) => {
+    try {
+        await Event.deleteMany({});
+        res.status(200).json({ message: 'All events cleared successfully.' });
+    } catch (e) {
+        catchError(e, res);
+    }
+});
+
+eventRouter.get('/search', async (req, res) => {
+    const { query } = req.query as any;
+
+    const pipeline = [
+        {
+        $search:{
+            index: 'EventSearchIndex',
+            text: {
+                query,
+                path:['name', 'description'],
+                fuzzy:{}
+            }
+        }
+        },
+        {
+            $project:{
+               _id: 0,
+               score: { $meta: 'searchScore' },
+                name: 1,
+                description: 1,
+                location: 1,
+            }
+        }
+    ]
+
+    //Sort descending order
+    const result = await Event.aggregate(pipeline).sort({score:-1});
+    console.log("Search results: ", result);
+    res.status(200).json(result);
 });
 
 eventRouter.get('/:id', async (req, res) => {
@@ -75,15 +116,6 @@ eventRouter.delete('/:id', async (req, res) => {
             return notFound(res, 'Event');
         }
         res.json({message: 'Event deleted'});
-    } catch (e) {
-        catchError(e, res);
-    }
-});
-
-eventRouter.delete('/', async (req, res) => {
-    try {
-        await Event.deleteMany({});
-        res.status(200).json({ message: 'All events cleared successfully.' });
     } catch (e) {
         catchError(e, res);
     }

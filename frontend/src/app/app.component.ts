@@ -10,6 +10,7 @@ import {NavbarComponent} from "@features/navbar-feature/navbar/navbar.component"
 import {MatDialogModule} from "@angular/material/dialog";
 import {StaticSidebarComponent} from "@features/sidebar/static-sidebar/static-sidebar.component";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {InfoSidebarComponent} from "@features/sidebar/info-sidebar/info-sidebar.component";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     NavbarComponent,
     MatDialogModule,
     StaticSidebarComponent,
-    MatSnackBarModule
+    MatSnackBarModule,
+    InfoSidebarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

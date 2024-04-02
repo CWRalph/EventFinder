@@ -1,0 +1,40 @@
+.search-input{
+  @apply input input-lg input-bordered flex items-center gap-2 font-medium w-fit z-20;
+}
+
+.search-input-focused{
+  @apply rounded-b-none;
+  border-top-left-radius: 2rem !important;
+  border-top-right-radius: 2rem !important;
+}
+
+.search-input-blurred{
+  @apply rounded-full;
+}
+
+.search-button{
+  @apply hover:cursor-pointer hover:text-primary;
+}
+
+.search-dropdown-container{
+  @apply dropdown-content bg-base-100 w-full pb-4;
+  border-bottom-left-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+}
+
+.search-dropdown-item{
+  @apply text-base w-fit;
+}
+
+tr:hover{
+  @apply bg-primary text-base-200 cursor-pointer;
+}
+
+tr:active{
+  @apply bg-primary text-base-200 cursor-pointer;
+  transform: scale(0.9);
+}
+
+td{
+  @apply py-2 px-4;
+}

@@ -27,14 +27,19 @@ export class EventService {
   }
 
   updateEvent(event: Event): Observable<Event> {
-    return this.http.put<Event>(this.URL + '/' + event.eventId, event);
+    return this.http.put<Event>(this.URL + '/' + event._id, event);
   }
 
   deleteEvent(id: number): Observable<Event> {
     return this.http.delete<Event>(this.URL + '/' + id);
   }
 
+  searchEvents(query: string): Observable<Event[]> {
+    return this.http.get<Event[]>(this.URL + '/search', { params: {query} });
+  }
+
   clearEvents(){
+    //TODO remove this
     console.log("Clearing events")
     return this.http.delete(this.URL);
   }

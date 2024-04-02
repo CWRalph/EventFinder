@@ -1,0 +1,7 @@
+.event-sidebar{
+  @apply py-20;
+}
+
+.event-sidebar-tabs{
+  @apply tabs tabs-lifted w-full;
+}

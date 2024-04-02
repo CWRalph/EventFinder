@@ -1,14 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
+
+export enum SidebarType {
+  Event = 'Event',
+  SavedEvents = 'SavedEvents',
+  MyEvents = 'MyEvents',
+  Friend = 'Friend',
+  Group = 'Group',
+  Membership = 'Membership',
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SidebarService {
-  private closeSidebar = new Subject<void>();
-  closeModal$ = this.closeSidebar.asObservable();
+  private sidebarType = new BehaviorSubject<SidebarType>(SidebarType.Event);
+  private sidebarVisibility: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
-  closeModals() {
-    this.closeSidebar.next();
+  constructor() {}
+
+  public openSidebar(sideBarType: SidebarType): void {
+    this.sidebarType.next(sideBarType);
+    this.sidebarVisibility.next(true);
+  }
+
+  public toggleSidebar(sideBarType: SidebarType): void {
+    if(this.sidebarType.value != sideBarType) {
+      this.sidebarVisibility.next(true);
+      this.sidebarType.next(sideBarType);
+    }else{
+      this.sidebarVisibility.next(!this.sidebarVisibility.value);
+    }
+  }
+
+  public closeSidebar(): void {
+    this.sidebarVisibility.next(false);
+  }
+
+  public getSidebarType(): Observable<SidebarType> {
+    return this.sidebarType.asObservable();
+  }
+
+  public getSidebarVisibility(): Observable<boolean> {
+    return this.sidebarVisibility.asObservable();
   }
 }

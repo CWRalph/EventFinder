@@ -54,6 +54,9 @@ const eventSchema = new mongoose.Schema({
     }
 });
 
+// Indicates what fields should be indexed for text search
+eventSchema.index({name: 'text', description: 'text', location: 'text'});
+
 // Define pre-hook middleware for group deletion - this cascades and deletes all references for users too
 groupSchema.pre('deleteOne', {document: true, query: false}, async function (next) {
     const groupId = this._id;
