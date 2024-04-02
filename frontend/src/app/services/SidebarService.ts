@@ -6,7 +6,6 @@ export enum SidebarType {
   SavedEvents = 'SavedEvents',
   MyEvents = 'MyEvents',
   Friend = 'Friend',
-  BrowseGroups = 'BrowseGroups',
   Group = 'Group',
   Membership = 'Membership',
 }

@@ -1,8 +1,8 @@
 import {Inject, Injectable} from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import {Group} from "@core/models/event";
 import {DOCUMENT} from "@angular/common";
+import {Group} from "@core/models/group";
 
 @Injectable({providedIn: 'root'})
 export class GroupService {

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Group, GroupMembership } from "@core/models/event";
 import {SidebarService, SidebarType} from '@app/services/SidebarService';
+import {Group, GroupMembership} from "@core/models/group";
 
 @Component({
     selector: 'app-group-button',

@@ -7,26 +7,10 @@ export type Friendship = {
   status: Status;
 }
 
-export type Group = {
-  _id: string;
-  groupName: string;
-  description: string;
-  visibility: Visibility;
-}
-
-export type GroupMembership = {
-  _id: string;
-  group: string;
-  user: string;
-  role: Role;
-}
-
 export type Coordinates = {
   x: number;
   y: number;
 };
-
-export type Role = 'owner' | 'admin' | 'member'
 
 export type Status = 'Pending' | 'Accepted' | 'Blocked'
 

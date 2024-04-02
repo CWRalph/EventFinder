@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { EventInfoComponent } from "../event-info/event-info.component";
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import {Event, GroupMembership} from "@core/models/event";
+import {Event} from "@core/models/event";
 import {GroupService} from "@app/services/GroupService";
 import {EventService} from "@core/services/EventService";
 import {GroupMembershipService} from "@services/GroupMembershipService";
+import {GroupMembership} from "@core/models/group";
 
 @Component({
   selector: 'app-membership-info',
@@ -43,7 +44,7 @@ export class MembershipInfoComponent {
   }
 
   leaveGroup() {
-    this.groupMembershipService.deleteGroupMembership(this.groupMembership._id).subscribe(res => {
+    this.groupMembershipService.deleteGroupMembership(this.groupMembership._id??"").subscribe(res => {
       console.log(res);
       window.location.reload();
     })
