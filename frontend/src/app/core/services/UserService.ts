@@ -10,7 +10,10 @@ import {DOCUMENT} from "@angular/common";
 export class UserService {
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
-  URL = 'http://localhost:3000/users';
+  private readonly LOCAL_URL = 'http://localhost:3000/users';
+  private readonly PROD_URL = this.document.location.origin + '/users';
+  URL = this.LOCAL_URL;
+
   //Check if the user has already logged in IE does there exist a cookie with their user ID
   public authenticate(): Observable<any> {
     return this.http.get(this.URL + '/login');

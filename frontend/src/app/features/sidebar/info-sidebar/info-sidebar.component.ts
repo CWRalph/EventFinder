@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarService, SidebarType } from '@services/SidebarService';
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
-import {takeUntil} from "rxjs";
 import {EventSidebarComponent} from "@features/sidebar-variants/event-sidebar/event-sidebar.component";
 import {GroupSidebarComponent} from "@features/sidebar-variants/group-sidebar/group-sidebar.component";
 

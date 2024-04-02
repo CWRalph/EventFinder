@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { GroupMembershipService } from '@app/services/GroupMembershipService';
 import { Router } from '@angular/router';
 import {Group, GroupMembership, Role} from "@core/models/event";
+import { Store, select } from '@ngrx/store';
+import { selectUser } from '@app/state/user/userReducer';
+import { User } from '@app/core/models/user';
 
 @Component({
     selector: 'app-group-info',
@@ -15,13 +18,31 @@ import {Group, GroupMembership, Role} from "@core/models/event";
 })
 export class GroupInfoComponent {
   @Input() group!: Group;
-  userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to use the user's userId
+  userID: string = "";
+  // userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to use the user's userId
   groupName: string = "";
   groupDescription: string = "";
   groupMemberships: GroupMembership[] = [];
   isInGroup: Boolean = false;
 
-  constructor(private groupService: GroupService, private groupMembershipService: GroupMembershipService, private router: Router) {}
+  private user?: User;
+
+  constructor(private groupService: GroupService, 
+              private groupMembershipService: GroupMembershipService, 
+              private router: Router,
+              private store: Store
+  ) {
+    this.store.pipe(
+      select(selectUser),
+    ).subscribe((user: User|undefined) => {
+      this.user = user;
+    });
+
+  }
+
+  private get currentUserId(){
+    return this.user?._id;
+  }
 
   ngOnInit() {
     this.groupService.getGroupbyId(this.group._id).subscribe(group => {

@@ -5,6 +5,7 @@ import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { UserActions } from '@state/user/userActions';
+import { GroupActions } from '@app/state/group/groupActions';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '@core/authentication/login/login.component';
 import { selectIsLoggedIn } from '@state/user/userReducer';
@@ -39,6 +40,14 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
   createEvent() {
     if (this.isLoggedIn) {
       this.store.dispatch(EventActions.createEvent());
+    } else {
+      this.login();
+    }
+  }
+
+  createGroup() {
+    if (this.isLoggedIn) {
+      this.store.dispatch(GroupActions.openCreateGroupDialog());
     } else {
       this.login();
     }

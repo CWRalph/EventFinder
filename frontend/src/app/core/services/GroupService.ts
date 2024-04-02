@@ -1,13 +1,12 @@
-import {Inject, Injectable} from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import {Group} from "@core/models/event";
+import {Inject, Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Group} from "@core/models/group";
+import { Observable } from 'rxjs';
 import {DOCUMENT} from "@angular/common";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class GroupService {
 
-  //TODO: Change this URL according to your backend
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
 
   private readonly LOCAL_URL = 'http://localhost:3000/groups';
@@ -18,8 +17,8 @@ export class GroupService {
     return this.http.get<Group[]>(this.URL);
   }
 
-  getGroupbyId(groupId: string): Observable<Group> {
-    return this.http.get<Group>(this.URL + '/' + groupId);
+  getGroup(_id: number): Observable<Group> {
+    return this.http.get<Group>(this.URL + '/' + _id);
   }
 
   createGroup(group: Group): Observable<Group> {
@@ -30,7 +29,12 @@ export class GroupService {
     return this.http.put<Group>(this.URL + '/' + group._id, group);
   }
 
-  deleteEvent(groupId: string): Observable<Group> {
-    return this.http.delete<Group>(this.URL + '/' + groupId);
+  deleteGroup(_id: number): Observable<Group> {
+    return this.http.delete<Group>(this.URL + '/' + _id);
+  }
+
+  clearGroups(){
+    console.log("Clearing groups")
+    return this.http.delete(this.URL);
   }
 }

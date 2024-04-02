@@ -3,7 +3,8 @@
   <app-event-sidebar *ngSwitchCase="SidebarType.MyEvents"></app-event-sidebar>
   <app-event-sidebar *ngSwitchCase="SidebarType.SavedEvents"></app-event-sidebar>
   <app-group-sidebar *ngSwitchCase="SidebarType.Group"></app-group-sidebar>
-<!--    <div class="friendship-info-card-container" *ngIf="infoType == 'Friends'">-->
+
+  <!--    <div class="friendship-info-card-container" *ngIf="infoType == 'Friends'">-->
 <!--        <div class="header">-->
 <!--           <h1>Friends</h1> -->
 <!--           <button (click)="createFriendship()"><i class="fa-solid fa-plus fa-2x"></i></button>-->
@@ -59,5 +60,43 @@
 <!--        <div class="info-card" *ngFor="let group of groups">-->
 <!--            <app-group-info [group]="group"></app-group-info>-->
 <!--        </div>-->
+<!--    </div>-->
+<!--    <div class="group-membership-card-container" *ngIf="infoType == 'Membership'">-->
+<!--        <div class="header">-->
+<!--            <h1>Group</h1>-->
+<!--        </div>-->
+<!--        <app-membership-info [groupMembership]="groupMembership"></app-membership-info>-->
+<!--    </div>-->
+
+<!--    <div class="group-card-container" *ngIf="infoType == 'Group'">-->
+<!--        <div class="header">-->
+<!--            <h1>Groups</h1>-->
+<!--            <button (click)="createGroup()"><i class="fa-solid fa-plus fa-2x"></i></button>-->
+<!--            -->
+<!--        </div>-->
+<!--        <div role="tablist" class="tabs tabs-lifted">-->
+<!--            <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="My Groups" />-->
+<!--            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">-->
+<!--                My Groups-->
+<!--                <div class="info-card" *ngFor="let group of groups">-->
+<!--                    <app-group-info [group]="group"></app-group-info>-->
+<!--                </div>-->
+<!--                -->
+<!--            </div>-->
+<!--          -->
+<!--            <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Following" checked />-->
+<!--            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">-->
+<!--                Following-->
+<!--            -->
+<!--            </div>-->
+<!--          -->
+<!--            <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Search" />-->
+<!--            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">-->
+<!--                Search-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--          -->
+<!--        -->
 <!--    </div>-->
 </div>
