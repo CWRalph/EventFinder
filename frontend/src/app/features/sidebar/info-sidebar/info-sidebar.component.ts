@@ -11,6 +11,8 @@ import { MembershipInfoComponent } from "../membership-info/membership-info.comp
 import { SidebarService } from '@app/services/SidebarService';
 import {User} from "@core/models/user";
 import {EventService} from "@core/services/EventService";
+import { Store } from '@ngrx/store';
+import { GroupActions } from '@app/state/group/groupActions';
 
 
 @Component({
@@ -38,7 +40,8 @@ export class InfoSidebarComponent {
   constructor(private eventService: EventService,
               private friendshipService: FriendshipService,
               private groupService: GroupService,
-              private sidebarService: SidebarService) {}
+              private sidebarService: SidebarService,
+              private store: Store) {}
 
   ngOnInit(): void {
     if (this.infoType == "Friends") {
@@ -93,7 +96,18 @@ export class InfoSidebarComponent {
   createFriendship() {}
 
   // TODO: how do we want to allow users to create a new group?
-  createGroup() {}
+  createGroup() {
+    // This allows users to make new group
+    this.store.dispatch(GroupActions.openCreateGroupDialog());
+
+    
+  }
+
+  // We need to display groups that you're a part of 
+  
+  // display groups you own
+
+  // search groups and join them
 
   // TODO: how do we want to allow users to create an event?
   createEvent() {}

@@ -18,6 +18,10 @@
       <mat-icon>add</mat-icon>
       Create Event
     </button>
+    <button class="navbar-button" (click)="createGroup()">
+      <mat-icon>add</mat-icon>
+      Create Group
+    </button>
     <button class="navbar-button">
       <mat-icon>favorite</mat-icon>
       Liked Events
@@ -32,6 +36,9 @@
     <div class="navbar-button-container">
       <button class="navbar-button" (click)="createEvent()">
           Create Event
+      </button>
+      <button class="navbar-button" (click)="createGroup()">
+        Create Group
       </button>
       <button class="navbar-button" (click)="login()">Login</button>
       <button class="navbar-button" (click)="register()">Register</button>

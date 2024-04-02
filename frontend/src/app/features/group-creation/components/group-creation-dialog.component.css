@@ -1,0 +1,21 @@
+.group-creation-modal{
+  @apply py-8 px-12 justify-center items-center flex flex-col;
+}
+
+.create-group-form{
+  @apply flex flex-col gap-4;
+}
+
+.input-label{
+  @apply input input-bordered flex items-center gap-2 w-full;
+}
+
+.group-icon{
+  transform: scale(2);
+}
+
+.group-icon:hover{
+  @apply bg-base-100 cursor-pointer;
+  transform: scale(2.1);
+
+}
