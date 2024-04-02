@@ -1,0 +1,20 @@
+<div class="group-creation-modal">
+  <h1 class="text-3xl font-bold p-4">Create Group</h1>
+  <form #myForm="ngForm" class="create-group-form">
+    <div>
+      <input class="input w-full" placeholder="Group name:" [(ngModel)]="groupData.groupName" name="groupName">
+    </div>
+    <div>
+      <textarea class="textarea w-full" placeholder="Group Description" [(ngModel)]="groupData.description" name="description"></textarea>
+    </div>
+    <div>
+      <select class="select w-full" [(ngModel)]="groupData.visibility" name="visibility">
+        <option value="Public" [selected]="groupData.visibility === 'Public'">Public</option>
+        <option value="Private" [selected]="groupData.visibility === 'Private'">Private</option>
+      </select>
+    </div>
+  </form><br><br>
+  <button class="btn btn-error w-full" [disabled]="myForm.invalid" (click)="onSubmit()">Save</button>
+  <button class="btn btn-primary w-full" (click)="cancel()">Cancel</button>
+
+</div>

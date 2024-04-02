@@ -8,13 +8,15 @@ import { UserReducer } from '@app/state/user/userReducer';
 import { UserEffects } from '@app/state/user/userEffects';
 import {EventEffects} from "@state/event/eventEffects";
 import { routes } from './app.routes';
+import { GroupReducer } from './state/group/groupReducer';
+import { GroupEffects } from './state/group/groupEffects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ user: UserReducer }),
-    provideEffects([UserEffects, EventEffects]),
+    provideStore({ user: UserReducer, group: GroupReducer }),
+    provideEffects([UserEffects, EventEffects, GroupEffects]),
     provideAnimations()
   ],
 };
