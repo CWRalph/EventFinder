@@ -1,0 +1,8 @@
+.group-sidebar{
+    @apply py-20;
+}
+  
+.group-sidebar-tabs{
+    @apply tabs tabs-lifted w-full;
+}
+  
