@@ -22,6 +22,9 @@ const groupSchema = new mongoose.Schema({
     visibility: {type: String, enum: ['Public', 'Private'], default: 'Public'},
 });
 
+// Indicates what fields should be indexed for text search
+groupSchema.index({groupName: 'text', description: 'text'});
+
 // For defining the relationship between userSchema and groupSchema
 const groupMembershipSchema = new mongoose.Schema({
     group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true},

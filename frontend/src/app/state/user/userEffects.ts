@@ -10,6 +10,7 @@ import { DialogStatus } from '@core/authentication/models/dialogStatus';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
 import {EventActions} from "@state/event/eventActions";
+import { GroupActions } from '../group/groupActions';
 
 //TODO remove these in favour of storing an auth token cookie
 const getLoginCookies = () => {
@@ -81,6 +82,7 @@ export class UserEffects {
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
 
             this.store.dispatch(EventActions.getEvents());
+            this.store.dispatch(GroupActions.getGroups());
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {

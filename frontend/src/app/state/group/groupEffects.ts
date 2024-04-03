@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {GroupCreationService} from "@features/group-creation/services/group-creation.service";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {GroupActions} from "@state/group/groupActions";
-import {catchError, map, mergeMap, of, tap} from "rxjs";
+import {catchError, map, mergeMap, of, switchMap, tap} from "rxjs";
 import {GroupService} from "@core/services/GroupService";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
@@ -34,7 +34,35 @@ export class GroupEffects {
           return GroupActions.createGroupSuccess({group})
         }),
         catchError((error)=>of(GroupActions.createGroupFailure()))
-      ))),
+      ))
+    ),
+  )
+
+  getGroups$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GroupActions.getGroups),
+      mergeMap(() => this.groupService.getGroups().pipe(
+        map((groups) => GroupActions.getGroupsSuccess({ groups })),
+        catchError(() => of(GroupActions.getGroupsFailure()))
+      ))
     )
+  );
+
+  queryGroups$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GroupActions.queryGroups),
+      switchMap(({query}) => {
+        if (!query) {
+          return of(GroupActions.emptyQueryGroupsFailure());
+        }
+        else {
+          return this.groupService.searchGroups(query).pipe(
+            map((groups) => GroupActions.queryGroupsSuccess({ groups })),
+            catchError(() => of(GroupActions.getGroupsFailure()))
+          );
+        }
+      })
+    )
+  );
 
 }

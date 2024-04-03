@@ -33,8 +33,10 @@ export class GroupService {
     return this.http.delete<Group>(this.URL + '/' + _id);
   }
 
-  clearGroups(){
-    console.log("Clearing groups")
-    return this.http.delete(this.URL);
+  searchGroups(query: string): Observable<Group[]> {
+    console.log(query);
+    return this.http.get<Group[]>(this.URL + '/search', { params: {query} });
+    // return this.http.get<Group[]>(this.URL);
   }
+
 }

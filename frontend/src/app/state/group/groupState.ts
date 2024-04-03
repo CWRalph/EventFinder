@@ -2,11 +2,15 @@ import {Group} from "@core/models/group";
 
 
 export interface GroupState{
-  userGroups: Group[];    //Groups owned by the user
-  fetchedGroups: Group[]; //Current fetched list of groups matching filters
+  myGroups: Group[];      //Groups owned by the user
+  followedGroups: Group[];  //Current fetched list of groups that the user has subscribed to
+  queriedGroups: Group[]; // list of queried groups
+  groups: Group[];        // generic list of all groups
 }
 
 export const initialGroupState : GroupState = {
-  userGroups: [],
-  fetchedGroups: []
+  myGroups: [],
+  followedGroups: [],
+  queriedGroups: [],
+  groups: [],
 }

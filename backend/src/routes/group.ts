@@ -39,6 +39,39 @@ groupRouter.get('/:id', async (req, res) => {
     }
 });
 
+groupRouter.get('/search', async (req, res) => {
+    const { query } = req.query as any;
+    console.log("WHAT THE RFUCK!!!")
+    console.log("The query is: ", query);
+
+    const pipeline = [
+        {
+        $search:{
+            index: 'GroupSearchIndex',
+            text: {
+                query,
+                path:['groupName', 'description'],
+                fuzzy:{}
+            }
+        }
+        },
+        {
+            $project:{
+               _id: 0,
+               score: { $meta: 'searchScore' },
+                groupName: 1,
+                description: 1,
+                location: 1,
+            }
+        }
+    ]
+
+    //Sort descending order
+    const result = await Group.aggregate(pipeline).sort({score:-1});
+    console.log("Search results: ", result);
+    res.status(200).json(result);
+});
+
 groupRouter.put('/:id', async (req, res) => {
     const {id} = req.params;
 
