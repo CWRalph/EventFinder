@@ -97,7 +97,10 @@ export class UserEffects {
             this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: user._id }));
 
             this.store.dispatch(FriendshipActions.getFriendships());
+            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: user._id }));
+            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: user._id }));
             
+
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {

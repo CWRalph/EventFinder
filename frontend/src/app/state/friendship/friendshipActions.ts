@@ -5,41 +5,48 @@ export const FriendshipActions = createActionGroup({
   source: 'FriendshipActions',
   events: {
     'Get Friendships': emptyProps(),
-    'Get My Friendships Success': props<{ friendships: Friendship[] }>(),
-    'Get Pending Friendships Success': props<{ friendships: Friendship[] }>(),
-
     'Get Friendships Success': props<{ friendships: Friendship[] }>(),
     'Get Friendships Failure': emptyProps(),
 
-    'Open Create Friendships Dialog': emptyProps(),
+    'Get User Friendships': props<{ userId: string }>(),
+    'Get User Friendships Success': props<{ friendships: Friendship[] }>(),
+    'Get User Friendships Failure': emptyProps(),
 
-    'Query Friendships': props<{ query: string }>(),
-    'Query Friendships Success': props<{ friendships: Friendship[] }>(),
-    'Empty Query Friendships Failure': emptyProps(),
-    'Query Friendships Failure': emptyProps(),
+    'Get Pending Friendships': props<{ userId: string }>(),
+    'Get Pending Friendships Success': props<{ friendships: Friendship[] }>(),
+    'Get Pending Friendships Failure': emptyProps(),
+
+   
+    // 'Open Create Friendships Dialog': emptyProps(),
+
+    // 'Query Friendships': props<{ query: string }>(),
+    // 'Query Friendships Success': props<{ friendships: Friendship[] }>(),
+    // 'Empty Query Friendships Failure': emptyProps(),
+    // 'Query Friendships Failure': emptyProps(),
 
     'Request Friendships': props<{ friendship: Friendship }>(),
+    'Request Friendships with Props': props<{ friendship: Friendship }>(),
     'Request Friendships Success': props<{ friendship: Friendship }>(),
     'Request Friendships Failure': emptyProps(),
 
-    'Remove Friendships': props<{ friendship: Friendship }>(),
-    'Remove Friendships Success': props<{ friendship: Friendship }>(),
-    'Remove Friendships Failure': emptyProps(),
+    // 'Remove Friendships': props<{ friendship: Friendship }>(),
+    // 'Remove Friendships Success': props<{ friendship: Friendship }>(),
+    // 'Remove Friendships Failure': emptyProps(),
 
     
-    'Create Friendships': emptyProps(),
-    'Create Friendships With Props': props<{ friendship: Friendship }>(),
-    'Create Friendships Success': props<{ friendship: Friendship }>(),
-    'Create Friendships Failure': emptyProps(),
+    'Create Friendship': emptyProps(),
+    'Create Friendship With Props': props<{ friendship: Friendship }>(),
+    'Create Friendship Success': props<{ friendship: Friendship }>(),
+    'Create Friendship Failure': emptyProps(),
 
 
-    'Update Friendships': props<{ friendship: Friendship }>(),
-    'Update Friendships Success': props<{ friendship: Friendship }>(),
-    'Update Friendships Failure': emptyProps(),
+    // 'Update Friendships': props<{ friendship: Friendship }>(),
+    // 'Update Friendships Success': props<{ friendship: Friendship }>(),
+    // 'Update Friendships Failure': emptyProps(),
 
-    'Delete Friendships': props<{ friendship: Friendship }>(),
-    'Delete Friendships Success': props<{ friendship: Friendship }>(),
-    'Delete Friendships Failure': emptyProps(),
+    // 'Delete Friendships': props<{ friendship: Friendship }>(),
+    // 'Delete Friendships Success': props<{ friendship: Friendship }>(),
+    // 'Delete Friendships Failure': emptyProps(),
 
     'Null Action': emptyProps(),
   },

@@ -61,7 +61,7 @@ export class FriendshipCreationService {
 
 
   public createFriendship(friendship: Friendship): void {
-    this.store.dispatch(FriendshipActions.createFriendshipsWithProps({friendship}));
+    this.store.dispatch(FriendshipActions.createFriendshipWithProps({friendship}));
   }
 
   // public closeDialog(){

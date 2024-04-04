@@ -35,28 +35,38 @@ export class FriendshipEffects {
         )
     );
 
-    // getMyFriendships$ = createEffect(() =>
-    //     this.actions$.pipe(
-    //     ofType(FriendshipActions.getMyFriendshipsSuccess),
-    //     mergeMap(() => this.friendshipService.getFriendshipsByUser().pipe(
-    //         map((friendships) => FriendshipActions.getFriendshipsSuccess({ friendships })),
-    //         catchError(() => of(FriendshipActions.getFriendshipsFailure()))
-    //     ))
-    //     )
-    // );
+    getUserFriendships$ = createEffect(() =>
+        this.actions$.pipe(
+        ofType(FriendshipActions.getUserFriendships),
+        mergeMap(({ userId }) => this.friendshipService.getFriendshipsByUser(userId).pipe(
+            map((friendships) => FriendshipActions.getUserFriendshipsSuccess({ friendships })),
+            catchError(() => of(FriendshipActions.getUserFriendshipsFailure()))
+        ))
+        )
+    );
 
-  createFriendshipWithProps$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(FriendshipActions.createFriendshipsWithProps),
-      mergeMap(({ friendship }) => this.friendshipService.createFriendship(friendship).pipe(
-        map((friendship)=>{
-            console.log(friendship);
-            return FriendshipActions.createFriendshipsSuccess({friendship})
-        }),
-        catchError((error)=>of(FriendshipActions.createFriendshipsFailure()))
-      ))
-    ),
-  )
+    createFriendshipWithProps$ = createEffect(() =>
+        this.actions$.pipe(
+        ofType(FriendshipActions.createFriendshipWithProps),
+        mergeMap(({ friendship }) => this.friendshipService.createFriendship(friendship).pipe(
+            map((friendship) => FriendshipActions.createFriendshipSuccess({ friendship })),
+            catchError(() => of(FriendshipActions.createFriendshipFailure()))
+        ))
+        )
+    );
+
+//   createFriendshipWithProps$ = createEffect(() =>
+//     this.actions$.pipe(
+//       ofType(FriendshipActions.createFriendshipsWithProps),
+//       mergeMap(({ friendship }) => this.friendshipService.createFriendship(friendship).pipe(
+//         map((friendship)=>{
+//             console.log(friendship);
+//             return FriendshipActions.createFriendshipsSuccess({friendship})
+//         }),
+//         catchError((error)=>of(FriendshipActions.createFriendshipsFailure()))
+//       ))
+//     ),
+//   )
 
 //   getFriendships$ = createEffect(() =>
 //     this.actions$.pipe(

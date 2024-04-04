@@ -8,13 +8,25 @@ export const FriendshipReducer = createReducer(
   initialFriendshipState,
   
   // Create, Update, Delete reducers for friendships
-  on(FriendshipActions.getFriendshipsSuccess, (state, {friendships}) => ({
+  on(FriendshipActions.createFriendshipSuccess, (state, {friendship}) => ({
     ...state,
-    // friendships: [...state.friendships, friendship],
-    myFriendships: friendships
+    friendships: [...state.friendships, friendship],
+    myFriendships: [...state.myFriendships, friendship],
+    pendingFriendships: [...state.pendingFriendships, friendship]
   })),
 
-  on(FriendshipActions.getMyFriendshipsSuccess, (state, {friendships}) => ({
+
+
+
+
+
+
+  on(FriendshipActions.getFriendshipsSuccess, (state, {friendships}) => ({
+    ...state,
+    friendships: friendships,
+  })),
+
+  on(FriendshipActions.getUserFriendshipsSuccess, (state, {friendships}) => ({
     ...state,
     myFriendships: friendships
   }))
@@ -76,20 +88,20 @@ export const FriendshipReducer = createReducer(
 export const friendshipFeatureKey = 'friendship';
 const selectFriendshipFeature = createFeatureSelector<FriendshipState>(friendshipFeatureKey);
 
-// export const selectFriendships = createSelector(
-//     selectFriendshipFeature,
-//     (state)=>state.friendships
-// )
+export const selectFriendships = createSelector(
+    selectFriendshipFeature,
+    (state)=>state.friendships
+)
 
 export const selectMyFriendships = createSelector(
     selectFriendshipFeature,
     (state)=>state.myFriendships
 )
 
-// export const selectPendingFriendships = createSelector(
-//     selectFriendshipFeature,
-//     (state)=>state.pendingFriendships
-// )
+export const selectPendingFriendships = createSelector(
+    selectFriendshipFeature,
+    (state)=>state.pendingFriendships
+)
 
 // export const selectMutualFriendships = createSelector(
 //     selectFriendshipFeature,
