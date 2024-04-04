@@ -1,0 +1,8 @@
+.friend-sidebar{
+    @apply py-20;
+}
+  
+.friend-sidebar-tabs{
+    @apply tabs tabs-lifted w-full;
+}
+  

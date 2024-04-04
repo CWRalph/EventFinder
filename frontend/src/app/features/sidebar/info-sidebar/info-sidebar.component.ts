@@ -6,19 +6,21 @@ import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
 import {EventSidebarComponent} from "@features/sidebar-variants/event-sidebar/event-sidebar.component";
 import {GroupSidebarComponent} from "@features/sidebar-variants/group-sidebar/group-sidebar.component";
 import {MembershipSidebarComponent} from "@features/sidebar-variants/membership-sidebar/membership-sidebar.component";
+import { FriendSidebarComponent } from "../../sidebar-variants/friend-sidebar/friend-sidebar.component";
 
 @Component({
-  selector: 'app-info-sidebar',
-  standalone: true,
-  templateUrl: './info-sidebar.component.html',
-  styleUrl: './info-sidebar.component.css',
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    EventSidebarComponent,
-    GroupSidebarComponent,
-    MembershipSidebarComponent,
-  ],
+    selector: 'app-info-sidebar',
+    standalone: true,
+    templateUrl: './info-sidebar.component.html',
+    styleUrl: './info-sidebar.component.css',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        EventSidebarComponent,
+        GroupSidebarComponent,
+        MembershipSidebarComponent,
+        FriendSidebarComponent
+    ]
 })
 export class InfoSidebarComponent
   extends SubscriberComponent
