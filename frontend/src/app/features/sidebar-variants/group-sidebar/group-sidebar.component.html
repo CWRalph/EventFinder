@@ -1,33 +1,28 @@
 <div class="group-sidebar">
   <div class="header">
-    <h1>Groups
-      <button (click)="createGroup()"><i class="fa-solid fa-plus fa-2x"></i></button>
-    </h1>
-
+    <h1 class="header-title">Groups</h1>
+    <button class="header-button" (click)="createGroup()">
+        <i class="fa-solid fa-plus fa-2x"></i>
+    </button>
   </div>
   <div role="tablist" class="tabs tabs-lifted">
-    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="My Groups" />
+    <input type="radio" name="my_tabs_2" role="tab" class="tab text-red-500 tab-custom-1" aria-label="Search" />
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
       <!-- TODO: Figure out how to get the events here from the followed list etc -->
       <app-group-info *ngFor="let group of queriedGroupsList" [group]="group"></app-group-info>
-      <!-- My Groups 
-      <div class="info-card" *ngFor="let group of myGroupsList">
-        <app-group-info></app-group-info>
-      </div> -->
-      
-
     </div>
 
-    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Following" checked />
+    <input type="radio" name="my_tabs_2" role="tab" class="tab text-green-500 tab-custom-2" aria-label="Following" checked />
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-      Following
+      
       <app-group-info *ngFor="let group of followedGroupsList" [group]="group"></app-group-info>
     </div>
 
-    <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Search" />
+    <input type="radio" name="my_tabs_2" role="tab" class="tab text-blue-500 tab-custom-3" aria-label="My Groups" />
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-      Search
+
       <app-group-info *ngFor="let group of myGroupsList" [group]="group"></app-group-info>
     </div>
+
   </div>
 </div>

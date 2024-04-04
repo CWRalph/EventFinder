@@ -5,4 +5,44 @@
 .group-sidebar-tabs{
     @apply tabs tabs-lifted w-full;
 }
-  
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: black;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-button {
+    background-color: #1f7217; /* Example button color */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header-button:hover {
+    background-color: #cfdd04; /* Example hover color */
+    color: black;
+}
+
+.tab-custom-1 {
+    background-color: #f0f0f0; /* Example background color for tabs */
+}
+
+.tab-custom-2 {
+    background-color: #e5f1df; /* Example background color for tabs */
+}
+
+.tab-custom-3 {
+    background-color: #c8dbf1; /* Example background color for tabs */
+}

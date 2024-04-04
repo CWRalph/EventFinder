@@ -44,10 +44,10 @@ export class MembershipInfoComponent {
   }
 
   leaveGroup() {
-    this.groupMembershipService.deleteGroupMembership(this.groupMembership._id??"").subscribe(res => {
-      console.log(res);
-      window.location.reload();
-    })
+    // this.groupMembershipService.deleteGroupMembership(this.groupMembership._id??"").subscribe(res => {
+    //   console.log(res);
+    //   window.location.reload();
+    // })
   }
 
 }
