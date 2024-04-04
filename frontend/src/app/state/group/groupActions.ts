@@ -4,34 +4,15 @@ import {Group} from "@core/models/group";
 export const GroupActions = createActionGroup({
   source: 'GroupActions',
   events: {
+    // CRUD
     'Get Groups': emptyProps(),
-    'Get My Groups Success': props<{ groups: Group[] }>(),
-    'Get Followed Groups Success': props<{ groups: Group[] }>(),
-
     'Get Groups Success': props<{ groups: Group[] }>(),
     'Get Groups Failure': emptyProps(),
 
-    'Open Create Group Dialog': emptyProps(),
-
-    'Query Groups': props<{ query: string }>(),
-    'Query Groups Success': props<{ groups: Group[] }>(),
-    'Empty Query Groups Failure': emptyProps(),
-    'Query Groups Failure': emptyProps(),
-
-    'Follow Group': props<{ group: Group }>(),
-    'Follow Group Success': props<{ group: Group }>(),
-    'Follow Group Failure': emptyProps(),
-
-    'Unfollow Group': props<{ group: Group }>(),
-    'Unfollow Group Success': props<{ group: Group }>(),
-    'Unfollow Group Failure': emptyProps(),
-
-    
     'Create Group': emptyProps(),
     'Create Group With Props': props<{ group: Group }>(),
     'Create Group Success': props<{ group: Group }>(),
     'Create Group Failure': emptyProps(),
-
 
     'Update Group': props<{ group: Group }>(),
     'Update Group Success': props<{ group: Group }>(),
@@ -41,17 +22,41 @@ export const GroupActions = createActionGroup({
     'Delete Group Success': props<{ group: Group }>(),
     'Delete Group Failure': emptyProps(),
 
+    // Action Dialog
+    'Open Create Group Dialog': emptyProps(),
+
+    // For populating the three different tabs
+    // SEARCH ALL GROUPS
+    'Query Groups': props<{ query: string }>(),
+    'Query Groups Success': props<{ groups: Group[] }>(),
+    'Empty Query Groups Failure': emptyProps(),
+    'Query Groups Failure': emptyProps(),
+
+    'Get User Groups': props<{ userId: string }>(),
+    'Get User Groups Success': props<{ groups: Group[] }>(),
+    'Get User Groups Failure': emptyProps(),
+
+    'Get User Owned Groups': props<{ userId: string }>(),
+    'Get User Owned Groups Success': props<{ groups: Group[] }>(),
+    'Get User Owned Groups Failure': emptyProps(),
+
+    'Get User Non Member Groups': props<{ userId: string }>(),
+    'Get User Non Member Groups Success': props<{ groups: Group[] }>(),
+    'Get User Non Member Groups Failure': emptyProps(),
+
+    // TODO: SHOW GROUPS THAT I MADE
+    'Get My Groups Success': props<{ groups: Group[] }>(),
+
+
+    // Actions only for executing follow and unfollow
+    'Follow Group': props<{ group: Group }>(),
+    'Follow Group Success': props<{ group: Group }>(),
+    'Follow Group Failure': emptyProps(),
+
+    'Unfollow Group': props<{ group: Group }>(),
+    'Unfollow Group Success': props<{ group: Group }>(),
+    'Unfollow Group Failure': emptyProps(),
+
     'Null Action': emptyProps(),
   },
 });
-
-// const groupSchema = new mongoose.Schema({
-//   groupName: {type: String, required: true},
-//   description: {type: String},
-//   visibility: {type: String, enum: ['Public', 'Private'], default: 'Public'},
-// });
-// const groupMembershipSchema = new mongoose.Schema({
-//   group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true},
-//   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-//   role: {type: String, enum: ['owner', 'admin', 'member'], required: true},
-// });

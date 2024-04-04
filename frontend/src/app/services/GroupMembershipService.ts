@@ -14,23 +14,5 @@ export class GroupMembershipService {
   private readonly PROD_URL = this.document.location.origin + '/group-memberships';
   URL = this.LOCAL_URL;
 
-  getGroupMemberships(): Observable<GroupMembership[]> {
-    return this.http.get<GroupMembership[]>(this.URL);
-  }
 
-  getGroupMembershipsByUser(userId: string): Observable<GroupMembership[]> {
-    return this.http.get<GroupMembership[]>(this.URL + '/' + userId);
-  }
-
-  createGroupMembership(membership: GroupMembership): Observable<GroupMembership> {
-    return this.http.post<GroupMembership>(this.URL, membership);
-  }
-
-  updateGroupMembership(membership: GroupMembership): Observable<GroupMembership> {
-    return this.http.put<GroupMembership>(this.URL + '/' + membership._id, membership);
-  }
-
-  deleteGroupMembership(membershipId: string): Observable<GroupMembership> {
-    return this.http.delete<GroupMembership>(this.URL + '/' + membershipId);
-  }
 }

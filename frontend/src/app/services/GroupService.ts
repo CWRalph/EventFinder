@@ -14,23 +14,4 @@ export class GroupService {
   private readonly PROD_URL = this.document.location.origin + '/groups';
   URL = this.LOCAL_URL;
 
-  getGroups(): Observable<Group[]> {
-    return this.http.get<Group[]>(this.URL);
-  }
-
-  getGroupbyId(groupId: string): Observable<Group> {
-    return this.http.get<Group>(this.URL + '/' + groupId);
-  }
-
-  createGroup(group: Group): Observable<Group> {
-    return this.http.post<Group>(this.URL, group);
-  }
-
-  updateGroup(group: Group): Observable<Group> {
-    return this.http.put<Group>(this.URL + '/' + group._id, group);
-  }
-
-  deleteEvent(groupId: string): Observable<Group> {
-    return this.http.delete<Group>(this.URL + '/' + groupId);
-  }
 }

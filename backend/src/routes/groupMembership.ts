@@ -35,20 +35,6 @@ groupMembershipRouter.post('/', async (req, res) => {
     }
 });
 
-groupMembershipRouter.get('/:id', async (req, res) => {
-    const {id} = req.params;
-
-    try {
-        const membership = await Membership.findById(id);
-        if (!membership) {
-            return notFound(res, 'Membership');
-        }
-        res.json(membership);
-    } catch (e) {
-        catchError(e, res);
-    }
-});
-
 groupMembershipRouter.put('/:id', async (req, res) => {
     const {id} = req.params;
 
@@ -63,18 +49,48 @@ groupMembershipRouter.put('/:id', async (req, res) => {
     }
 });
 
-groupMembershipRouter.delete('/:id', async (req, res) => {
-    const {id} = req.params;
+groupMembershipRouter.get('/user/:userId', async (req, res) => {
+    const { userId } = req.params;
 
     try {
-        const deletedMembership = await Membership.findByIdAndDelete(id);
-        if (!deletedMembership) {
-            return notFound(res, 'Membership');
+        const memberships = await Membership.find({ user: userId });
+        if (!memberships || memberships.length === 0) {
+            return notFound(res, 'Memberships');
         }
-        res.json({message: 'Membership deleted'});
+        res.json(memberships);
     } catch (e) {
         catchError(e, res);
     }
 });
+
+groupMembershipRouter.delete('/user/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const deletedMembership = await Membership.findOneAndDelete({ user: userId });
+        if (!deletedMembership) {
+            return notFound(res, 'Membership');
+        }
+        res.json({ message: 'Membership deleted' });
+    } catch (e) {
+        catchError(e, res);
+    }
+});
+
+groupMembershipRouter.delete('/user/:userId/group/:groupId', async (req, res) => {
+    const { userId, groupId } = req.params;
+
+    try {
+        const deletedMembership = await Membership.findOneAndDelete({ user: userId, group: groupId });
+        if (!deletedMembership) {
+            return notFound(res, 'Membership');
+        }
+        res.json({ message: 'Membership deleted' });
+    } catch (e) {
+        catchError(e, res);
+    }
+});
+
+
 
 export default groupMembershipRouter;

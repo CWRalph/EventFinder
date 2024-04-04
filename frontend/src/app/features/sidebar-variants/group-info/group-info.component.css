@@ -26,6 +26,33 @@ h1 {
   font-weight: 700;
 }
 
+.button-container {
+  display: flex; /* Use flexbox for horizontal alignment */
+  gap: 10px; /* Adjust the gap between buttons as needed */
+}
+
+/* Optional: If you want the buttons to take up equal space */
+.button-container button {
+  flex: 1; /* Distribute available space equally among buttons */
+}
+
+.leave-btn {
+  width: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  transition: background-color 0.3s transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.leave-btn:hover {
+  opacity: 80%;
+  box-shadow: none;
+  transform: scale(0.95);
+}
+
 .join-btn, .joined-btn {
   width: 100px;
   padding: 10px;
@@ -46,4 +73,21 @@ h1 {
 .joined-btn {
   box-shadow: none;
   cursor: default;
+}
+
+.edit-btn, .delete-btn {
+  width: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  opacity: 80%;
+  box-shadow: none;
+  transform: scale(0.95);
 }

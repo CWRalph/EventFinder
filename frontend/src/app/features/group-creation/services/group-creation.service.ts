@@ -49,10 +49,17 @@ export class GroupCreationService {
     }
   }
 
-  private openGroupCreatorDialog(group: Group){
+  private openGroupCreatorDialog(group?: Group, isEditing: boolean = false) {
     this.dialog.open(GroupCreationDialogComponent, {
-      data: group
+      data: {
+        group,
+        isEditing
+      }
     });
+  }
+
+  public openGroupEditor(group: Group) {
+    this.openGroupCreatorDialog(group, true); // Pass isEditing as true for editing
   }
 
   public openGroupCreator(){
@@ -61,7 +68,14 @@ export class GroupCreationService {
 
 
   public createGroup(group: Group): void {
+    group.userID = localStorage.getItem('userID')??'';
     this.store.dispatch(GroupActions.createGroupWithProps({group}));
+  }
+
+  public updateGroup(group: Group): void {
+    group.userID = localStorage.getItem('userID') ?? '';
+    this.store.dispatch(GroupActions.updateGroup({ group }));
+    this.closeDialog();
   }
 
   public closeDialog(){

@@ -1,13 +1,29 @@
+
 <div class="card bg-base-100">
   <!-- Event image goes here -->
   <div class="temp-img"></div>
   <h1 class="group-name"> {{ groupName }} </h1>
   <p class="group-description"> {{ groupDescription }} </p>
 
-  <div class="join" *ngIf="!isInGroup; else showJoinedButton">
+  <div *ngIf="!isInGroup && !isGroupOwner; else showJoinedOrOwnerButtons">
     <button class="join-btn bg-success text-neutral" (click)="joinGroup()">JOIN</button>
   </div>
-  <ng-template #showJoinedButton>
-    <button class="joined-btn bg-neutral"><i class="fa-regular fa-circle-check"></i> JOINED</button>
+  <ng-template #showJoinedOrOwnerButtons>
+    <div *ngIf="isInGroup; else showOwnerButtons">
+      <div class="button-container">
+        <button class="joined-btn bg-neutral"><i class="fa-regular fa-circle-check"></i> JOINED</button>
+        <button class="leave-btn bg-error text-neutral" (click)="leaveGroup()">LEAVE</button>
+      </div>
+    </div>
+    <ng-template #showOwnerButtons>
+      <div *ngIf="isGroupOwner">
+        <div class="button-container">
+          <button class="edit-btn bg-warning text-neutral" (click)="editGroup()">EDIT</button>
+          <button class="delete-btn bg-error text-neutral" (click)="deleteGroup()">DELETE</button>
+        </div>
+      </div>
+    </ng-template>
   </ng-template>
+  
 </div>
+

@@ -17,17 +17,20 @@ import { FriendshipActions } from '../friendship/friendshipActions';
 const getLoginCookies = () => {
   return {
     email: localStorage.getItem('email')??"",
-    password: localStorage.getItem('pw')??""
+    password: localStorage.getItem('pw')??"",
+    userID: localStorage.getItem('userID')??""
   }
 }
-const setLoginCookies = (email:string, password:string) => {
+const setLoginCookies = (email:string, password:string, userID: string) => {
   localStorage.setItem('email', email);
   localStorage.setItem('pw', password);
+  localStorage.setItem('userID', userID);
 }
 
 const clearLoginCookies = () => {
   localStorage.removeItem('email');
   localStorage.removeItem('pw');
+  localStorage.removeItem('userID');
 }
 /////////////////////////////////////////////////////////////////
 
@@ -71,6 +74,8 @@ export class UserEffects {
     ),
   );
 
+  // NOTE TO TJ: ALWAYS ADD THE THING YOU'RE LOOKING FOR HERE. LIKE THE DATA YOU WANT FOR USER! 
+  // FOR EXAMPLE, their groups, their friends etc. 
   //Attempt to log the user in, getting a bad response from the backend represents a failed login attempt
   loginUserWithProps$ = createEffect(() =>
     this.actions$.pipe(
@@ -79,12 +84,20 @@ export class UserEffects {
         this.userService.loginWithEmailPassword(email, password).pipe(
           map((user: User) => {
             this.dialog.closeAll();
-            setLoginCookies(email, password);
+            setLoginCookies(email, password, user._id);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
 
+            console.log(user._id);
             this.store.dispatch(EventActions.getEvents());
             this.store.dispatch(GroupActions.getGroups());
+
+            // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
+            this.store.dispatch(GroupActions.getUserGroups({ userId: user._id }));
+            this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: user._id }));
+            this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: user._id }));
+
             this.store.dispatch(FriendshipActions.getFriendships());
+            
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {
@@ -117,7 +130,7 @@ export class UserEffects {
         this.userService.register(username, password, email).pipe(
           map((user: User) => {
             this.dialog.closeAll();
-            setLoginCookies(email, password);
+            setLoginCookies(email, password, user._id);
             this.snackBar.open("Registration Successful", "Dismiss", { duration: 5000 });
             return UserActions.registerUserSuccess({ user })
           }),
