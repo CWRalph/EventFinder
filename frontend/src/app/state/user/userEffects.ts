@@ -11,6 +11,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
 import {EventActions} from "@state/event/eventActions";
 import { GroupActions } from '../group/groupActions';
+import { FriendshipActions } from '../friendship/friendshipActions';
 
 //TODO remove these in favour of storing an auth token cookie
 const getLoginCookies = () => {
@@ -83,6 +84,7 @@ export class UserEffects {
 
             this.store.dispatch(EventActions.getEvents());
             this.store.dispatch(GroupActions.getGroups());
+            this.store.dispatch(FriendshipActions.getFriendships());
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {

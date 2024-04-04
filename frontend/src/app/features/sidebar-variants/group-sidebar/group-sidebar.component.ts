@@ -28,7 +28,11 @@ export class GroupSidebarComponent
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
       (groups) => this.followedGroups = groups);
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectQueriedGroups)).subscribe(
-      (groups) => this.queriedGroups = groups);
+      (groups) => this.queriedGroups = groups
+      );
+      this.unsubscribeOnDestroy<Group[]>(this.store.select(selectQueriedGroups)).subscribe(
+        (groups) => console.log("Here:   " + groups)
+        );
     this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
       (query) => {
         this.store.dispatch(GroupActions.queryGroups({query}));
