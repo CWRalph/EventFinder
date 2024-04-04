@@ -44,9 +44,10 @@ export const FriendshipActions = createActionGroup({
     // 'Update Friendships Success': props<{ friendship: Friendship }>(),
     // 'Update Friendships Failure': emptyProps(),
 
-    // 'Delete Friendships': props<{ friendship: Friendship }>(),
-    // 'Delete Friendships Success': props<{ friendship: Friendship }>(),
-    // 'Delete Friendships Failure': emptyProps(),
+    'Delete Friendship': emptyProps(),
+    'Delete Friendship With Props': props<{ friendship: Friendship }>(),
+    'Delete Friendship Success': props<{ friendship: Friendship }>(),
+    'Delete Friendship Failure': emptyProps(),
 
     'Null Action': emptyProps(),
   },

@@ -20,9 +20,8 @@ import { Status } from '@core/models/event';
     imports: [CommonModule, EventInfoComponent]
 })
 export class FriendInfoComponent {
-  @Input() friendID: string = "";
+  @Input() friend!: User;
 
-  friend!: User;
   username: string = "";
 
   displayStyle = "none";
@@ -46,12 +45,14 @@ export class FriendInfoComponent {
     }
 
   ngOnInit() {
+    console.log(this.friend)
+    this.username = this.friend.username
 
-    this.userService.getUser(this.friendID).subscribe(user => {
-      console.log(user)
-      this.friend = user
-      this.username = user.username
-    })
+    // this.userService.getUser(this.friendID).subscribe(user => {
+    //   // console.log(user)
+    //   this.friend = user
+    //   this.username = user.username
+    // })
 
     // this.eventService.getEvents().subscribe(events => {
     //   for (let i = 0; i < events.length; i++) {
@@ -67,18 +68,18 @@ export class FriendInfoComponent {
   }
 
   sendFriendRequest(friend: User) {
-    // console.log(user)
+    console.log(friend)
     if (!this.user) {
       return;
     }
-    let user2 = this.user._id;
-    let user1 = friend._id;
+    let user2 = this.user;
+    let user1 = friend;
     let status: Status = 'Pending';
     let newFriendship: Friendship = { user1, user2, status } 
     this.friendshipCreationService.createFriendship(newFriendship);
+  }
 
+  cancelFriendRequest(friend: User) {
 
-    
-    
   }
 }

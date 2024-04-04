@@ -25,6 +25,8 @@ export class FriendshipEffects {
 //     { dispatch: false}
 //   )
 
+    // Get
+
     getFriendships$ = createEffect(() =>
         this.actions$.pipe(
         ofType(FriendshipActions.getFriendships),
@@ -45,6 +47,19 @@ export class FriendshipEffects {
         )
     );
 
+    getPendingFriendships$ = createEffect(() =>
+    this.actions$.pipe(
+        ofType(FriendshipActions.getPendingFriendships),
+        mergeMap(({ userId }) => this.friendshipService.getFriendshipsByUser(userId).pipe(
+            map(friendships => friendships.filter(friendship => friendship.status === 'Pending')),
+            map((friendships) => FriendshipActions.getPendingFriendshipsSuccess({ friendships })),
+            catchError(() => of(FriendshipActions.getPendingFriendshipsFailure()))
+        ))
+    )
+);
+
+    // Create
+
     createFriendshipWithProps$ = createEffect(() =>
         this.actions$.pipe(
         ofType(FriendshipActions.createFriendshipWithProps),
@@ -54,6 +69,9 @@ export class FriendshipEffects {
         ))
         )
     );
+
+    // Delete
+    
 
 //   createFriendshipWithProps$ = createEffect(() =>
 //     this.actions$.pipe(

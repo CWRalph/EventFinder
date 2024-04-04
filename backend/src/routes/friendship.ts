@@ -31,7 +31,7 @@ const hitNotifier = async (user1Id: string, user2Id: string, url: string, res: e
 
 friendshipRouter.get('/', async (req, res) => {
     try {
-        const friendships = await Friendship.find();
+        const friendships = await Friendship.find().populate('user1 user2', 'username email'); // Optionally populate user details;
         res.json(friendships);
     } catch (e) {
         catchError(e, res);
@@ -76,7 +76,7 @@ friendshipRouter.get('/:id', async (req, res) => {
     const {id} = req.params;
 
     try {
-        const friendship = await Friendship.findById(id);
+        const friendship = await Friendship.findById(id).populate('user1 user2', 'username email'); // Optionally populate user details;
         if (!friendship) {
             return notFound(res, 'Friendship');
         }

@@ -8,19 +8,25 @@ export const FriendshipReducer = createReducer(
   initialFriendshipState,
   
   // Create, Update, Delete reducers for friendships
-  on(FriendshipActions.createFriendshipSuccess, (state, {friendship}) => ({
-    ...state,
-    friendships: [...state.friendships, friendship],
-    myFriendships: [...state.myFriendships, friendship],
-    pendingFriendships: [...state.pendingFriendships, friendship]
-  })),
+    on(FriendshipActions.createFriendshipSuccess, (state, {friendship}) => ({
+        ...state,
+        friendships: [...state.friendships, friendship],
+        myFriendships: [...state.myFriendships, friendship],
+        pendingFriendships: [...state.pendingFriendships, friendship]
+    })),
+
+    on(FriendshipActions.deleteFriendshipSuccess, (state, {friendship}) => ({
+        ...state,
+        myFriendships: state.myFriendships.filter((f:Friendship) => f._id !== friendship._id),
+        pendingFriendships: state.myFriendships.filter((f:Friendship) => f._id !== friendship._id)
+    })),
 
 
 
 
 
 
-
+  // Get
   on(FriendshipActions.getFriendshipsSuccess, (state, {friendships}) => ({
     ...state,
     friendships: friendships,
@@ -29,7 +35,12 @@ export const FriendshipReducer = createReducer(
   on(FriendshipActions.getUserFriendshipsSuccess, (state, {friendships}) => ({
     ...state,
     myFriendships: friendships
-  }))
+  })),
+
+  on(FriendshipActions.getPendingFriendshipsSuccess, (state, {friendships}) => ({
+    ...state,
+    pendingFriendships: friendships,
+  })),
 //   on(FriendshipActions.updateFriendshipsSuccess, (state, {friendship}) => ({
 //     ...state,
 //     friendships: state.friendships.map((f:Friendship) => f._id === friendship._id ? friendship : f),

@@ -3,7 +3,7 @@ import { Status } from '@core/models/event';
 
 export type Friendship = {
     _id?: string;
-    user1: string;
-    user2: string;
+    user1: User;
+    user2: User;
     status: Status;
 }
