@@ -24,14 +24,17 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class GroupCreationDialogComponent {
   public groupData!: Group;
+  public isEditing: boolean = false;
 
   constructor(
     private groupCreationService: GroupCreationService,
     private dialogRef: MatDialogRef<GroupCreationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Group,
+    @Inject(MAT_DIALOG_DATA) public  data: { group: Group, isEditing: boolean },
     private snackbar: MatSnackBar
   ) {
-    this.groupData = data;
+    // Create a new mutable object from data.group
+    this.groupData = { ...data.group };
+    this.isEditing = data.isEditing;
   }
 
   cancel() {
@@ -40,7 +43,11 @@ export class GroupCreationDialogComponent {
   }
 
   onSubmit() {
-    this.groupCreationService.createGroup(this.groupData);
+    if (this.isEditing) {
+      this.groupCreationService.updateGroup(this.groupData);
+    } else {
+      this.groupCreationService.createGroup(this.groupData);
+    }
   }
 
 

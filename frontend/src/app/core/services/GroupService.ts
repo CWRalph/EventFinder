@@ -13,12 +13,13 @@ export class GroupService {
   private readonly PROD_URL = this.document.location.origin + '/groups';
   URL = this.LOCAL_URL;
 
+  // Gets all the groups
   getGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(this.URL);
   }
 
-  getGroup(_id: number): Observable<Group> {
-    return this.http.get<Group>(this.URL + '/' + _id);
+  getGroupbyId(groupId: string): Observable<Group> {
+    return this.http.get<Group>(this.URL + '/' + groupId);
   }
 
   createGroup(group: Group): Observable<Group> {
@@ -28,15 +29,31 @@ export class GroupService {
   updateGroup(group: Group): Observable<Group> {
     return this.http.put<Group>(this.URL + '/' + group._id, group);
   }
+  // updateGroup(group: Group): Observable<Group> {
+  //   return this.http.put<Group>(`${this.URL}/${group._id}`, group);
+  // }
 
-  deleteGroup(_id: number): Observable<Group> {
-    return this.http.delete<Group>(this.URL + '/' + _id);
+  deleteGroup(groupId: string): Observable<Group> {
+    return this.http.delete<Group>(this.URL + '/' + groupId);
   }
 
   searchGroups(query: string): Observable<Group[]> {
-    console.log(query);
     return this.http.get<Group[]>(this.URL + '/search', { params: {query} });
-    // return this.http.get<Group[]>(this.URL);
+  }
+
+  // gets the groups that the user is a member of
+  getUserGroups(userId: string): Observable<Group[]> {
+    return this.http.get<Group[]>(`${this.URL}/user/${userId}/groups`);
+  }
+
+  // gets the groups that the user is a member of
+  getUserOwnedGroups(userId: string): Observable<Group[]> {
+    return this.http.get<Group[]>(`${this.URL}/user/${userId}/group-owner`);
+  }
+
+  // gets groups that the user is not a member
+  getUserNonMemberGroups(userId: string): Observable<Group[]> {
+    return this.http.get<Group[]>(`${this.URL}/user/${userId}/nonmember`);
   }
 
 }

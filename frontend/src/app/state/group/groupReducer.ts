@@ -7,23 +7,28 @@ import { Group } from "@app/core/models/group";
 export const GroupReducer = createReducer(
   initialGroupState,
   
+  // CRUD
   // Create, Update, Delete reducers for groups
   on(GroupActions.createGroupSuccess, (state, {group}) => ({
     ...state,
     groups: [...state.groups, group],
-    myGroups: [...state.myGroups, group]
+    myGroups: [...state.myGroups, group],
+    queriedGroups: [...state.groups, group]
   })),
   on(GroupActions.updateGroupSuccess, (state, {group}) => ({
     ...state,
     groups: state.groups.map((g:Group) => g._id === group._id ? group : g),
+    queriedGroups: state.groups.map((g:Group) => g._id === group._id ? group : g),
     myGroups: state.myGroups.map((g:Group) => g._id === group._id ? group : g),
   })),
   on(GroupActions.deleteGroupSuccess, (state, {group}) => ({
     ...state,
     groups: state.groups.filter((g:Group) => g._id !== group._id),
+    queriedGroups: state.groups.filter((g:Group) => g._id !== group._id),
     myGroups: state.myGroups.filter((g:Group) => g._id !== group._id),
   })),
 
+  // SEARCH ALL KINDS OF GROUPS
   // Read group reducers - i.e., fetch groups with distinctions
   // Get all groups
   on(GroupActions.getGroupsSuccess, (state, {groups}) => ({
@@ -37,23 +42,30 @@ export const GroupReducer = createReducer(
     myGroups: groups
   })),
 
-  // Get followed groups
-  on(GroupActions.getFollowedGroupsSuccess, (state, { groups }) => ({
-    ...state,
-    followedGroups: groups,
-  })),
-
-  // empty state for queried groups
+  // empty state for queried groups. Otherwise, fulfilled query
   on(GroupActions.emptyQueryGroupsFailure, (state) => ({
     ...state,
     queriedGroups: state.groups
   })),
-  
-  // otherwise, fulfilled query
   on(GroupActions.queryGroupsSuccess, (state, {groups}) => ({
     ...state,
     queriedGroups: groups
   })),
+
+  // WORKING - get user groups
+  on(GroupActions.getUserGroupsSuccess, (state, { groups }) => ({
+    ...state,
+    followedGroups: groups,
+  })),  
+  on(GroupActions.getUserNonMemberGroupsSuccess, (state, { groups }) => ({
+    ...state,
+    queriedGroups: groups,
+  })),
+  on(GroupActions.getUserOwnedGroupsSuccess, (state, { groups }) => ({
+    ...state,
+    myGroups: groups,
+  })),
+  
 
 
   // Following/Unfollowing groups
@@ -65,6 +77,7 @@ export const GroupReducer = createReducer(
     ...state,
     followedGroups: state.followedGroups.filter((g:Group) => g._id !== group._id)
   })),
+
  
 )
 

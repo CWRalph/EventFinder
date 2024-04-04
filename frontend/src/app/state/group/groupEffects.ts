@@ -38,6 +38,18 @@ export class GroupEffects {
     ),
   )
 
+  updateGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GroupActions.updateGroup),
+      mergeMap(({ group }) =>
+        this.groupService.updateGroup(group).pipe(
+          map((updatedGroup) => GroupActions.updateGroupSuccess({ group: updatedGroup })),
+          catchError(() => of(GroupActions.updateGroupFailure()))
+        )
+      )
+    )
+  );
+
   getGroups$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GroupActions.getGroups),
@@ -64,5 +76,43 @@ export class GroupEffects {
       })
     )
   );
+
+  getUserGroups$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GroupActions.getUserGroups),
+      mergeMap(({ userId }) =>
+        this.groupService.getUserGroups(userId).pipe(
+          map(groups => GroupActions.getUserGroupsSuccess({ groups })),
+          catchError(() => of(GroupActions.getUserGroupsFailure()))
+        )
+      )
+    )
+  );
+
+  getUserOwnedGroups$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GroupActions.getUserOwnedGroups),
+      mergeMap(({ userId }) =>
+        this.groupService.getUserOwnedGroups(userId).pipe(
+          map(groups => GroupActions.getUserOwnedGroupsSuccess({ groups })),
+          catchError(() => of(GroupActions.getUserOwnedGroupsFailure()))
+        )
+      )
+    )
+  );
+
+  getUserNonMemberGroups$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GroupActions.getUserNonMemberGroups),
+      mergeMap(({ userId }) =>
+        this.groupService.getUserNonMemberGroups(userId).pipe(
+          map(groups => GroupActions.getUserNonMemberGroupsSuccess({ groups })),
+          catchError(() => of(GroupActions.getUserNonMemberGroupsFailure()))
+        )
+      )
+    )
+  );
+
+
 
 }

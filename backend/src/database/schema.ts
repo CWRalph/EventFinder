@@ -29,14 +29,14 @@ groupSchema.index({groupName: 'text', description: 'text'});
 const groupMembershipSchema = new mongoose.Schema({
     group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    role: {type: String, enum: ['owner', 'admin', 'member'], required: true},
+    role: {type: String, enum: ['owner', 'member'], default:'member', required: true},
 });
 
 // Define Friendship schema between two users
 const friendshipSchema = new mongoose.Schema({
     user1: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     user2: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-    status: {type: String, enum: ['Pending', 'Accepted', 'Blocked'], default: 'Pending'},
+    status: {type: String, enum: ['Pending', 'Accepted'], default: 'Pending'},
 });
 
 const eventSchema = new mongoose.Schema({

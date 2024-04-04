@@ -23,13 +23,13 @@ export class StaticSidebarComponent {
 
   ngOnInit() {
     // TODO: get the current user's userId, then check their memberships
-    this.groupMembershipService.getGroupMemberships().subscribe(memberships => {
-      for (let i = 0; i < memberships.length; i++) {
-        if (memberships[i].user == this.userID) {
-          this.groupMemberships.push(memberships[i]);
-        }
-      }
-    });
+    // this.groupMembershipService.getGroupMemberships().subscribe(memberships => {
+    //   for (let i = 0; i < memberships.length; i++) {
+    //     if (memberships[i].user == this.userID) {
+    //       this.groupMemberships.push(memberships[i]);
+    //     }
+    //   }
+    // });
   }
 
   protected readonly SidebarType = SidebarType;

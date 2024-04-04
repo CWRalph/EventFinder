@@ -5,7 +5,8 @@ import {GroupActions} from "@state/group/groupActions";
 import {Group} from "@core/models/group";
 import {GroupInfoComponent} from "@features/sidebar-variants/group-info/group-info.component";
 import { selectFollowedGroups, selectMyGroups, selectQueriedGroups } from '@app/state/group/groupReducer';
-
+import { selectUser } from '@app/state/user/userReducer';
+import { User } from '@app/core/models/user';
 @Component({
   selector: 'app-group-sidebar',
   standalone: true,

@@ -11,6 +11,7 @@ export type Group = {
   description: string;      // anything
   visibility: Visibility;   // drop down - public or private
   owner?: string;
+  userID?:string;
 }
 
 export type GroupMembership = {
