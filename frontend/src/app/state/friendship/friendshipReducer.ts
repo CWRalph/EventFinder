@@ -119,7 +119,7 @@ export const selectPendingFriendships = createSelector(
 //     (state)=>state.mutualFriendships
 // )
 
-// export const selectQueriedGroups = createSelector(
-//     selectFriendshipFeature,
-//     (state)=>state.queriedFriendships
-// );
+export const selectQueriedFriendships = createSelector(
+    selectFriendshipFeature,
+    (state)=>state.queriedFriendships
+);

@@ -5,10 +5,18 @@ import { FriendInfoComponent } from "../friend-info/friend-info.component";
 import { FriendshipActions } from '@app/state/friendship/friendshipActions';
 import { Friendship } from '@app/core/models/friendship';
 import { User } from '@app/core/models/user';
-import { selectFriendships, selectMyFriendships, selectPendingFriendships } from '@app/state/friendship/friendshipReducer';
+import { selectFriendships, selectMyFriendships, selectPendingFriendships, selectQueriedFriendships } from '@app/state/friendship/friendshipReducer';
 import { selectUser } from '@app/state/user/userReducer';
 import { Store, select } from '@ngrx/store';
 import { filter } from 'rxjs';
+
+export enum FriendType {
+    MyFriends = "MyFriends",
+    PendingIncoming = "PendingIncoming",
+    PendingOutgoing = "PendingOutgoing",
+    Pending = "Pending",
+    Search = "Search"
+}
 
 @Component({
     selector: 'app-friend-sidebar',
@@ -28,12 +36,18 @@ implements OnInit{
 
     private pendingFriendships: Friendship[] = [];
     private pendingFriends: User[] = [];
+    private incomingPendingFriends: User[] = [];
+    private outgoingPendingFriends: User[] = [];
+
+    private queriedFriendships: Friendship[] = [];
+    private queriedFriends: User[] = [];
     
     userID: string = '';
     private user?: User;
 
-    ngOnInit() {
+    private searchQuery: string = "";
 
+    ngOnInit() {
         this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
             this.user = user;
         });
@@ -47,6 +61,19 @@ implements OnInit{
         this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectFriendships)).subscribe(
             (friendships) => this.allFriendships = friendships
         )
+
+        this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectQueriedFriendships)).subscribe(
+            (friendships) => this.queriedFriendships = friendships
+        );
+            // this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectQueriedFriendships)).subscribe(
+            //   (friendships) => console.log("Here:   " + friendships)
+            //   );
+          this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
+            (query) => {
+              this.store.dispatch(FriendshipActions.queryFriendships({query}));
+              this.searchQuery = query;
+            }
+          )
 
         // this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectMyFriendships)).subscribe(
         //     (friendships) => console.log(friendships)
@@ -72,24 +99,63 @@ implements OnInit{
         return this.myFriends;
     }
 
-
     get myPendingFriendshipList(): Friendship[] {
         return this.pendingFriendships;
     }
 
     get myPendingFriendsList(): User[] {
-        // console.log(this.pendingFriendships)
+        this.pendingFriends = [];
         this.pendingFriendships.forEach(friendship => {
-
             if (!this.pendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
                 console.log(friendship.user1)
                 this.pendingFriends.push(friendship.user1);
             } else if (!this.pendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
                 this.pendingFriends.push(friendship.user2);
             }
-        });
 
+
+        });
         return this.pendingFriends;
+    }
+
+    get incomingPendingFriendsList(): User[] {
+        // if user1 == current user, then it is an incoming friend request (the current user is receiving the request)
+        // should be able to accept or deny the request
+
+        this.incomingPendingFriends = [];
+        let incomingFriendshipRequests: Friendship[] = this.pendingFriendships.filter(friendship => friendship.user1._id === this.user?._id);
+        
+
+        incomingFriendshipRequests.forEach(friendship => {
+            if (!this.incomingPendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
+                // console.log(friendship.user1)
+                this.incomingPendingFriends.push(friendship.user1);
+            } else if (!this.incomingPendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
+                this.incomingPendingFriends.push(friendship.user2);
+            }
+
+
+        });
+        return this.incomingPendingFriends
+    }
+
+    get outgoingPendingFriendsList(): User[] {
+        // if user2 == current user, then it is an outgoing friend request (the current user is sending the request)
+        this.outgoingPendingFriends = [];
+        let outgoingFriendshipRequests: Friendship[] = this.pendingFriendships.filter(friendship => friendship.user2._id === this.user?._id);
+        
+
+        outgoingFriendshipRequests.forEach(friendship => {
+            if (!this.outgoingPendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
+                // console.log(friendship.user1)
+                this.outgoingPendingFriends.push(friendship.user1);
+            } else if (!this.outgoingPendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
+                this.outgoingPendingFriends.push(friendship.user2);
+            }
+
+
+        });
+        return this.outgoingPendingFriends
     }
 
     get recommendedFriendsList(): User[] {
@@ -116,4 +182,6 @@ implements OnInit{
 
         return this.recommendedFriends;
     }
+
+    protected readonly FriendType = FriendType;
 }

@@ -19,10 +19,10 @@ export const FriendshipActions = createActionGroup({
    
     // 'Open Create Friendships Dialog': emptyProps(),
 
-    // 'Query Friendships': props<{ query: string }>(),
-    // 'Query Friendships Success': props<{ friendships: Friendship[] }>(),
-    // 'Empty Query Friendships Failure': emptyProps(),
-    // 'Query Friendships Failure': emptyProps(),
+    'Query Friendships': props<{ query: string }>(),
+    'Query Friendships Success': props<{ friendships: Friendship[] }>(),
+    'Empty Query Friendships Failure': emptyProps(),
+    'Query Friendships Failure': emptyProps(),
 
     'Request Friendships': props<{ friendship: Friendship }>(),
     'Request Friendships with Props': props<{ friendship: Friendship }>(),
@@ -45,7 +45,7 @@ export const FriendshipActions = createActionGroup({
     // 'Update Friendships Failure': emptyProps(),
 
     'Delete Friendship': emptyProps(),
-    'Delete Friendship With Props': props<{ friendship: Friendship }>(),
+    'Delete Friendship With Props': props<{ friendshipId: string }>(),
     'Delete Friendship Success': props<{ friendship: Friendship }>(),
     'Delete Friendship Failure': emptyProps(),
 

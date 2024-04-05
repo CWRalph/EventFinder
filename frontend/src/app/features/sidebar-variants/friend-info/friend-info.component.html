@@ -1,9 +1,23 @@
 <div class="card bg-base-100">
     <div class="card-container">
         <!-- TODO: possibly add profile photo -->
-        <h1> {{ username }} </h1>
+        <h1> {{ friendName }} </h1>
         <!-- <button (click)="toggleEventList()"><i class="fa-solid fa-angle-down"></i></button> -->
-        <button (click)="sendFriendRequest(friend)"><i class="fa-solid fa-user-plus"></i></button>
+        <div class="container">
+            <div *ngIf="tabType == FriendType.Search; else sentRequestOrExisting" class="button-container">
+                <button (click)="sendFriendRequest(friend)"><i class="fa-solid fa-user-plus"></i></button>
+            </div>
+            <ng-template #sentRequestOrExisting>
+                <div *ngIf="">
+
+                </div>
+                <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark"></i></button>
+
+                <ng-template #incomingRequest>
+
+                </ng-template>
+            </ng-template>
+        </div>
 
     </div>
 </div>

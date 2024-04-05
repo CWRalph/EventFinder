@@ -71,6 +71,15 @@ export class FriendshipEffects {
     );
 
     // Delete
+    deleteFriendshipWithProps$ = createEffect(() =>
+    this.actions$.pipe(
+    ofType(FriendshipActions.deleteFriendshipWithProps),
+    mergeMap(({ friendshipId }) => this.friendshipService.deleteFriendship(friendshipId).pipe(
+        map((friendship) => FriendshipActions.deleteFriendshipSuccess({ friendship })),
+        catchError(() => of(FriendshipActions.deleteFriendshipFailure()))
+    ))
+    )
+);
     
 
 //   createFriendshipWithProps$ = createEffect(() =>
