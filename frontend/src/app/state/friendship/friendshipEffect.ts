@@ -15,15 +15,6 @@ export class FriendshipEffects {
     private friendshipService: FriendshipService,
   ) {}
   
-//   openCreateGroupDialog$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(GroupActions.openCreateGroupDialog),
-//       tap(()=>{
-//         this.friendshipCreationService.openGroupCreator();
-//       }),
-//     ),
-//     { dispatch: false}
-//   )
 
     // Get
 
@@ -48,15 +39,15 @@ export class FriendshipEffects {
     );
 
     getPendingFriendships$ = createEffect(() =>
-    this.actions$.pipe(
-        ofType(FriendshipActions.getPendingFriendships),
-        mergeMap(({ userId }) => this.friendshipService.getFriendshipsByUser(userId).pipe(
-            map(friendships => friendships.filter(friendship => friendship.status === 'Pending')),
-            map((friendships) => FriendshipActions.getPendingFriendshipsSuccess({ friendships })),
-            catchError(() => of(FriendshipActions.getPendingFriendshipsFailure()))
-        ))
-    )
-);
+        this.actions$.pipe(
+            ofType(FriendshipActions.getPendingFriendships),
+            mergeMap(({ userId }) => this.friendshipService.getFriendshipsByUser(userId).pipe(
+                map(friendships => friendships.filter(friendship => friendship.status === 'Pending')),
+                map((friendships) => FriendshipActions.getPendingFriendshipsSuccess({ friendships })),
+                catchError(() => of(FriendshipActions.getPendingFriendshipsFailure()))
+            ))
+        )
+    );
 
     // Create
 
@@ -72,54 +63,31 @@ export class FriendshipEffects {
 
     // Delete
     deleteFriendshipWithProps$ = createEffect(() =>
-    this.actions$.pipe(
-    ofType(FriendshipActions.deleteFriendshipWithProps),
-    mergeMap(({ friendshipId }) => this.friendshipService.deleteFriendship(friendshipId).pipe(
-        map((friendship) => FriendshipActions.deleteFriendshipSuccess({ friendship })),
-        catchError(() => of(FriendshipActions.deleteFriendshipFailure()))
-    ))
-    )
-);
+        this.actions$.pipe(
+        ofType(FriendshipActions.deleteFriendshipWithProps),
+        mergeMap(({ friendshipId }) => this.friendshipService.deleteFriendship(friendshipId).pipe(
+            map((friendship) => FriendshipActions.deleteFriendshipSuccess({ friendship })),
+            catchError(() => of(FriendshipActions.deleteFriendshipFailure()))
+        ))
+        )
+    );
+
+  // Query
+
+    queryFriendships$ = createEffect(() =>
+        this.actions$.pipe(
+        ofType(FriendshipActions.queryFriendships),
+        switchMap(({query}) => {
+            if(!query) {
+                return of(FriendshipActions.emptyQueryFriendshipsFailure());
+            } else {
+                return this.friendshipService.searchFriendships(query).pipe(
+                    map((friendships) => FriendshipActions.queryFriendshipsSuccess({friendships})),
+                    catchError(() => of(FriendshipActions.getFriendshipsFailure()))
+                )
+            }
+        })
+        )
+    );
     
-
-//   createFriendshipWithProps$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(FriendshipActions.createFriendshipsWithProps),
-//       mergeMap(({ friendship }) => this.friendshipService.createFriendship(friendship).pipe(
-//         map((friendship)=>{
-//             console.log(friendship);
-//             return FriendshipActions.createFriendshipsSuccess({friendship})
-//         }),
-//         catchError((error)=>of(FriendshipActions.createFriendshipsFailure()))
-//       ))
-//     ),
-//   )
-
-//   getFriendships$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(FriendshipActions.getFriendships),
-//       mergeMap(() => this.friendshipService.getFriendships().pipe(
-//         map((friendships) => FriendshipActions.getFriendshipsSuccess({ friendships })),
-//         catchError(() => of(FriendshipActions.getFriendshipsFailure()))
-//       ))
-//     )
-//   );
-
-//   queryGroups$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(FriendshipActions.queryFriendships),
-//       switchMap(({query}) => {
-//         if (!query) {
-//           return of(FriendshipActions.emptyQueryFriendshipsFailure());
-//         }
-//         else {
-//           return this.friendshipService.searchGroups(query).pipe(
-//             map((groups) => GroupActions.queryGroupsSuccess({ groups })),
-//             catchError(() => of(GroupActions.getGroupsFailure()))
-//           );
-//         }
-//       })
-//     )
-//   );
-
 }

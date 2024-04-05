@@ -12,13 +12,15 @@ export const FriendshipReducer = createReducer(
         ...state,
         friendships: [...state.friendships, friendship],
         myFriendships: [...state.myFriendships, friendship],
-        pendingFriendships: [...state.pendingFriendships, friendship]
+        pendingFriendships: [...state.pendingFriendships, friendship],
+        queriedFriendships: [...state.queriedFriendships, friendship]
     })),
 
     on(FriendshipActions.deleteFriendshipSuccess, (state, {friendship}) => ({
         ...state,
         myFriendships: state.myFriendships.filter((f:Friendship) => f._id !== friendship._id),
-        pendingFriendships: state.myFriendships.filter((f:Friendship) => f._id !== friendship._id)
+        pendingFriendships: state.myFriendships.filter((f:Friendship) => f._id !== friendship._id),
+        queriedFriendships: state.myFriendships.filter((f:Friendship) => f._id !== friendship._id)
     })),
 
 
@@ -41,6 +43,23 @@ export const FriendshipReducer = createReducer(
     ...state,
     pendingFriendships: friendships,
   })),
+
+   // empty state for queried groups. Otherwise, fulfilled query
+   on(FriendshipActions.emptyQueryFriendshipsFailure, (state) => ({
+    ...state,
+    queriedFriendships: state.friendships
+  })),
+  on(FriendshipActions.queryFriendshipsSuccess, (state, {friendships}) => ({
+    ...state,
+    queriedFriendships: friendships
+  })),
+
+  
+
+
+
+
+
 //   on(FriendshipActions.updateFriendshipsSuccess, (state, {friendship}) => ({
 //     ...state,
 //     friendships: state.friendships.map((f:Friendship) => f._id === friendship._id ? friendship : f),
@@ -113,11 +132,6 @@ export const selectPendingFriendships = createSelector(
     selectFriendshipFeature,
     (state)=>state.pendingFriendships
 )
-
-// export const selectMutualFriendships = createSelector(
-//     selectFriendshipFeature,
-//     (state)=>state.mutualFriendships
-// )
 
 export const selectQueriedFriendships = createSelector(
     selectFriendshipFeature,

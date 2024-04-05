@@ -9,6 +9,7 @@ import { selectFriendships, selectMyFriendships, selectPendingFriendships, selec
 import { selectUser } from '@app/state/user/userReducer';
 import { Store, select } from '@ngrx/store';
 import { filter } from 'rxjs';
+import { selectUsers } from '@app/state/users/usersReducer';
 
 export enum FriendType {
     MyFriends = "MyFriends",
@@ -28,6 +29,8 @@ export enum FriendType {
 export class FriendSidebarComponent 
 extends AbstractSidebarComponent 
 implements OnInit{
+    private allUsers: User[] = [];
+
     private allFriendships: Friendship[] = [];
     private recommendedFriends: User[] = [];
 
@@ -52,6 +55,15 @@ implements OnInit{
             this.user = user;
         });
 
+        this.unsubscribeOnDestroy<User[]>(this.store.select(selectUsers)).subscribe(
+            (users) => this.allUsers = users
+        )
+
+        // this.unsubscribeOnDestroy<User[]>(this.store.select(selectUsers)).subscribe(
+        //     (users) => console.log("HERERERERE" + users)
+        // )
+
+
         this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectMyFriendships)).subscribe(
             (friendships) => this.myFriendships = friendships
         )
@@ -65,15 +77,17 @@ implements OnInit{
         this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectQueriedFriendships)).subscribe(
             (friendships) => this.queriedFriendships = friendships
         );
-            // this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectQueriedFriendships)).subscribe(
-            //   (friendships) => console.log("Here:   " + friendships)
-            //   );
-          this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
-            (query) => {
-              this.store.dispatch(FriendshipActions.queryFriendships({query}));
-              this.searchQuery = query;
-            }
-          )
+
+        this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectQueriedFriendships)).subscribe(
+            (friendships) => console.log("queriedFriends:   " + friendships)
+        );
+
+        this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
+        (query) => {
+            this.store.dispatch(FriendshipActions.queryFriendships({query}));
+            this.searchQuery = query;
+        }
+        )
 
         // this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectMyFriendships)).subscribe(
         //     (friendships) => console.log(friendships)
@@ -190,6 +204,7 @@ implements OnInit{
         let recommendedUserIds: string[] = [];
         let allFriends: User[] = [];
         let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
+        let myFriendIds: string[] = this.myFriendsList.map(friend => friend._id)
         this.allFriendships.forEach(friendship => {
 
             if (!recommendedUserIds.includes(friendship.user1._id)) {
@@ -205,10 +220,30 @@ implements OnInit{
 
         this.recommendedFriends = allFriends.filter(friend => {
             // Check if the friend is not in the pending friends list
-            return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
+            return !pendingFriendIds.includes(friend._id) && !myFriendIds.includes(friend._id) && friend._id !== this.user?._id;
         });
 
         return this.recommendedFriends;
+    }
+
+    get usersList(): User[] {
+        let unfilteredUsers = this.allUsers;
+        let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
+        let myFriendIds: string[] = this.myFriendsList.map(friend => friend._id)
+
+        this.allUsers = unfilteredUsers.filter(user => {
+            return !pendingFriendIds.includes(user._id) && !myFriendIds.includes(user._id) && user._id !== this.user?._id;
+        });
+
+        return this.allUsers;
+    }
+
+    get queriedFriendshipList(): Friendship[] {
+        return this.queriedFriendships;
+    }
+
+    get queriedFriendsList(): User[] {
+        return this.queriedFriends;
     }
 
     protected readonly FriendType = FriendType;

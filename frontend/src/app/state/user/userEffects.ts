@@ -12,6 +12,7 @@ import {Store} from "@ngrx/store";
 import {EventActions} from "@state/event/eventActions";
 import { GroupActions } from '../group/groupActions';
 import { FriendshipActions } from '../friendship/friendshipActions';
+import { UsersActions } from '../users/usersActions';
 
 //TODO remove these in favour of storing an auth token cookie
 const getLoginCookies = () => {
@@ -99,6 +100,8 @@ export class UserEffects {
             this.store.dispatch(FriendshipActions.getFriendships());
             this.store.dispatch(FriendshipActions.getUserFriendships({ userId: user._id }));
             this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: user._id }));
+
+            this.store.dispatch(UsersActions.getUsers());
             
 
             return UserActions.loginUserSuccess({ user })

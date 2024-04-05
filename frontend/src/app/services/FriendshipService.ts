@@ -38,4 +38,9 @@ export class FriendshipService {
   deleteFriendship(friendshipId: string): Observable<Friendship> {
     return this.http.delete<Friendship>(this.URL + '/' + friendshipId);
   }
+
+  searchFriendships(query: string): Observable<Friendship[]> {
+    return this.http.get<Friendship[]>(this.URL + '/search', { params: {query} });
+  }
+
 }

@@ -49,20 +49,44 @@ export class FriendInfoComponent {
     }
 
   ngOnInit() {
+    switch (this.tabType) {
+      case FriendType.MyFriends:
+        // no need to check for private vs public events
+        this.eventService.getEvents().subscribe(events => {
+          events.forEach(event => {
+            if (event.owner == this.friend._id) {
+              this.friendEvents.push(event)
+            }
+          })
+    
+        });
+        break;
+      case FriendType.PendingIncoming,
+            FriendType.PendingOutgoing,
+            FriendType.Search:
+            // only show public events if users are not friends
+            this.eventService.getEvents().subscribe(events => {
+              events.forEach(event => {
+                if (event.visibility == "Public" && event.owner == this.friend._id) {
+                  this.friendEvents.push(event)
+                }
+              })
+        
+            });
+            break;
+      default:
+        this.eventService.getEvents().subscribe(events => {
+          events.forEach(event => {
+            if (event.visibility == "Public" && event.owner == this.friend._id) {
+              this.friendEvents.push(event)
+            }
+          })
+    
+        });
+        break;
 
-    // this.userService.getUser(this.friendID).subscribe(user => {
-    //   // console.log(user)
-    //   this.friend = user
-    //   this.username = user.username
-    // })
+    }
 
-    // this.eventService.getEvents().subscribe(events => {
-    //   for (let i = 0; i < events.length; i++) {
-    //     if (events[i].owner == this.friend._id) {
-    //       this.friendEvents.push(events[i]);
-    //     }
-    //   }
-    // });
   }
 
   get friendName() {
