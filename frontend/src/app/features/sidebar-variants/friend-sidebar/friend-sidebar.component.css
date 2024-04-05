@@ -5,4 +5,9 @@
 .friend-sidebar-tabs{
     @apply tabs tabs-lifted w-full;
 }
-  
+
+h1 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}

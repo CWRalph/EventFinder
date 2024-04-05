@@ -6,13 +6,17 @@
       </div>
   
       <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Pending" checked />
-      <!-- <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">Tab content 2</div> -->
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-        <h1>Friend Requests</h1>
-        <app-friend-info *ngFor="let friend of incomingPendingFriendsList" [friend]="friend" [tabType]="FriendType.PendingIncoming"></app-friend-info>
-        <h1>Sent Requests</h1>
-        <app-friend-info *ngFor="let friend of outgoingPendingFriendsList" [friend]="friend" [tabType]="FriendType.PendingOutgoing"></app-friend-info>
-      </div>
+        <div *ngIf="incomingPendingFriendsList.length > 0">
+            <h1>Friend Requests</h1>
+            <app-friend-info *ngFor="let friend of incomingPendingFriendsList" [friend]="friend" [tabType]="FriendType.PendingIncoming"></app-friend-info>
+        </div>
+
+        <div *ngIf="outgoingPendingFriendsList.length > 0">
+            <h1>Sent Requests</h1>
+            <app-friend-info *ngFor="let friend of outgoingPendingFriendsList" [friend]="friend" [tabType]="FriendType.PendingOutgoing"></app-friend-info>
+        </div>
+    </div>
   
       <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Search" />
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
