@@ -31,7 +31,8 @@ export class FriendshipService {
   }
 
   updateFriendship(friendship: Friendship): Observable<Friendship> {
-    return this.http.put<Friendship>(this.URL + '/' + friendship._id + '/update-status', friendship.status);
+    console.log(friendship)
+    return this.http.put<Friendship>(this.URL + '/' + friendship._id + '/update-status', { status: friendship.status });
   }
 
   deleteFriendship(friendshipId: string): Observable<Friendship> {

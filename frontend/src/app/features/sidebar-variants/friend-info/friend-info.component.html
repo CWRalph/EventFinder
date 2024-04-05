@@ -8,13 +8,13 @@
                 <button (click)="sendFriendRequest(friend)"><i class="fa-solid fa-user-plus"></i></button>
             </div>
             <ng-template #sentRequestOrExisting>
-                <div *ngIf="">
-
+                <div *ngIf="tabType == FriendType.PendingIncoming; else outgoingRequest" class="incoming-req-btns">
+                    <button (click)="acceptFriendRequest(friend)"><i class="fa-solid fa-check text-success"></i></button>
+                    <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error pl-10"></i></button>
                 </div>
-                <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark"></i></button>
-
-                <ng-template #incomingRequest>
-
+                
+                <ng-template #outgoingRequest>
+                    <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error"></i></button>
                 </ng-template>
             </ng-template>
         </div>

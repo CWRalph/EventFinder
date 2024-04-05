@@ -78,8 +78,8 @@ export class FriendInfoComponent {
     if (!this.user) {
       return;
     }
-    let user2 = this.user; // sender of friend request
     let user1 = friend; // receiver of friend request
+    let user2 = this.user; // sender of friend request
     let status: Status = 'Pending'; // initial status until accepted or rejected
     let newFriendship: Friendship = { user1, user2, status } 
 
@@ -121,6 +121,47 @@ export class FriendInfoComponent {
         });
       }
     });
+  }
+
+  // update the status to accepted
+  acceptFriendRequest(friend: User) {
+    if (!this.user) {
+      return;
+    }
+
+    // let friendshipId: string | undefined;
+    let userId: string = this.user._id;
+
+    //user1 receiver
+    //user2 sender
+    // let id = 
+    // let user1 = this.user; // receiver of friend request
+    // let user2 = friend; // sender of friend request
+    // let status: Status = "Accepted"; // initial status until accepted or rejected
+    // let updatedFriendship: Friendship = { user1, user2, status } 
+
+    this.friendshipService.getFriendshipsByUser(this.user._id).subscribe((friendships) => {
+      friendships.forEach((friendship) => {
+        console.log("HERERERERERE")
+        console.log(friendship)
+        if (friendship.user1._id == this.user?._id && friendship.user2._id == friend._id) {
+          friendship.status = "Accepted";
+          console.log(friendship)
+          this.friendshipService.updateFriendship(friendship).subscribe((res) => {
+            console.log(res)
+
+            // this.store.dispatch(FriendshipActions.getFriendships());
+            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userId }));
+            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userId }));
+            this.cdr.detectChanges();
+          })
+        }
+      })
+
+
+    })
+
+    // this.friendshipService.updateFriendship()
   }
 
   protected readonly FriendType = FriendType;

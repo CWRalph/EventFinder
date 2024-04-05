@@ -96,7 +96,35 @@ implements OnInit{
     }
 
     get myFriendsList(): User[] {
+        // console.log(this.myFriendships)
+        // this.myFriendships.filter(friendship => {
+            
+        // })
+
+        let myFriendshipUserIds: string[] = [];
+        let allMyFriends: User[] = [];
+        let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
+        this.myFriendships.forEach(friendship => {
+
+            if (!myFriendshipUserIds.includes(friendship.user1._id)) {
+                allMyFriends.push(friendship.user1);
+                myFriendshipUserIds.push(friendship.user1._id); // Add user ID to the list
+            }
+            // Check user2
+            if (!myFriendshipUserIds.includes(friendship.user2._id)) {
+                allMyFriends.push(friendship.user2);
+                myFriendshipUserIds.push(friendship.user2._id); // Add user ID to the list
+            }
+        });
+
+        this.myFriends = allMyFriends.filter(friend => {
+            // Check if the friend is not in the pending friends list
+            return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
+        });
+
+        // console.log(this.myFriends)
         return this.myFriends;
+        // return this.myFriends;
     }
 
     get myPendingFriendshipList(): Friendship[] {
@@ -107,7 +135,7 @@ implements OnInit{
         this.pendingFriends = [];
         this.pendingFriendships.forEach(friendship => {
             if (!this.pendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
-                console.log(friendship.user1)
+                // console.log(friendship.user1)
                 this.pendingFriends.push(friendship.user1);
             } else if (!this.pendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
                 this.pendingFriends.push(friendship.user2);
@@ -161,7 +189,7 @@ implements OnInit{
     get recommendedFriendsList(): User[] {
         let recommendedUserIds: string[] = [];
         let allFriends: User[] = [];
-        let pendingFriendIds: string[] = this.pendingFriends.map(friend => friend._id);
+        let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
         this.allFriendships.forEach(friendship => {
 
             if (!recommendedUserIds.includes(friendship.user1._id)) {

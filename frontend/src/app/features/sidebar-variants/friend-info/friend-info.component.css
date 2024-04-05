@@ -27,3 +27,7 @@
 .button-container {
     margin-left: auto; /* Pushes the div to the right */
 }
+
+.incoming-req-btns {
+    margin-left: 10px;
+}
