@@ -15,6 +15,15 @@ export const UsersReducer = createReducer(
     allUsers: users,
   })),
 
+  on(UsersActions.emptyQueryUsersFailure, (state) => ({
+    ...state,
+    queriedUsers: state.allUsers
+  })),
+
+  on(UsersActions.queryUsersSuccess, (state, {users}) => ({
+    ...state,
+    queriedUsers: users
+  })),
 )
 
 export const usersFeatureKey = 'users';
@@ -24,3 +33,8 @@ export const selectUsers = createSelector(
     selectUsersFeature,
     (state)=>state.allUsers
 )
+
+export const selectQueriedUsers = createSelector(
+    selectUsersFeature,
+    (state)=>state.queriedUsers
+);

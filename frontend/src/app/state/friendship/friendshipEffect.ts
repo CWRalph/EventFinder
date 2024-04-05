@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { GroupActions } from "@state/group/groupActions";
 import { catchError, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { FriendshipService } from "@app/services/FriendshipService";
+import { UserService } from "@app/services/UserService";
 import { FriendshipActions } from "./friendshipActions";
 // import { Friendship } from "@app/core/models/friendship";
 
@@ -11,8 +12,8 @@ import { FriendshipActions } from "./friendshipActions";
 export class FriendshipEffects {
   constructor(
     private readonly actions$: Actions,
-    private friendshipCreationService: FriendshipCreationService,
     private friendshipService: FriendshipService,
+    private userService: UserService
   ) {}
   
 
@@ -72,22 +73,4 @@ export class FriendshipEffects {
         )
     );
 
-  // Query
-
-    queryFriendships$ = createEffect(() =>
-        this.actions$.pipe(
-        ofType(FriendshipActions.queryFriendships),
-        switchMap(({query}) => {
-            if(!query) {
-                return of(FriendshipActions.emptyQueryFriendshipsFailure());
-            } else {
-                return this.friendshipService.searchFriendships(query).pipe(
-                    map((friendships) => FriendshipActions.queryFriendshipsSuccess({friendships})),
-                    catchError(() => of(FriendshipActions.getFriendshipsFailure()))
-                )
-            }
-        })
-        )
-    );
-    
 }

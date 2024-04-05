@@ -13,6 +13,43 @@ userRouter.get('/', async (req, res) => {
     }
 });
 
+userRouter.get('/search', async (req, res) => {
+    const { query } = req.query as any;
+
+    const pipeline = [
+        {
+            $search: {
+                index: 'UserSearchIndex',
+                text: {
+                    query,
+                    path: ['username', 'email'], // Example fields to search
+                    fuzzy: {} // Optional: fuzzy matching options
+                }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                score: { $meta: 'searchScore' },
+                username: 1,
+                email: 1
+            }
+        }
+    ];
+
+    try {
+        //Sort descending order
+        const result = await User.aggregate(pipeline).sort({score:-1});
+        console.log("Search results: ", result);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error searching users:', error);
+        res.status(500).json({ error: 'An internal server error occurred' });
+    }
+
+
+});
+
 userRouter.post('/', async (req, res) => {
     const user = new User({
         username: req.body.username,

@@ -16,11 +16,6 @@ export const FriendshipActions = createActionGroup({
     'Get Pending Friendships Success': props<{ friendships: Friendship[] }>(),
     'Get Pending Friendships Failure': emptyProps(),
 
-    'Query Friendships': props<{ query: string }>(),
-    'Query Friendships Success': props<{ friendships: Friendship[] }>(),
-    'Empty Query Friendships Failure': emptyProps(),
-    'Query Friendships Failure': emptyProps(),
-
     'Create Friendship': emptyProps(),
     'Create Friendship With Props': props<{ friendship: Friendship }>(),
     'Create Friendship Success': props<{ friendship: Friendship }>(),

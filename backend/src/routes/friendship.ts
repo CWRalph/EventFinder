@@ -101,39 +101,6 @@ friendshipRouter.get('/user/:userId', async (req, res) => {
     }
 });
 
-friendshipRouter.get('/search', async (req, res) => {
-    const { query } = req.query;
-
-    const pipeline = [
-        {
-            $search: {
-                index: 'FriendshipSearchIndex',
-                text: {
-                    query,
-                    path: ['username', 'email'], // Example fields to search
-                    fuzzy: {} // Optional: fuzzy matching options
-                }
-            }
-        },
-        {
-            $project: {
-                _id: 0,
-                score: { $meta: 'searchScore' },
-                username: 1,
-                email: 1
-            }
-        }
-    ];
-
-    try {
-        const result = await Friendship.aggregate(pipeline).sort({ score: -1 });
-        res.status(200).json(result);
-    } catch (error) {
-        console.error('Error searching friendships:', error);
-        res.status(500).json({ error: 'An internal server error occurred' });
-    }
-});
-
 friendshipRouter.put('/:id/update-status', async (req, res) => {
     const {id} = req.params;
     const {status} = req.body;

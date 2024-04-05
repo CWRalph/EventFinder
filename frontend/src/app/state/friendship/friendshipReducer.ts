@@ -13,7 +13,6 @@ export const FriendshipReducer = createReducer(
         friendships: [...state.friendships, friendship],
         myFriendships: [...state.myFriendships, friendship],
         pendingFriendships: [...state.pendingFriendships, friendship],
-        queriedFriendships: [...state.queriedFriendships, friendship]
     })),
 
     on(FriendshipActions.deleteFriendshipSuccess, (state, {friendship}) => ({
@@ -44,15 +43,15 @@ export const FriendshipReducer = createReducer(
     pendingFriendships: friendships,
   })),
 
-   // empty state for queried groups. Otherwise, fulfilled query
-   on(FriendshipActions.emptyQueryFriendshipsFailure, (state) => ({
-    ...state,
-    queriedFriendships: state.friendships
-  })),
-  on(FriendshipActions.queryFriendshipsSuccess, (state, {friendships}) => ({
-    ...state,
-    queriedFriendships: friendships
-  })),
+//    // empty state for queried groups. Otherwise, fulfilled query
+//    on(FriendshipActions.emptyQueryFriendshipsFailure, (state) => ({
+//     ...state,
+//     queriedFriendships: state.friendships
+//   })),
+//   on(FriendshipActions.queryFriendshipsSuccess, (state, {friendships}) => ({
+//     ...state,
+//     queriedFriendships: friendships
+//   })),
 
   
 
@@ -133,7 +132,3 @@ export const selectPendingFriendships = createSelector(
     (state)=>state.pendingFriendships
 )
 
-export const selectQueriedFriendships = createSelector(
-    selectFriendshipFeature,
-    (state)=>state.queriedFriendships
-);

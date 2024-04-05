@@ -13,6 +13,7 @@ import { selectUser } from '@app/state/user/userReducer';
 import { Status } from '@core/models/event';
 import { FriendshipActions } from '@app/state/friendship/friendshipActions';
 import { FriendType } from '../friend-sidebar/friend-sidebar.component';
+import { UsersActions } from '@app/state/users/usersActions';
 
 @Component({
     selector: 'app-friend-info',
@@ -111,9 +112,10 @@ export class FriendInfoComponent {
       console.log(res);
 
       if (this.user) {
-        // this.store.dispatch(FriendshipActions.getFriendships());
+        this.store.dispatch(FriendshipActions.getFriendships());
+        this.store.dispatch(UsersActions.getUsers());
         this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.user?._id }));
-        // this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.user?._id }));
+        this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.user?._id }));
       }
       this.cdr.detectChanges();
       
@@ -138,6 +140,7 @@ export class FriendInfoComponent {
       if (friendshipId) {
         this.friendshipService.deleteFriendship(friendshipId).subscribe(() => {
           // After successful deletion, dispatch actions to fetch updated friendships
+          this.store.dispatch(UsersActions.getUsers());
           this.store.dispatch(FriendshipActions.getFriendships());
           this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userId }));
           this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userId }));
@@ -174,7 +177,8 @@ export class FriendInfoComponent {
           this.friendshipService.updateFriendship(friendship).subscribe((res) => {
             console.log(res)
 
-            // this.store.dispatch(FriendshipActions.getFriendships());
+            this.store.dispatch(FriendshipActions.getFriendships());
+            this.store.dispatch(UsersActions.getUsers());
             this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userId }));
             this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userId }));
             this.cdr.detectChanges();

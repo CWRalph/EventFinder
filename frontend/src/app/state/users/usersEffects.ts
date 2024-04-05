@@ -12,8 +12,6 @@ export class UsersEffects {
     private readonly actions$: Actions,
     private userService: UserService,
   ) {}
-  
-
     // Get
 
     getUsers$ = createEffect(() =>
@@ -26,6 +24,22 @@ export class UsersEffects {
         )
     );
 
+
+    queryUsers$ = createEffect(() =>
+        this.actions$.pipe(
+        ofType(UsersActions.queryUsers),
+        switchMap(({query}) => {
+            if(!query) {
+                return of(UsersActions.emptyQueryUsersFailure());
+            } else {
+                return this.userService.searchUsers(query).pipe(
+                    map((users) => UsersActions.queryUsersSuccess({ users })),
+                    catchError(() => of(UsersActions.getUsersFailure()))
+                )
+            }
+        })
+        )
+    );
 
     
 }
