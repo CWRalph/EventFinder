@@ -56,15 +56,15 @@ friendshipRouter.post('/', async (req, res) => {
 
         res.status(201).json(newFriendship);
 
-        // // Hit the notifier endpoint to send an email
-        // /**
-        //  * NOTE: we are assuming that user1 is the one receiving the friend request and user2 is the one sending it
-        //  */
-        // await hitNotifier(user1Id, user2Id, 'http://localhost:4000/friendship/request', res).then(() => {
-        //     console.log('Email sent');
-        // }, (e: Error) => {
-        //     catchError(e, res);
-        // });
+        // Hit the notifier endpoint to send an email
+        /**
+         * NOTE: we are assuming that user1 is the one receiving the friend request and user2 is the one sending it
+         */
+        await hitNotifier(user1Id, user2Id, 'http://localhost:4000/friendship/request', res).then(() => {
+            console.log('Email sent');
+        }, (e: Error) => {
+            catchError(e, res);
+        });
 
     } catch (e) {
         catchError(e, res);
@@ -133,11 +133,11 @@ friendshipRouter.put('/:id/update-status', async (req, res) => {
 
             res.json(friendship);
 
-            // hitNotifier(friendship.user2.toString(), friendship.user1.toString(), 'http://localhost:4000/friendship/accept', res).then(() => {
-            //     console.log('Email sent');
-            // }, (e: Error) => {
-            //     catchError(e, res);
-            // });
+            hitNotifier(friendship.user2.toString(), friendship.user1.toString(), 'http://localhost:4000/friendship/accept', res).then(() => {
+                console.log('Email sent');
+            }, (e: Error) => {
+                catchError(e, res);
+            });
         } else if (status == 'Rejected') {
             const deletedFriendship = await Friendship.findByIdAndDelete(id);
             if (!deletedFriendship) {
@@ -145,12 +145,12 @@ friendshipRouter.put('/:id/update-status', async (req, res) => {
             }
             res.json({message: 'Friendship deleted'});
 
-            // // Hit the notifier endpoint to send an email
-            // await hitNotifier(user2._id.toString(), user1._id.toString(), 'http://localhost:4000/friendship/reject', res).then(() => {
-            //     console.log('Email sent');
-            // }, (e: Error) => {
-            //     catchError(e, res);
-            // });
+            // Hit the notifier endpoint to send an email
+            await hitNotifier(user2._id.toString(), user1._id.toString(), 'http://localhost:4000/friendship/reject', res).then(() => {
+                console.log('Email sent');
+            }, (e: Error) => {
+                catchError(e, res);
+            });
         }
     } catch (e) {
         catchError(e, res);
