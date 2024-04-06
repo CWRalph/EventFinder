@@ -1,24 +1,17 @@
 import { Injectable } from "@angular/core";
-import { FriendshipCreationService } from "@features/friendship-creation/services/friendship-creation.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { GroupActions } from "@state/group/groupActions";
 import { catchError, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { FriendshipService } from "@app/services/FriendshipService";
 import { UserService } from "@app/services/UserService";
 import { FriendshipActions } from "./friendshipActions";
-// import { Friendship } from "@app/core/models/friendship";
 
 @Injectable()
 export class FriendshipEffects {
   constructor(
     private readonly actions$: Actions,
     private friendshipService: FriendshipService,
-    private userService: UserService
   ) {}
-  
-
     // Get
-
     getFriendships$ = createEffect(() =>
         this.actions$.pipe(
         ofType(FriendshipActions.getFriendships),
@@ -51,7 +44,6 @@ export class FriendshipEffects {
     );
 
     // Create
-
     createFriendshipWithProps$ = createEffect(() =>
         this.actions$.pipe(
         ofType(FriendshipActions.createFriendshipWithProps),

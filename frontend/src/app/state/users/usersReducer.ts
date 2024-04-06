@@ -2,12 +2,8 @@ import {createReducer, on, createFeatureSelector, createSelector} from "@ngrx/st
 import { UsersState, initialUsersState } from "./usersState";
 import { UsersActions } from "./usersActions";
 
-
-
 export const UsersReducer = createReducer(
     initialUsersState,
-  
-  
 
   // Get
   on(UsersActions.getUsersSuccess, (state, {users}) => ({
@@ -15,6 +11,7 @@ export const UsersReducer = createReducer(
     allUsers: users,
   })),
 
+  // Query
   on(UsersActions.emptyQueryUsersFailure, (state) => ({
     ...state,
     queriedUsers: state.allUsers

@@ -2,12 +2,10 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Event } from "@core/models/event";
 import { EventInfoComponent } from "../event-info/event-info.component";
 import { CommonModule } from '@angular/common';
-import {EventService} from "@core/services/EventService";
-import {User} from "@core/models/user";
-import { UserService } from '@app/services/UserService';
+import { EventService } from "@core/services/EventService";
+import { User } from "@core/models/user";
 import { FriendshipService } from '@app/services/FriendshipService';
 import { Store, select } from '@ngrx/store';
-import { FriendshipCreationService } from '@app/features/friendship-creation/services/friendship-creation.service';
 import { Friendship } from '@app/core/models/friendship';
 import { selectUser } from '@app/state/user/userReducer';
 import { Status } from '@core/models/event';
@@ -37,11 +35,9 @@ export class FriendInfoComponent {
 
   constructor(
     private eventService: EventService, 
-    private userService: UserService,
     private friendshipService: FriendshipService,
     private store: Store,
-    private cdr: ChangeDetectorRef,
-    private friendshipCreationService: FriendshipCreationService ) {
+    private cdr: ChangeDetectorRef) {
 
       this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
         this.user = user;
@@ -85,9 +81,7 @@ export class FriendInfoComponent {
     
         });
         break;
-
     }
-
   }
 
   get friendName() {
@@ -156,16 +150,7 @@ export class FriendInfoComponent {
       return;
     }
 
-    // let friendshipId: string | undefined;
     let userId: string = this.user._id;
-
-    //user1 receiver
-    //user2 sender
-    // let id = 
-    // let user1 = this.user; // receiver of friend request
-    // let user2 = friend; // sender of friend request
-    // let status: Status = "Accepted"; // initial status until accepted or rejected
-    // let updatedFriendship: Friendship = { user1, user2, status } 
 
     this.friendshipService.getFriendshipsByUser(this.user._id).subscribe((friendships) => {
       friendships.forEach((friendship) => {
@@ -189,7 +174,6 @@ export class FriendInfoComponent {
 
     })
 
-    // this.friendshipService.updateFriendship()
   }
 
   protected readonly FriendType = FriendType;

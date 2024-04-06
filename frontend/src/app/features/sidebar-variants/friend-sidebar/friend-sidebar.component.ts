@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgForOf } from "@angular/common";
 import { AbstractSidebarComponent } from "@features/sidebar-variants/abstract-sidebar/abstract-sidebar.component";
 import { FriendInfoComponent } from "../friend-info/friend-info.component";
-import { FriendshipActions } from '@app/state/friendship/friendshipActions';
 import { Friendship } from '@app/core/models/friendship';
 import { User } from '@app/core/models/user';
 import { selectFriendships, selectMyFriendships, selectPendingFriendships } from '@app/state/friendship/friendshipReducer';
 import { selectUser } from '@app/state/user/userReducer';
-import { Store, select } from '@ngrx/store';
-import { filter } from 'rxjs';
+import { select } from '@ngrx/store';
 import { selectQueriedUsers, selectUsers } from '@app/state/users/usersReducer';
 import { UsersActions } from '@app/state/users/usersActions';
 
@@ -43,9 +41,6 @@ implements OnInit{
     private incomingPendingFriends: User[] = [];
     private outgoingPendingFriends: User[] = [];
 
-    // private queriedFriendships: Friendship[] = [];
-    // private queriedFriends: User[] = [];
-
     private queriedUsers: User[] = [];
     
     userID: string = '';
@@ -65,9 +60,11 @@ implements OnInit{
         this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectMyFriendships)).subscribe(
             (friendships) => this.myFriendships = friendships
         )
+
         this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectPendingFriendships)).subscribe(
             (friendships) => this.pendingFriendships = friendships
         )
+
         this.unsubscribeOnDestroy<Friendship[]>(this.store.select(selectFriendships)).subscribe(
             (friendships) => this.allFriendships = friendships
         )
@@ -98,19 +95,21 @@ implements OnInit{
         let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
         this.myFriendships.forEach(friendship => {
 
+            // Check user1
             if (!myFriendshipUserIds.includes(friendship.user1._id)) {
                 allMyFriends.push(friendship.user1);
-                myFriendshipUserIds.push(friendship.user1._id); // Add user ID to the list
+                myFriendshipUserIds.push(friendship.user1._id);
             }
+
             // Check user2
             if (!myFriendshipUserIds.includes(friendship.user2._id)) {
                 allMyFriends.push(friendship.user2);
-                myFriendshipUserIds.push(friendship.user2._id); // Add user ID to the list
+                myFriendshipUserIds.push(friendship.user2._id);
             }
         });
 
         this.myFriends = allMyFriends.filter(friend => {
-            // Check if the friend is not in the pending friends list
+            // Check if the friend is not in the pending friends list or self
             return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
         });
 
@@ -125,7 +124,6 @@ implements OnInit{
         this.pendingFriends = [];
         this.pendingFriendships.forEach(friendship => {
             if (!this.pendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
-                // console.log(friendship.user1)
                 this.pendingFriends.push(friendship.user1);
             } else if (!this.pendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
                 this.pendingFriends.push(friendship.user2);
@@ -146,7 +144,6 @@ implements OnInit{
 
         incomingFriendshipRequests.forEach(friendship => {
             if (!this.incomingPendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
-                // console.log(friendship.user1)
                 this.incomingPendingFriends.push(friendship.user1);
             } else if (!this.incomingPendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
                 this.incomingPendingFriends.push(friendship.user2);
@@ -165,12 +162,10 @@ implements OnInit{
 
         outgoingFriendshipRequests.forEach(friendship => {
             if (!this.outgoingPendingFriends.includes(friendship.user1) && friendship.user1._id != this.user?._id) {
-                // console.log(friendship.user1)
                 this.outgoingPendingFriends.push(friendship.user1);
             } else if (!this.outgoingPendingFriends.includes(friendship.user2) && friendship.user2._id != this.user?._id) {
                 this.outgoingPendingFriends.push(friendship.user2);
             }
-
 
         });
         return this.outgoingPendingFriends
@@ -189,19 +184,6 @@ implements OnInit{
                 recommendedUserIds.push(user._id); // Add user ID to the list
             }
         });
-
-        // this.allFriendships.forEach(friendship => {
-
-        //     if (!recommendedUserIds.includes(friendship.user1._id)) {
-        //         allFriends.push(friendship.user1);
-        //         recommendedUserIds.push(friendship.user1._id); // Add user ID to the list
-        //     }
-        //     // Check user2
-        //     if (!recommendedUserIds.includes(friendship.user2._id)) {
-        //         allFriends.push(friendship.user2);
-        //         recommendedUserIds.push(friendship.user2._id); // Add user ID to the list
-        //     }
-        // });
 
         this.recommendedFriends = allFriends.filter(friend => {
             // Check if the friend is not in the pending friends list
@@ -222,10 +204,6 @@ implements OnInit{
 
         return this.allUsers;
     }
-
-    // get queriedFriendshipList(): Friendship[] {
-    //     return this.queriedFriendships;
-    // }
 
     get queriedUsersList(): User[] {
         return this.queriedUsers;

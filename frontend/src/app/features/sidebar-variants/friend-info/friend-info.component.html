@@ -2,7 +2,6 @@
     <div class="card-container" (click)="toggleEventList()">
         <!-- TODO: possibly add profile photo -->
         <h1> {{ friendName }} </h1>
-        <!-- <button (click)="toggleEventList()"><i class="fa-solid fa-angle-down"></i></button> -->
         <div class="container">
             <div *ngIf="tabType == FriendType.Search; else sentRequestOrExisting" class="button-container">
                 <button (click)="sendFriendRequest(friend)"><i class="fa-solid fa-user-plus"></i></button>
