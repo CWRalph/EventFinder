@@ -24,6 +24,7 @@ export class SearchBarService {
   }
 
   public setQuery(query: string): void {
+    console.log("Setting query to: ", query);
     this.query.next(query);
   }
 

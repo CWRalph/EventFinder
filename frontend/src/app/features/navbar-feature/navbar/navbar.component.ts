@@ -59,7 +59,6 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
   }
 
   login() {
-    // this.store.dispatch(UserActions.loginUser());
     this.dialog.open(LoginComponent);
   }
 

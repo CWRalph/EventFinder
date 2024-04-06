@@ -52,25 +52,36 @@ eventRouter.get('/search', async (req, res) => {
 
     const pipeline = [
         {
-        $search:{
-            index: 'EventSearchIndex',
-            text: {
-                query,
-                path:['name', 'description'],
-                fuzzy:{}
-            }
-        }
+            $search: {
+                index: "EventAutoComplete",
+                compound: {
+                    should: [
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "name"
+                            }
+                        },
+{
+                            autocomplete: {
+                                query: query,
+                                path: "description"
+                            }
+                        }
+                    ],
+                }
+            },
         },
         {
             $project:{
-               _id: 0,
-               score: { $meta: 'searchScore' },
+                _id: 0,
+                score: { $meta: 'searchScore' },
                 name: 1,
                 description: 1,
                 location: 1,
             }
         }
-    ]
+    ];
 
     //Sort descending order
     const result = await Event.aggregate(pipeline).sort({score:-1});

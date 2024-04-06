@@ -6,6 +6,8 @@ import {CommonModule} from "@angular/common";
 import {selectMyEvents, selectQueriedEvents, selectSavedEvents} from "@state/event/eventReducer";
 import {EventActions} from "@state/event/eventActions";
 
+
+
 @Component({
   selector: 'app-event-sidebar',
   standalone: true,
@@ -19,6 +21,7 @@ export class EventSidebarComponent
 {
   private savedEvents: Event[] = [];
   private myEvents: Event[] = [];
+  private autoCompleteEvents: Event[] = [];
   private queriedEvents: Event[] = [];
   private searchQuery: string = '';
 
@@ -28,15 +31,22 @@ export class EventSidebarComponent
     this.unsubscribeOnDestroy<Event[]>(this.store.select(selectSavedEvents)).subscribe(
       (events) => this.savedEvents = events);
     this.unsubscribeOnDestroy<Event[]>(this.store.select(selectQueriedEvents)).subscribe(
-      (events) => this.queriedEvents = events);
+      (events) => {
+        this.autoCompleteEvents = events;
+        this.searchbarService.setRecommendations(
+          this.autoCompleteEvents.length > 0
+            ? this.autoCompleteEvents.map((event) => event.name).slice(0,5)
+            : ["No results found, please modify query."]
+        )
+      });
     this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
       (query) => {
         this.store.dispatch(EventActions.queryEvents({query}));
         this.searchQuery = query;
       }
     )
-
-    this.searchbarService.setRecommendations(["Event 1", "Event 2", "Event 3"])
+    this.unsubscribeOnDestroy(this.searchbarService.getSearchFired()).subscribe(
+      (recommendations) => this.queriedEvents = this.autoCompleteEvents);
   }
 
   get savedEventsList(): Event[] {
