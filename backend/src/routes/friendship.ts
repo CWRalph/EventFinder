@@ -25,6 +25,7 @@ const hitNotifier = async (user1Id: string, user2Id: string, url: string, res: e
         body: JSON.stringify({
             userEmail: user1.email,
             friend: user2.username,
+            username: user1.username,
         }),
     });
 }
