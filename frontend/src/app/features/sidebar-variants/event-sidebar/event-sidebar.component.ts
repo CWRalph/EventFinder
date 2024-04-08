@@ -6,7 +6,11 @@ import {CommonModule} from "@angular/common";
 import {selectMyEvents, selectQueriedEvents, selectSavedEvents} from "@state/event/eventReducer";
 import {EventActions} from "@state/event/eventActions";
 
-
+export enum EventDisplayType {
+  MY_EVENTS = 'My Events',
+  SAVED_EVENTS = 'Saved Events',
+  SEARCHED_EVENTS = 'Searched Events'
+}
 
 @Component({
   selector: 'app-event-sidebar',
@@ -32,8 +36,9 @@ export class EventSidebarComponent
       (events) => this.savedEvents = events);
     this.unsubscribeOnDestroy<Event[]>(this.store.select(selectQueriedEvents)).subscribe(
       (events) => {
+        console.log("Updated events", events)
         this.autoCompleteEvents = events;
-        this.searchbarService.setRecommendations(
+        this.setRecommendations(
           this.autoCompleteEvents.length > 0
             ? this.autoCompleteEvents.map((event) => event.name).slice(0,5)
             : ["No results found, please modify query."]
@@ -46,7 +51,10 @@ export class EventSidebarComponent
       }
     )
     this.unsubscribeOnDestroy(this.searchbarService.getSearchFired()).subscribe(
-      (recommendations) => this.queriedEvents = this.autoCompleteEvents);
+      (recommendations) => this.queriedEvents = this.autoCompleteEvents
+    );
+
+    this.searchbarService.fireSearch();
   }
 
   get savedEventsList(): Event[] {

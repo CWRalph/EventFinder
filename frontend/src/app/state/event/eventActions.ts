@@ -1,21 +1,29 @@
 import {createAction, createActionGroup, emptyProps, props} from "@ngrx/store";
-import {Coordinates, Event} from "@core/models/event";
+import {Coordinates, Event, EventMembership, EventRole} from "@core/models/event";
 
 export const EventActions = createActionGroup({
   source: 'EventActions',
   events: {
     'Get Events': emptyProps(),
-    'Get Saved Events Success': props<{ events: Event[] }>(),
-    'Get My Events Success': props<{ events: Event[] }>(),
     'Get Events Success': props<{ events: Event[] }>(),
     'Get Events Failure': emptyProps(),
+
+    'Get Event Memberships': emptyProps(),
+    'Get Event Memberships Success': props<{ memberships: EventMembership[] }>(),
+    'Get Event Memberships Failure': emptyProps(),
+
+    'Map Memberships To Events': emptyProps(),
+    'Map Memberships To Events Failure': emptyProps(),
+
+    'Get Saved Events Success': props<{ events: Event[] }>(),
+    'Get My Events Success': props<{ events: Event[] }>(),
 
     'Query Events': props<{ query: string }>(),
     'Query Events Success': props<{ events: Event[] }>(),
     'Empty Query Events Failure': emptyProps(),
     'Query Events Failure': emptyProps(),
 
-    'Save Event': props<{ event: Event }>(),
+    'Save Event': props<{ event: Event, role: EventRole }>(),
     'Save Event Success': props<{ event: Event }>(),
     'Save Event Failure': emptyProps(),
 

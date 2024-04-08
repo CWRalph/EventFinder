@@ -73,8 +73,8 @@ export class UserEffects {
     ),
   );
 
-  // NOTE TO TJ: ALWAYS ADD THE THING YOU'RE LOOKING FOR HERE. LIKE THE DATA YOU WANT FOR USER! 
-  // FOR EXAMPLE, their groups, their friends etc. 
+  // NOTE TO TJ: ALWAYS ADD THE THING YOU'RE LOOKING FOR HERE. LIKE THE DATA YOU WANT FOR USER!
+  // FOR EXAMPLE, their groups, their friends etc.
   //Attempt to log the user in, getting a bad response from the backend represents a failed login attempt
   loginUserWithProps$ = createEffect(() =>
     this.actions$.pipe(
@@ -88,6 +88,7 @@ export class UserEffects {
 
             console.log(user._id);
             this.store.dispatch(EventActions.getEvents());
+            this.store.dispatch(EventActions.mapMembershipsToEvents());
 
             this.store.dispatch(GroupActions.getGroups());
 
@@ -95,7 +96,7 @@ export class UserEffects {
             this.store.dispatch(GroupActions.getUserGroups({ userId: user._id }));
             this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: user._id }));
             this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: user._id }));
-            
+
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {

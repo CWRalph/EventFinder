@@ -25,8 +25,10 @@ export type EventType =
   | 'School'
   | 'Other';
 
+export type EventRole = 'owner' | 'participant';
+
 export type Event = {
-  _id?: number;
+  _id?: string;
 
   name: string;
   description: string;
@@ -42,5 +44,14 @@ export type Event = {
   visibility?: Visibility;
   location?: string;
   participants?: User[];
+
+  role?: EventRole
 };
+
+export interface EventMembership {
+  _id?: string;
+  event: string;
+  user: string;
+  role: EventRole;
+}
 

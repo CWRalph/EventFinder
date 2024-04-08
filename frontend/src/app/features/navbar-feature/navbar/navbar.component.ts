@@ -65,17 +65,4 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
   register() {
     this.store.dispatch(UserActions.registerUser());
   }
-
-  onChange(query: string) {
-    this.searchbarService.setQuery(query);
-  }
-
-  onEnter() {
-    this.searchbarService.fireSearch();
-  }
-
-  onDropdownClick(query: string) {
-    this.searchbarService.setQuery(query);
-    this.searchbarService.fireSearch();
-  }
 }

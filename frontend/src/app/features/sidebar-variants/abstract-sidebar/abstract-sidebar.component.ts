@@ -18,5 +18,10 @@ export class AbstractSidebarComponent extends SubscriberComponent{
     protected store: Store,
   ) {
     super();
+    this.setRecommendations([]);
+  }
+
+  protected setRecommendations(recommendations: string[]) {
+    this.searchbarService.setRecommendations(recommendations);
   }
 }
