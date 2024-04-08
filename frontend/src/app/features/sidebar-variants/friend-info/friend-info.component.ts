@@ -27,15 +27,13 @@ import { GroupInfoComponent } from "../group-info/group-info.component";
 export class FriendInfoComponent {
   @Input() friend!: User;
   @Input() tabType: FriendType = FriendType.MyFriends;
+  @Input() status?: Status;
 
   displayStyle = "none";
   friendEvents: Event[] = [];
 
   userID: string = '';
   private user?: User;
-
-  isSender: Boolean = false;
-  isReceiver: Boolean = false;
 
   userGroups: GroupMembership[] = [];
   friendMemberGroups: Group[] = [];
@@ -56,7 +54,6 @@ export class FriendInfoComponent {
     }
 
   ngOnInit() {
-
     if (this.user) {
       let userId: string = this.user._id;
       this.groupMemberService.getGroupMemberships().subscribe(memberships => {
@@ -145,7 +142,6 @@ export class FriendInfoComponent {
   }
 
   sendFriendRequest(friend: User) {
-    console.log(friend)
     if (!this.user) {
       return;
     }
@@ -155,7 +151,6 @@ export class FriendInfoComponent {
     let newFriendship: Friendship = { user1, user2, status } 
 
     this.friendshipService.createFriendship(newFriendship).subscribe((res) => {
-      console.log(res);
 
       if (this.user) {
         this.store.dispatch(FriendshipActions.getFriendships());
@@ -164,7 +159,7 @@ export class FriendInfoComponent {
         this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.user?._id }));
       }
       this.cdr.detectChanges();
-      
+
     })
   }
 
@@ -206,11 +201,8 @@ export class FriendInfoComponent {
 
     this.friendshipService.getFriendshipsByUser(this.user._id).subscribe((friendships) => {
       friendships.forEach((friendship) => {
-        console.log("HERERERERERE")
-        console.log(friendship)
         if (friendship.user1._id == this.user?._id && friendship.user2._id == friend._id) {
           friendship.status = "Accepted";
-          console.log(friendship)
           this.friendshipService.updateFriendship(friendship).subscribe((res) => {
             console.log(res)
 

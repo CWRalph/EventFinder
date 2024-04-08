@@ -3,19 +3,31 @@
         <!-- TODO: possibly add profile photo -->
         <h1> {{ friendName }} </h1>
         <div class="container">
-            <div *ngIf="tabType == FriendType.Search; else sentRequestOrExisting" class="button-container">
-                <button (click)="sendFriendRequest(friend)"><i class="fa-solid fa-user-plus"></i></button>
-            </div>
-            <ng-template #sentRequestOrExisting>
-                <div *ngIf="tabType == FriendType.PendingIncoming; else outgoingRequest" class="incoming-req-btns">
-                    <button (click)="acceptFriendRequest(friend)"><i class="fa-solid fa-check text-success"></i></button>
-                    <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error pl-10"></i></button>
+            <div *ngIf="tabType == FriendType.Search" class="button-container">
+                <div *ngIf="status == 'Accepted' else pending">
+                    <button class=""><i class="cursor-default text-success fa-regular fa-circle-check"></i></button>
                 </div>
-                
-                <ng-template #outgoingRequest>
-                    <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error"></i></button>
+
+                <ng-template #pending>
+                    <div *ngIf="status == 'Pending'; else notFriends">
+                        <button class=""><i class="cursor-default text-secondary fa-regular fa-clock"></i></button>
+                    </div>
+
+                    <ng-template #notFriends>
+                        <button (click)="sendFriendRequest(friend)"><i class="cursor-pointer text-primary fa-solid fa-user-plus"></i></button>
+                    </ng-template>
                 </ng-template>
-            </ng-template>
+
+            </div>
+            
+            <div *ngIf="tabType == FriendType.PendingIncoming" class="incoming-req-btns">
+                <button (click)="acceptFriendRequest(friend)"><i class="fa-solid fa-check text-success"></i></button>
+                <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error pl-10"></i></button>
+            </div>
+            <div *ngIf="tabType == FriendType.PendingOutgoing || tabType == FriendType.MyFriends" class="incoming-req-btns">
+                <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error"></i></button>
+            </div>
+            
         </div>
 
     </div>
