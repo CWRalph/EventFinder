@@ -1,23 +1,27 @@
-import {createFeatureSelector, createReducer, createSelector, on} from "@ngrx/store";
-import {EventState, initialEventState} from "@state/event/eventState";
-import {EventActions} from "@state/event/eventActions";
-import {Event} from "@core/models/event";
-
+import {
+  createFeatureSelector,
+  createReducer,
+  createSelector,
+  on,
+} from '@ngrx/store';
+import { EventState, initialEventState } from '@state/event/eventState';
+import { EventActions } from '@state/event/eventActions';
+import { Event } from '@core/models/event';
 
 export const EventReducer = createReducer(
   initialEventState,
-  on(EventActions.createEventSuccess, (state, {event}) => ({
+  on(EventActions.createEventSuccess, (state, { event }) => ({
     ...state,
     events: [...state.events, event],
-    myEvents: [...state.myEvents, event]
+    myEvents: [...state.myEvents, event],
   })),
-  on(EventActions.getEventsSuccess, (state, {events}) => ({
+  on(EventActions.getEventsSuccess, (state, { events }) => ({
     ...state,
-    events: events
+    events: events,
   })),
-  on(EventActions.getMyEventsSuccess, (state, {events}) => ({
+  on(EventActions.getMyEventsSuccess, (state, { events }) => ({
     ...state,
-    myEvents: events
+    myEvents: events,
   })),
   on(EventActions.getSavedEventsSuccess, (state, { events }) => ({
     ...state,
@@ -25,51 +29,53 @@ export const EventReducer = createReducer(
   })),
   on(EventActions.emptyQueryEventsFailure, (state) => ({
     ...state,
-    queriedEvents: state.events
+    queriedEvents: state.events,
   })),
-  on(EventActions.queryEventsSuccess, (state, {events}) => ({
+  on(EventActions.queryEventsSuccess, (state, { events }) => ({
     ...state,
-    queriedEvents: events
+    queriedEvents: events,
   })),
-  on(EventActions.saveEventSuccess, (state, {event}) => ({
+  on(EventActions.saveEventSuccess, (state, { event }) => ({
     ...state,
-    savedEvents: [...state.savedEvents, event]
+    savedEvents: [...state.savedEvents, event],
   })),
-  on(EventActions.unsaveEventSuccess, (state, {event}) => ({
+  on(EventActions.unsaveEventSuccess, (state, { event }) => ({
     ...state,
-    savedEvents: state.savedEvents.filter((e:Event) => e._id !== event._id)
+    savedEvents: state.savedEvents.filter((e: Event) => e._id !== event._id),
   })),
-  on(EventActions.updateEventSuccess, (state, {event}) => ({
+  on(EventActions.updateEventSuccess, (state, { event }) => ({
     ...state,
-    events: state.events.map((e:Event) => e._id === event._id ? event : e),
-    myEvents: state.myEvents.map((e:Event) => e._id === event._id ? event : e),
+    events: state.events.map((e: Event) => (e._id === event._id ? event : e)),
+    myEvents: state.myEvents.map((e: Event) =>
+      e._id === event._id ? event : e,
+    ),
   })),
-  on(EventActions.deleteEventSuccess, (state, {event}) => ({
+  on(EventActions.deleteEventSuccess, (state, { event }) => ({
     ...state,
-    events: state.events.filter((e:Event) => e._id !== event._id),
-    myEvents: state.myEvents.filter((e:Event) => e._id !== event._id),
-  }))
-)
+    events: state.events.filter((e: Event) => e._id !== event._id),
+    myEvents: state.myEvents.filter((e: Event) => e._id !== event._id),
+  })),
+);
 
 export const eventFeatureKey = 'event';
 const selectEventFeature = createFeatureSelector<EventState>(eventFeatureKey);
 
 export const selectEvents = createSelector(
   selectEventFeature,
-  (state)=>state.events
-)
+  (state) => state.events,
+);
 
 export const selectMyEvents = createSelector(
   selectEventFeature,
-  (state)=>state.myEvents
-)
+  (state) => state.myEvents,
+);
 
 export const selectSavedEvents = createSelector(
   selectEventFeature,
-  (state)=>state.savedEvents
-)
+  (state) => state.savedEvents,
+);
 
 export const selectQueriedEvents = createSelector(
   selectEventFeature,
-  (state)=>state.queriedEvents
+  (state) => state.queriedEvents,
 );

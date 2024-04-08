@@ -13,6 +13,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {InfoSidebarComponent} from "@features/sidebar/info-sidebar/info-sidebar.component";
 import { GroupService } from './core/services/GroupService';
 import { Group } from './core/models/group';
+import {EventMemberService} from "@core/services/EventMemberService";
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    private groupService: GroupService,
     private store: Store,
   ) {}
 
@@ -44,11 +44,6 @@ export class AppComponent implements OnInit {
     this.eventService.getEvents().subscribe((events) => {
       this.events = events;
       console.log('the events are: ', this.events);
-    });
-
-    this.groupService.getGroups().subscribe((groups) => {
-      this.groups = groups;
-      console.log('Groups are: ', this.groups);
     });
 
     //Log the user in if cookie exists

@@ -37,6 +37,7 @@ export const EventActions = createActionGroup({
     'Create Event Failure': emptyProps(),
 
     'Update Event': props<{ event: Event }>(),
+    'Update Event With Props': props<{ event: Event }>(), // 'Update Event With Props' is not used in the codebase
     'Update Event Success': props<{ event: Event }>(),
     'Update Event Failure': emptyProps(),
 

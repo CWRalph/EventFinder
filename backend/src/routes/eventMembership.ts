@@ -25,15 +25,14 @@ eventMembershipRouter.post('/', async (req, res) => {
     }
 });
 
-eventMembershipRouter.put('/:id', async (req, res) => {
-    const {id} = req.params;
-
+eventMembershipRouter.delete('/user/:userId/event/:eventId', async (req, res) => {
+    const {userId, eventId} = req.params;
     try {
-        const updatedMembership = await EventMembership.findByIdAndUpdate(id, req.body, {new: true});
-        if (!updatedMembership) {
-            return notFound(res, 'EventMembership');
+        const deletedMembership = await EventMembership.findOneAndDelete({user: userId, event: eventId})
+        if (!deletedMembership) {
+            return notFound(res, 'Event Membership');
         }
-        res.json(updatedMembership);
+        res.json(deletedMembership);
     } catch (e) {
         catchError(e, res);
     }
@@ -41,12 +40,8 @@ eventMembershipRouter.put('/:id', async (req, res) => {
 
 eventMembershipRouter.get('/user/:userId', async (req, res) => {
     const {userId} = req.params;
-    console.log(userId)
     try {
         const memberships = await EventMembership.find({user: userId});
-        if (!memberships || memberships.length === 0) {
-            return notFound(res, 'Event Memberships');
-        }
         res.json(memberships);
     } catch (e) {
         catchError(e, res);
@@ -67,15 +62,15 @@ eventMembershipRouter.delete('/user/:userId', async (req, res) => {
     }
 });
 
-eventMembershipRouter.delete('/user/:userId/event/:eventId', async (req, res) => {
-    const {userId, eventId} = req.params;
+eventMembershipRouter.put('/:id', async (req, res) => {
+    const {id} = req.params;
 
     try {
-        const deletedMembership = await EventMembership.findByIdAndDelete({user: userId, event: eventId})
-        if (!deletedMembership) {
-            return notFound(res, 'Event Membership');
+        const updatedMembership = await EventMembership.findByIdAndUpdate(id, req.body, {new: true});
+        if (!updatedMembership) {
+            return notFound(res, 'EventMembership');
         }
-        res.json(deletedMembership);
+        res.json(updatedMembership);
     } catch (e) {
         catchError(e, res);
     }

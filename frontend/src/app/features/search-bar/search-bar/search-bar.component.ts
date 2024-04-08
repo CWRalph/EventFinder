@@ -1,9 +1,17 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MatIcon} from "@angular/material/icon";
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {SearchBarService} from "@features/search-bar/search-bar.service";
-import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SearchBarService } from '@features/search-bar/search-bar.service';
+import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,7 +20,7 @@ import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',
 })
-export class SearchBarComponent extends SubscriberComponent implements OnInit{
+export class SearchBarComponent extends SubscriberComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('searchDropdown') dropdown!: ElementRef;
   private _value: string = '';
@@ -32,11 +40,11 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit{
 
   ngOnInit(): void {
     this.unsubscribeOnDestroy(this.searchBarService.getQuery()).subscribe(
-      (query) => this._value = query
-    )
+      (query) => (this._value = query),
+    );
   }
 
-  private blurSearchBar(){
+  private blurSearchBar() {
     this.searchInput?.nativeElement?.blur();
     this.dropdown?.nativeElement?.blur();
   }
@@ -87,13 +95,13 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit{
     this.searchBarService.fireSearch();
   }
 
-  public onEnterPressed(){
+  public onEnterPressed() {
     this.onEnter.emit();
     this.blurSearchBar();
     this.searchBarService.fireSearch();
   }
 
-  public onDropdownItemClicked(item: string){
+  public onDropdownItemClicked(item: string) {
     this.onDropdownClick.emit(item);
     this.blurSearchBar();
     this.searchBarService.setQuery(item);

@@ -85,7 +85,6 @@ eventRouter.get('/search', async (req, res) => {
 
     //Sort descending order
     const result = await Event.aggregate(pipeline).sort({score:-1});
-    console.log("Search results: ", result);
     res.status(200).json(result);
 });
 

@@ -1,18 +1,33 @@
 <div class="event-sidebar">
   <div role="tablist" class="event-sidebar-tabs">
     <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Browse Events" />
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6" >
-      <app-event-info *ngFor="let event of queriedEventsList" [event]="event"></app-event-info>
+    <div role="tabpanel" class="tab-content event-tab-content" >
+      <ng-container *ngIf="queriedEventsList.length > 0; else noEventsFound1">
+        <app-event-info *ngFor="let event of queriedEventsList" [event]="event"></app-event-info>
+      </ng-container>
+      <ng-template #noEventsFound1>
+        No events found
+      </ng-template>
     </div>
 
     <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Saved Events" checked />
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-      <app-event-info *ngFor="let event of savedEventsList" [event]="event"></app-event-info>
+    <div role="tabpanel" class="tab-content event-tab-content">
+      <ng-container *ngIf="savedEventsList.length > 0; else noEventsFound2">
+        <app-event-info *ngFor="let event of savedEventsList" [event]="event"></app-event-info>
+      </ng-container>
+      <ng-template #noEventsFound2>
+        No saved events found, go browse and join some events!
+      </ng-template>
     </div>
 
     <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="My Events" />
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-      <app-event-info *ngFor="let event of myEventsList" [event]="event"></app-event-info>
+    <div role="tabpanel" class="tab-content event-tab-content">
+      <ng-container *ngIf="myEventsList.length > 0; else noEventsFound3">
+        <app-event-info *ngFor="let event of myEventsList" [event]="event"></app-event-info>
+      </ng-container>
+      <ng-template #noEventsFound3>
+        Didn't see any events, create one now using the create event button!
+      </ng-template>
     </div>
   </div>
 </div>

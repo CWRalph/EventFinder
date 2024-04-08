@@ -19,6 +19,7 @@ export class EventCreationService {
   private locationListenerSubject:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private eventDraft?:Event;
   private user?: User;
+  private isEditing: boolean = false;
 
 
   constructor(
@@ -66,12 +67,18 @@ export class EventCreationService {
 
   private openEventCreatorDialog(event: Event){
     this.dialog.open(EventCreationDialogComponent, {
-      data: event
+      data: {event, isEditing: this.isEditing},
     });
   }
 
   public openEventCreator(){
+    this.isEditing = false;
     this.openEventCreatorDialog(this.getDefaultEventData());
+  }
+
+  public openEventEditor(event: Event){
+    this.isEditing = true;
+    this.openEventCreatorDialog(event);
   }
 
   public beginListeningForLocation(event: Event){
@@ -98,6 +105,10 @@ export class EventCreationService {
 
   public createEvent(event: Event): void {
     this.store.dispatch(EventActions.createEventWithProps({event}));
+  }
+
+  public updateEvent(event: Event): void {
+    this.store.dispatch(EventActions.updateEventWithProps({event}));
   }
 
   public closeDialog(){
