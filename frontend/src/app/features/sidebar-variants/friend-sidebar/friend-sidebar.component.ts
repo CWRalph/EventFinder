@@ -5,11 +5,12 @@ import { FriendInfoComponent } from "../friend-info/friend-info.component";
 import { Friendship } from '@app/core/models/friendship';
 import { User } from '@app/core/models/user';
 import { selectFriendships, selectMyFriendships, selectPendingFriendships } from '@app/state/friendship/friendshipReducer';
-import { selectUser } from '@app/state/user/userReducer';
+import { selectIsLoggedIn, selectUser } from '@app/state/user/userReducer';
 import { select } from '@ngrx/store';
 import { selectQueriedUsers, selectUsers } from '@app/state/users/usersReducer';
 import { UsersActions } from '@app/state/users/usersActions';
 import { Status } from '@app/core/models/event';
+import { takeUntil } from 'rxjs';
 
 export enum FriendType {
     MyFriends = "MyFriends",
@@ -45,10 +46,17 @@ implements OnInit{
     
     userID: string = '';
     private user?: User;
+    public isLoggedIn: boolean = false;
 
     private searchQuery: string = "";
 
     ngOnInit() {
+
+        this.store
+        .select(selectIsLoggedIn)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn));
+        
         this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
             this.user = user;
         });
@@ -210,10 +218,6 @@ implements OnInit{
             }
         }
         return undefined
-    }
-
-    get isLoggedIn(): Boolean {
-        return this.user != undefined
     }
 
     protected readonly FriendType = FriendType;

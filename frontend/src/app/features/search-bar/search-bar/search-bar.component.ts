@@ -2,6 +2,10 @@ import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@an
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { selectIsLoggedIn } from '@app/state/user/userReducer';
+import { LoginComponent } from '@core/authentication/login/login.component';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,7 +19,11 @@ export class SearchBarComponent {
   @ViewChild('searchDropdown') dropdown!: ElementRef;
   private _value: string = '';
   private isFocused: boolean = false;
-  constructor() {}
+  private isLoggedIn: boolean = false;
+  private isDialogOpen: boolean = false;
+  constructor(
+    private store: Store,
+    private dialog: MatDialog) {}
 
   @Input() placeholder: string = 'Search';
   @Input() results: string[] = [];
@@ -25,6 +33,12 @@ export class SearchBarComponent {
   @Output() onChange: EventEmitter<string> = new EventEmitter<string>();
   @Output() onEnter: EventEmitter<void> = new EventEmitter<void>();
   @Output() onDropdownClick: EventEmitter<string> = new EventEmitter<string>();
+
+  ngOnInit() {
+    this.store.select(selectIsLoggedIn).subscribe(login => {
+      this.isLoggedIn = login;
+    })
+  }
 
   private blurSearchBar(){
     this.searchInput?.nativeElement?.blur();
@@ -57,11 +71,22 @@ export class SearchBarComponent {
   public focus(): void {
     this.onFocus.emit();
     this.isFocused = true;
+
+    if (!this.isLoggedIn && this.isFocused && !this.isDialogOpen) {
+      this.isDialogOpen = true;
+      const dialogRef = this.dialog.open(LoginComponent);
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.isDialogOpen = false;
+        this.blur();
+      });
+    }
   }
 
   public blur(): void {
     this.onBlur.emit();
     this.isFocused = false;
+    this.searchInput.nativeElement.blur();
   }
 
   public change() {
