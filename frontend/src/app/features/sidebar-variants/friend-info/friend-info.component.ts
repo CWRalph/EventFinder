@@ -142,7 +142,6 @@ export class FriendInfoComponent {
   }
 
   sendFriendRequest(friend: User) {
-    console.log(this.status)
     if (!this.user) {
       return;
     }
