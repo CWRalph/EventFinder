@@ -11,6 +11,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Store} from "@ngrx/store";
 import {EventActions} from "@state/event/eventActions";
 import { GroupActions } from '../group/groupActions';
+import { FriendshipActions } from '../friendship/friendshipActions';
+import { UsersActions } from '../users/usersActions';
 
 //TODO remove these in favour of storing an auth token cookie
 const getLoginCookies = () => {
@@ -88,14 +90,20 @@ export class UserEffects {
 
             console.log(user._id);
             this.store.dispatch(EventActions.getEvents());
-
             this.store.dispatch(GroupActions.getGroups());
 
             // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
             this.store.dispatch(GroupActions.getUserGroups({ userId: user._id }));
             this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: user._id }));
             this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: user._id }));
+
+            this.store.dispatch(FriendshipActions.getFriendships());
+            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: user._id }));
+            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: user._id }));
+
+            this.store.dispatch(UsersActions.getUsers());
             
+
             return UserActions.loginUserSuccess({ user })
           }),
           catchError((error) => {

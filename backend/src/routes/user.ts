@@ -13,6 +13,61 @@ userRouter.get('/', async (req, res) => {
     }
 });
 
+userRouter.get('/search', async (req, res) => {
+    const { query } = req.query as any;
+    console.log(query)
+
+    const pipeline = [
+        {
+            $search: {
+                index: "UserAutocompleteIndex",
+                compound: {
+                    should: [
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "email"
+                            }
+                        },
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "username"
+                            }
+                        },
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "_id"
+                            }
+                        }
+                    ],
+                }
+            },
+        },
+        {
+            $project: {
+                _id: 1,
+                score: { $meta: 'searchScore' },
+                email: 1,
+                username: 1
+            }
+        }
+    ];
+
+    try {
+        //Sort descending order
+        const result = await User.aggregate(pipeline).sort({score:-1});
+        console.log("Search results: ", result);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error('Error searching users:', error);
+        res.status(500).json({ error: 'An internal server error occurred' });
+    }
+
+
+});
+
 userRouter.post('/', async (req, res) => {
     const user = new User({
         username: req.body.username,

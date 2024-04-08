@@ -18,3 +18,16 @@
 .card-container button {
     margin-left: auto;
 }
+
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-container {
+    margin-left: auto; 
+}
+
+.incoming-req-btns {
+    margin-left: 10px;
+}

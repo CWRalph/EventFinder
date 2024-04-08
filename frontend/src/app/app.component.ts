@@ -13,6 +13,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {InfoSidebarComponent} from "@features/sidebar/info-sidebar/info-sidebar.component";
 import { GroupService } from './core/services/GroupService';
 import { Group } from './core/models/group';
+import { FriendshipService } from './services/FriendshipService';
+import { Friendship } from './core/models/friendship';
 
 @Component({
   selector: 'app-root',
@@ -33,10 +35,12 @@ import { Group } from './core/models/group';
 export class AppComponent implements OnInit {
   events: Event[] = [];
   groups: Group[] = [];
+  friendships: Friendship[] = [];
 
   constructor(
     private eventService: EventService,
     private groupService: GroupService,
+    private friendshipService: FriendshipService,
     private store: Store,
   ) {}
 
@@ -51,6 +55,10 @@ export class AppComponent implements OnInit {
       console.log('Groups are: ', this.groups);
     });
 
+    this.friendshipService.getFriendships().subscribe((friendships) => {
+      this.friendships = friendships;
+      console.log('Friendships are: ', this.friendships);
+    });
     //Log the user in if cookie exists
     this.store.dispatch(UserActions.authenticateUser());
 

@@ -1,12 +1,5 @@
 import { User } from '@core/models/user';
 
-export type Friendship = {
-  _id: string;
-  user1: User;
-  user2: User;
-  status: Status;
-}
-
 export type Coordinates = {
   x: number;
   y: number;

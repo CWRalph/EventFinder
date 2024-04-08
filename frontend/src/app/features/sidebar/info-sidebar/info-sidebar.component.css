@@ -1,7 +1,7 @@
 .info-sidebar {
   @apply h-full absolute top-0 left-[80px] bg-primary w-96 p-8;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  width: auto;
+  width: 525px;
 }
 
 .scrollable {

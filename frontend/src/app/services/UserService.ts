@@ -32,4 +32,8 @@ export class UserService {
   deleteUser(userId: string): Observable<User> {
     return this.http.delete<User>(this.URL + '/' + userId);
   }
+
+  searchUsers(query: string): Observable<User[]> {
+    return this.http.get<User[]>(this.URL + '/search', { params: {query} });
+  }
 }
