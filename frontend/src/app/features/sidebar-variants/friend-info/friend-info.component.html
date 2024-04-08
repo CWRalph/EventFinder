@@ -22,8 +22,26 @@
 </div>
 
 <div [ngStyle]="{'display':displayStyle}">
-    <div class="friend-event-card" *ngFor="let event of friendEvents">
-        <app-event-info [event]="event"></app-event-info>
+    <div *ngIf="friendEvents.length > 0" class="friend-event-info">
+        <h1>Events</h1>
+        <div class="friend-event-card" *ngFor="let event of friendEvents">
+            <app-event-info [event]="event"></app-event-info>
+        </div>
+    </div>
+
+
+    <div *ngIf="friendMemberGroups.length > 0" class="group-membership-info">
+        <h1>Group Memberships</h1>
+        <div class="group-membership-card" *ngFor="let group of friendMemberGroups">
+            <app-group-info [group]="group"></app-group-info>
+        </div>
+    </div>
+
+    <div *ngIf="friendOwnedGroups.length > 0" class="group-owner-info">
+        <h1>Owned Group</h1>
+        <div class="group-owner-card" *ngFor="let group of friendOwnedGroups">
+            <app-group-info [group]="group"></app-group-info>
+        </div>
     </div>
 </div>
 

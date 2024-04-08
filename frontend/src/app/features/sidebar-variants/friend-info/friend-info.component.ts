@@ -12,13 +12,17 @@ import { Status } from '@core/models/event';
 import { FriendshipActions } from '@app/state/friendship/friendshipActions';
 import { FriendType } from '../friend-sidebar/friend-sidebar.component';
 import { UsersActions } from '@app/state/users/usersActions';
+import { Group, GroupMembership } from '@app/core/models/group';
+import { GroupService } from '@app/core/services/GroupService';
+import { GroupMemberService } from '@app/core/services/GroupMemberService';
+import { GroupInfoComponent } from "../group-info/group-info.component";
 
 @Component({
     selector: 'app-friend-info',
     standalone: true,
     templateUrl: './friend-info.component.html',
     styleUrl: './friend-info.component.css',
-    imports: [CommonModule, EventInfoComponent]
+    imports: [CommonModule, EventInfoComponent, GroupInfoComponent]
 })
 export class FriendInfoComponent {
   @Input() friend!: User;
@@ -33,9 +37,15 @@ export class FriendInfoComponent {
   isSender: Boolean = false;
   isReceiver: Boolean = false;
 
+  userGroups: GroupMembership[] = [];
+  friendMemberGroups: Group[] = [];
+  friendOwnedGroups: Group[] = [];
+
   constructor(
     private eventService: EventService, 
     private friendshipService: FriendshipService,
+    private groupService: GroupService,
+    private groupMemberService: GroupMemberService,
     private store: Store,
     private cdr: ChangeDetectorRef) {
 
@@ -46,6 +56,18 @@ export class FriendInfoComponent {
     }
 
   ngOnInit() {
+
+    if (this.user) {
+      let userId: string = this.user._id;
+      this.groupMemberService.getGroupMemberships().subscribe(memberships => {
+        memberships.forEach(membership => {
+          if (membership.user == userId) {
+            this.userGroups.push(membership);
+          }
+        })
+      })
+    }
+
     switch (this.tabType) {
       case FriendType.MyFriends:
         // no need to check for private vs public events
@@ -57,6 +79,7 @@ export class FriendInfoComponent {
           })
     
         });
+
         break;
       case FriendType.PendingIncoming,
             FriendType.PendingOutgoing,
@@ -82,6 +105,35 @@ export class FriendInfoComponent {
         });
         break;
     }
+
+    // user can see the friends group as long as the group is public
+    // if the group is private, then the user must also be in that group to see it 
+    this.groupService.getUserGroups(this.friend._id).subscribe(groups => {
+      groups.forEach(group => {
+        if (group.visibility == "Public" || this.isUserInGroup(group)) {
+          this.friendMemberGroups.push(group);
+        }
+
+      })
+    })
+
+    this.groupService.getUserOwnedGroups(this.friend._id).subscribe(groups => {
+      groups.forEach(group => {
+        if (group.visibility == "Public" || this.isUserInGroup(group)) {
+          this.friendOwnedGroups.push(group);
+        }
+
+      })
+    })
+  }
+
+  isUserInGroup(group: Group) {
+    for (let i = 0; i < this.userGroups.length; i++) {
+        if (group._id === this.userGroups[i]._id) {
+            return true;
+        }
+    }
+    return false;
   }
 
   get friendName() {
