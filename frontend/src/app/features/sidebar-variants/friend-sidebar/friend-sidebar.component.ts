@@ -190,6 +190,10 @@ implements OnInit{
             return !pendingFriendIds.includes(friend._id) && !myFriendIds.includes(friend._id) && friend._id !== this.user?._id;
         });
 
+        if (this.queriedUsers.length > 0) {
+            return this.queriedUsers;
+        }
+
         return this.recommendedFriends;
     }
 

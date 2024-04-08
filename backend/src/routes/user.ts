@@ -15,24 +15,42 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.get('/search', async (req, res) => {
     const { query } = req.query as any;
+    console.log(query)
 
     const pipeline = [
         {
             $search: {
-                index: 'UserSearchIndex',
-                text: {
-                    query,
-                    path: ['username', 'email'], // Example fields to search
-                    fuzzy: {} // Optional: fuzzy matching options
+                index: "UserAutocompleteIndex",
+                compound: {
+                    should: [
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "email"
+                            }
+                        },
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "username"
+                            }
+                        },
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "_id"
+                            }
+                        }
+                    ],
                 }
-            }
+            },
         },
         {
             $project: {
-                _id: 0,
+                _id: 1,
                 score: { $meta: 'searchScore' },
-                username: 1,
-                email: 1
+                email: 1,
+                username: 1
             }
         }
     ];
