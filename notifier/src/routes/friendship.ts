@@ -4,9 +4,13 @@ import {sendEmail} from "../emailService";
 
 const friendshipRouter = express.Router();
 
+
+// export async function sendEmail(subject: string, userName: string, content: string, recipient: string) {
+
+
 friendshipRouter.post('/request', async (req, res) => {
-    const {userEmail, friend} = req.body;
-    sendEmail('Friendship request', `User ${friend} wants to be friends with you`, userEmail).then(() => {
+    const {userEmail, friend, username} = req.body;
+    sendEmail('Friendship request', username, `${friend} has sent you a friend request in EventFinder`, userEmail).then(() => {
         res.json({message: 'Friendship request sent'});
 
     }).catch((e) => {
@@ -17,8 +21,8 @@ friendshipRouter.post('/request', async (req, res) => {
 });
 
 friendshipRouter.post('/accept', async (req, res) => {
-    const {userEmail, friend} = req.body;
-    sendEmail('Friendship accepted', `User ${friend} has accepted your friend request`, userEmail).then(() => {
+    const {userEmail, friend, username} = req.body;
+    sendEmail('Friendship accepted', friend, `${username} has accepted your friend request`, userEmail).then(() => {
         res.json({message: 'Friendship accepted'});
 
     }).catch((e) => {
@@ -28,8 +32,8 @@ friendshipRouter.post('/accept', async (req, res) => {
 });
 
 friendshipRouter.post('/reject', async (req, res) => {
-    const {userEmail, friend} = req.body;
-    sendEmail('Friendship rejected', `User ${friend} has rejected your friend request`, userEmail).then(() => {
+    const {userEmail, friend, username} = req.body;
+    sendEmail('Friendship rejected', friend, `${username} has rejected your friend request`, userEmail).then(() => {
         res.json({message: 'Friendship rejected'});
 
     }).catch((e) => {

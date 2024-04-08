@@ -1,14 +1,59 @@
 <div class="card bg-base-100">
-    <div class="card-container">
+    <div class="card-container" (click)="toggleEventList()">
         <!-- TODO: possibly add profile photo -->
-        <h1> {{ friend.username }} </h1>
-        <button (click)="toggleEventList()"><i class="fa-solid fa-angle-down"></i></button>
+        <h1> {{ friendName }} </h1>
+        <div class="container">
+            <div *ngIf="tabType == FriendType.Search" class="button-container">
+                <div *ngIf="status == 'Accepted' else pending">
+                    <button class=""><i class="cursor-default text-success fa-regular fa-circle-check"></i></button>
+                </div>
+
+                <ng-template #pending>
+                    <div *ngIf="status == 'Pending'; else notFriends">
+                        <button class=""><i class="cursor-default text-secondary fa-regular fa-clock"></i></button>
+                    </div>
+
+                    <ng-template #notFriends>
+                        <button (click)="sendFriendRequest(friend)"><i class="cursor-pointer text-primary fa-solid fa-user-plus"></i></button>
+                    </ng-template>
+                </ng-template>
+
+            </div>
+            
+            <div *ngIf="tabType == FriendType.PendingIncoming" class="incoming-req-btns">
+                <button (click)="acceptFriendRequest(friend)"><i class="fa-solid fa-check text-success"></i></button>
+                <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error pl-10"></i></button>
+            </div>
+            <div *ngIf="tabType == FriendType.PendingOutgoing || tabType == FriendType.MyFriends" class="incoming-req-btns">
+                <button (click)="cancelFriendRequest(friend)"><i class="fa-solid fa-xmark text-error"></i></button>
+            </div>
+            
+        </div>
+
     </div>
 </div>
 
 <div [ngStyle]="{'display':displayStyle}">
-    <div class="friend-event-card" *ngFor="let event of friendEvents">
-        <app-event-info [event]="event"></app-event-info>
+    <div *ngIf="friendEvents.length > 0" class="friend-event-info">
+        <h1>Events</h1>
+        <div class="friend-event-card" *ngFor="let event of friendEvents">
+            <app-event-info [event]="event"></app-event-info>
+        </div>
+    </div>
+
+
+    <div *ngIf="friendMemberGroups.length > 0" class="group-membership-info">
+        <h1>Group Memberships</h1>
+        <div class="group-membership-card" *ngFor="let group of friendMemberGroups">
+            <app-group-info [group]="group"></app-group-info>
+        </div>
+    </div>
+
+    <div *ngIf="friendOwnedGroups.length > 0" class="group-owner-info">
+        <h1>Owned Group</h1>
+        <div class="group-owner-card" *ngFor="let group of friendOwnedGroups">
+            <app-group-info [group]="group"></app-group-info>
+        </div>
     </div>
 </div>
 

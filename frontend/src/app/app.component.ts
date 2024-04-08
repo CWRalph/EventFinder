@@ -14,6 +14,8 @@ import {InfoSidebarComponent} from "@features/sidebar/info-sidebar/info-sidebar.
 import { GroupService } from './core/services/GroupService';
 import { Group } from './core/models/group';
 import {EventMemberService} from "@core/services/EventMemberService";
+import { FriendshipService } from './services/FriendshipService';
+import { Friendship } from './core/models/friendship';
 
 @Component({
   selector: 'app-root',
@@ -34,9 +36,12 @@ import {EventMemberService} from "@core/services/EventMemberService";
 export class AppComponent implements OnInit {
   events: Event[] = [];
   groups: Group[] = [];
+  friendships: Friendship[] = [];
 
   constructor(
     private eventService: EventService,
+    private groupService: GroupService,
+    private friendshipService: FriendshipService,
     private store: Store,
   ) {}
 
@@ -46,6 +51,15 @@ export class AppComponent implements OnInit {
       console.log('the events are: ', this.events);
     });
 
+    this.groupService.getGroups().subscribe((groups) => {
+      this.groups = groups;
+      console.log('Groups are: ', this.groups);
+    });
+
+    this.friendshipService.getFriendships().subscribe((friendships) => {
+      this.friendships = friendships;
+      console.log('Friendships are: ', this.friendships);
+    });
     //Log the user in if cookie exists
     this.store.dispatch(UserActions.authenticateUser());
 

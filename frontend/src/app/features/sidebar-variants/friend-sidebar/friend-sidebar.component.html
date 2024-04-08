@@ -1,1 +1,27 @@
-<p>friend-sidebar works!</p>
+<div class="friend-sidebar">
+    <div role="tablist" class="friend-sidebar-tabs">
+      <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Friends" />
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <app-friend-info *ngFor="let friend of myFriendsList" [friend]="friend"></app-friend-info>
+      </div>
+  
+      <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Pending" checked />
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <div *ngIf="incomingPendingFriendsList.length > 0">
+            <h1>Friend Requests</h1>
+            <app-friend-info *ngFor="let friend of incomingPendingFriendsList" [friend]="friend" [tabType]="FriendType.PendingIncoming"></app-friend-info>
+        </div>
+
+        <div *ngIf="outgoingPendingFriendsList.length > 0">
+            <h1>Sent Requests</h1>
+            <app-friend-info *ngFor="let friend of outgoingPendingFriendsList" [friend]="friend" [tabType]="FriendType.PendingOutgoing"></app-friend-info>
+        </div>
+    </div>
+  
+      <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Search" />
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <app-friend-info *ngFor="let friend of queriedUsersList" [friend]="friend" [tabType]="FriendType.Search" [status]="getFriendshipStatus(friend)"></app-friend-info>
+        
+      </div>
+    </div>
+  </div>
