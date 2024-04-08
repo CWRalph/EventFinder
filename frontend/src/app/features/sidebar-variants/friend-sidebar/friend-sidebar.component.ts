@@ -9,12 +9,12 @@ import { selectUser } from '@app/state/user/userReducer';
 import { select } from '@ngrx/store';
 import { selectQueriedUsers, selectUsers } from '@app/state/users/usersReducer';
 import { UsersActions } from '@app/state/users/usersActions';
+import { Status } from '@app/core/models/event';
 
 export enum FriendType {
     MyFriends = "MyFriends",
     PendingIncoming = "PendingIncoming",
     PendingOutgoing = "PendingOutgoing",
-    Pending = "Pending",
     Search = "Search"
 }
 
@@ -171,46 +171,23 @@ implements OnInit{
         return this.outgoingPendingFriends
     }
 
-    get recommendedFriendsList(): User[] {
-        let recommendedUserIds: string[] = [];
-        let allFriends: User[] = [];
-        let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
-        let myFriendIds: string[] = this.myFriendsList.map(friend => friend._id)
-
-        this.allUsers.forEach(user => {
-
-            if (!recommendedUserIds.includes(user._id)) {
-                allFriends.push(user);
-                recommendedUserIds.push(user._id); // Add user ID to the list
-            }
-        });
-
-        this.recommendedFriends = allFriends.filter(friend => {
-            // Check if the friend is not in the pending friends list
-            return !pendingFriendIds.includes(friend._id) && !myFriendIds.includes(friend._id) && friend._id !== this.user?._id;
-        });
-
-        if (this.queriedUsers.length > 0) {
-            return this.queriedUsers;
-        }
-
-        return this.recommendedFriends;
-    }
-
-    get usersList(): User[] {
-        let unfilteredUsers = this.allUsers;
-        let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
-        let myFriendIds: string[] = this.myFriendsList.map(friend => friend._id)
-
-        this.allUsers = unfilteredUsers.filter(user => {
-            return !pendingFriendIds.includes(user._id) && !myFriendIds.includes(user._id) && user._id !== this.user?._id;
-        });
-
-        return this.allUsers;
-    }
-
     get queriedUsersList(): User[] {
+
+        this.queriedUsers = this.queriedUsers.filter(user => {
+            return user._id !== this.user?._id;
+        });
+
         return this.queriedUsers;
+    }
+
+    getFriendshipStatus(friend: User): Status | undefined {
+        for (let i = 0; i < this.myFriendships.length; i++) {
+            var friendship = this.myFriendships[i]
+            if ((friendship.user1._id == this.user?._id && friendship.user2._id == friend._id) || (friendship.user1._id == friend._id && friendship.user2._id == this.user?._id)) {
+                return friendship.status;
+            }
+        }
+        return undefined
     }
 
     protected readonly FriendType = FriendType;

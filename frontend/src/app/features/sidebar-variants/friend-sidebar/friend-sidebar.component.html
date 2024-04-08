@@ -20,8 +20,8 @@
   
       <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Search" />
       <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-        <app-friend-info *ngFor="let friend of recommendedFriendsList" [friend]="friend" [tabType]="FriendType.Search"></app-friend-info>
+        <app-friend-info *ngFor="let friend of queriedUsersList" [friend]="friend" [tabType]="FriendType.Search" [status]="getFriendshipStatus(friend)"></app-friend-info>
+        
       </div>
     </div>
   </div>
-  
