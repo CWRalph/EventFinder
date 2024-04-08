@@ -93,27 +93,36 @@ implements OnInit{
         let myFriendshipUserIds: string[] = [];
         let allMyFriends: User[] = [];
         let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
-        this.myFriendships.forEach(friendship => {
+        
+        if (this.user) {
+            this.myFriendships.forEach(friendship => {
 
-            // Check user1
-            if (!myFriendshipUserIds.includes(friendship.user1._id)) {
-                allMyFriends.push(friendship.user1);
-                myFriendshipUserIds.push(friendship.user1._id);
-            }
+                // Verify that the user is in the friendship
+                if (friendship.user1._id == this.user?._id || friendship.user2._id == this.user?._id ) {
+                    // Check user1
+                    if (!myFriendshipUserIds.includes(friendship.user1._id)) {
+                        allMyFriends.push(friendship.user1);
+                        myFriendshipUserIds.push(friendship.user1._id);
+                    }
+        
+                    // Check user2
+                    if (!myFriendshipUserIds.includes(friendship.user2._id)) {
+                        allMyFriends.push(friendship.user2);
+                        myFriendshipUserIds.push(friendship.user2._id);
+                    }
+                }
+    
+            });
+    
+            this.myFriends = allMyFriends.filter(friend => {
+                // Check if the friend is not in the pending friends list or self
+                return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
+            });
+    
+            return this.myFriends;
+        }
 
-            // Check user2
-            if (!myFriendshipUserIds.includes(friendship.user2._id)) {
-                allMyFriends.push(friendship.user2);
-                myFriendshipUserIds.push(friendship.user2._id);
-            }
-        });
-
-        this.myFriends = allMyFriends.filter(friend => {
-            // Check if the friend is not in the pending friends list or self
-            return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
-        });
-
-        return this.myFriends;
+        return []
     }
 
     get myPendingFriendshipList(): Friendship[] {
@@ -171,7 +180,20 @@ implements OnInit{
         return this.outgoingPendingFriends
     }
 
+    get usersList(): User[] {
+        this.allUsers = this.allUsers.filter(user => {
+            return user._id !== this.user?._id;
+        });
+
+        return this.allUsers;
+    }
+
+
     get queriedUsersList(): User[] {
+
+        if (this.queriedUsers.length == 0) {
+            return this.usersList;
+        }
 
         this.queriedUsers = this.queriedUsers.filter(user => {
             return user._id !== this.user?._id;
@@ -188,6 +210,10 @@ implements OnInit{
             }
         }
         return undefined
+    }
+
+    get isLoggedIn(): Boolean {
+        return this.user != undefined
     }
 
     protected readonly FriendType = FriendType;
