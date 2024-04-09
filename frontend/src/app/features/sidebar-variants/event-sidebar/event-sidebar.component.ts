@@ -4,6 +4,7 @@ import { Event } from '@core/models/event';
 import { EventInfoComponent } from '@features/sidebar-variants/event-info/event-info.component';
 import { CommonModule } from '@angular/common';
 import {
+  selectEvents,
   selectMyEvents,
   selectQueriedEvents,
   selectSavedEvents,
