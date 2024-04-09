@@ -59,24 +59,10 @@ export class NavbarComponent extends SubscriberComponent implements OnInit {
   }
 
   login() {
-    // this.store.dispatch(UserActions.loginUser());
     this.dialog.open(LoginComponent);
   }
 
   register() {
     this.store.dispatch(UserActions.registerUser());
-  }
-
-  onChange(query: string) {
-    this.searchbarService.setQuery(query);
-  }
-
-  onEnter() {
-    this.searchbarService.fireSearch();
-  }
-
-  onDropdownClick(query: string) {
-    this.searchbarService.setQuery(query);
-    this.searchbarService.fireSearch();
   }
 }

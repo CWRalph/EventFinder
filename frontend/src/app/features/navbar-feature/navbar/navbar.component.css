@@ -1,13 +1,17 @@
+:host{
+  @apply relative w-full;
+}
+
 .navbar-container {
-  @apply fixed flex w-full h-16 bg-transparent z-10;
+  @apply fixed flex w-full h-16 bg-transparent z-10 my-8 ml-24;
 }
 
 .navbar-button-container {
-  @apply flex gap-4 h-full w-fit items-center justify-center;
+  @apply flex gap-4 h-full w-fit items-center justify-center mx-4;
 }
 
 .navbar-button {
-  @apply btn btn-outline flex flex-col w-fit;
+  @apply btn rounded-full flex flex-col text-gray-400 w-fit;
   height: 60px;
   line-height: 1rem;
   font-size:1rem;

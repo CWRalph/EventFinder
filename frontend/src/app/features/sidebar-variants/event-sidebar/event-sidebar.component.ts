@@ -1,10 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractSidebarComponent} from "@features/sidebar-variants/abstract-sidebar/abstract-sidebar.component";
-import {Event} from "@core/models/event";
-import {EventInfoComponent} from "@features/sidebar-variants/event-info/event-info.component";
-import {CommonModule} from "@angular/common";
-import {selectMyEvents, selectQueriedEvents, selectSavedEvents} from "@state/event/eventReducer";
-import {EventActions} from "@state/event/eventActions";
+import { Component, OnInit } from '@angular/core';
+import { AbstractSidebarComponent } from '@features/sidebar-variants/abstract-sidebar/abstract-sidebar.component';
+import { Event } from '@core/models/event';
+import { EventInfoComponent } from '@features/sidebar-variants/event-info/event-info.component';
+import { CommonModule } from '@angular/common';
+import {
+  selectEvents,
+  selectMyEvents,
+  selectQueriedEvents,
+  selectSavedEvents,
+} from '@state/event/eventReducer';
+import { EventActions } from '@state/event/eventActions';
+
+export enum EventDisplayType {
+  MY_EVENTS = 'My Events',
+  SAVED_EVENTS = 'Saved Events',
+  SEARCHED_EVENTS = 'Searched Events',
+}
 
 @Component({
   selector: 'app-event-sidebar',
@@ -19,24 +30,50 @@ export class EventSidebarComponent
 {
   private savedEvents: Event[] = [];
   private myEvents: Event[] = [];
+  private autoCompleteEvents: Event[] = [];
   private queriedEvents: Event[] = [];
   private searchQuery: string = '';
 
   ngOnInit() {
-    this.unsubscribeOnDestroy<Event[]>(this.store.select(selectMyEvents)).subscribe(
-      (events) => this.myEvents = events);
-    this.unsubscribeOnDestroy<Event[]>(this.store.select(selectSavedEvents)).subscribe(
-      (events) => this.savedEvents = events);
-    this.unsubscribeOnDestroy<Event[]>(this.store.select(selectQueriedEvents)).subscribe(
-      (events) => this.queriedEvents = events);
-    this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
-      (query) => {
-        this.store.dispatch(EventActions.queryEvents({query}));
-        this.searchQuery = query;
-      }
-    )
+    this.unsubscribeOnDestroy(this.store.select(selectEvents)).subscribe(
+      (events) => this.searchbarService.fireSearch(),
+    );
 
-    this.searchbarService.setRecommendations(["Event 1", "Event 2", "Event 3"])
+    this.unsubscribeOnDestroy<Event[]>(
+      this.store.select(selectMyEvents),
+    ).subscribe((events) => {
+      console.log("My events: ", events);
+      this.myEvents = events
+      this.searchbarService.fireSearch();
+    });
+    this.unsubscribeOnDestroy<Event[]>(
+      this.store.select(selectSavedEvents),
+    ).subscribe((events) => {
+      console.log("Saved events: ", events);
+      this.savedEvents = events;
+      this.searchbarService.fireSearch();
+    });
+    this.unsubscribeOnDestroy<Event[]>(
+      this.store.select(selectQueriedEvents),
+    ).subscribe((events) => {
+      this.autoCompleteEvents = events;
+      this.setRecommendations(
+        this.autoCompleteEvents.length > 0
+          ? this.autoCompleteEvents.map((event) => event.name).slice(0, 5)
+          : ['No results found, please modify query.'],
+      );
+    });
+    this.unsubscribeOnDestroy<string>(
+      this.searchbarService.getQuery(),
+    ).subscribe((query) => {
+      this.store.dispatch(EventActions.queryEvents({ query }));
+      this.searchQuery = query;
+    });
+    this.unsubscribeOnDestroy(this.searchbarService.getSearchFired()).subscribe(
+      (recommendations) => (this.queriedEvents = this.autoCompleteEvents),
+    );
+
+    this.searchbarService.fireSearch()
   }
 
   get savedEventsList(): Event[] {

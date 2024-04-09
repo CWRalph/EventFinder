@@ -1,14 +1,17 @@
-import {Inject, Injectable} from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Event} from "@core/models/event";
+import { Event } from '@core/models/event';
 import { Observable } from 'rxjs';
-import {DOCUMENT} from "@angular/common";
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
   //TODO: Change this URL according to your backen
 
-  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private http: HttpClient,
+  ) {}
 
   private readonly LOCAL_URL = 'http://localhost:3000/events';
   private readonly PROD_URL = this.document.location.origin + '/events';
@@ -18,7 +21,7 @@ export class EventService {
     return this.http.get<Event[]>(this.URL);
   }
 
-  getEvent(eventId: number): Observable<Event> {
+  getEvent(eventId: string): Observable<Event> {
     return this.http.get<Event>(this.URL + '/' + eventId);
   }
 
@@ -30,17 +33,17 @@ export class EventService {
     return this.http.put<Event>(this.URL + '/' + event._id, event);
   }
 
-  deleteEvent(id: number): Observable<Event> {
+  deleteEvent(id: string): Observable<Event> {
     return this.http.delete<Event>(this.URL + '/' + id);
   }
 
   searchEvents(query: string): Observable<Event[]> {
-    return this.http.get<Event[]>(this.URL + '/search', { params: {query} });
+    return this.http.get<Event[]>(this.URL + '/search', { params: { query } });
   }
 
-  clearEvents(){
+  clearEvents() {
     //TODO remove this
-    console.log("Clearing events")
+    console.log('Clearing events');
     return this.http.delete(this.URL);
   }
 }

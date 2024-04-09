@@ -134,7 +134,7 @@ groupRouter.get('/search', async (req, res) => {
     const pipeline = [
         {
         $search:{
-            index: 'GroupSearchIndex',
+            index: 'GroupAutocompleteIndex',
             text: {
                 query,
                 path:['groupName', 'description'],

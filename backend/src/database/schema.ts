@@ -58,6 +58,12 @@ const eventSchema = new mongoose.Schema({
     }
 });
 
+const eventMembershipSchema = new mongoose.Schema({
+    event: {type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+    role: {type: String, enum: ['owner', 'participant'], default: 'participant', required: true},
+});
+
 // Indicates what fields should be indexed for text search
 eventSchema.index({name: 'text', description: 'text', location: 'text'});
 
@@ -95,6 +101,23 @@ userSchema.pre('deleteOne', {document: true, query: false}, async function (next
     }
 });
 
+// Define a pre hook for findByIdAndDelete
+eventSchema.pre('findOneAndDelete', { document: false, query: true }, async function (next) {
+    const eventId = this.getQuery()._id; // Get the event ID from the query
+
+    try {
+        console.log("Deleting memberships with event Id: ", eventId);
+        // Delete all event memberships associated with the event
+        await mongoose.model('EventMembership').deleteMany({ event: eventId });
+        next();
+    } catch (err:any) {
+        console.error("An error occurred while deleting event memberships:", err);
+        next(err);
+    }
+});
+
+
+
 // Create models
 export const Login = mongoose.model('Login', loginSchema);
 export const User = mongoose.model('User', userSchema);
@@ -102,4 +125,4 @@ export const Event = mongoose.model('Event', eventSchema);
 export const Group = mongoose.model('Group', groupSchema);
 export const Friendship = mongoose.model('Friendship', friendshipSchema);
 export const Membership = mongoose.model('Membership', groupMembershipSchema);
-
+export const EventMembership = mongoose.model('EventMembership', eventMembershipSchema);
