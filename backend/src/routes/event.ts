@@ -118,14 +118,14 @@ eventRouter.put('/:id', async (req, res) => {
 });
 
 eventRouter.delete('/:id', async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
     try {
-        const deletedEvent = await Event.findByIdAndDelete(id);
+        const deletedEvent = await Event.findOneAndDelete({ _id: id });
         if (!deletedEvent) {
             return notFound(res, 'Event');
         }
-        res.json({message: 'Event deleted'});
+        res.json({ message: 'Event deleted' });
     } catch (e) {
         catchError(e, res);
     }

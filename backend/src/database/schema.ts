@@ -100,21 +100,22 @@ userSchema.pre('deleteOne', {document: true, query: false}, async function (next
     }
 });
 
-eventSchema.pre('deleteOne', {document: true, query: false}, async function (next) {
-    const eventId = this._id;
+// Define a pre hook for findByIdAndDelete
+eventSchema.pre('findOneAndDelete', { document: false, query: true }, async function (next) {
+    const eventId = this.getQuery()._id; // Get the event ID from the query
 
     try {
+        console.log("Deleting memberships with event Id: ", eventId);
         // Delete all event memberships associated with the event
-        await mongoose.model('EventMembership').deleteMany({event: eventId});
+        await mongoose.model('EventMembership').deleteMany({ event: eventId });
         next();
-    } catch (err) {
-        if (err instanceof Error) {
-            console.error(err.message);
-        } else {
-            console.error("An unknown error occurred");
-        }
+    } catch (err:any) {
+        console.error("An error occurred while deleting event memberships:", err);
+        next(err);
     }
 });
+
+
 
 // Create models
 export const Login = mongoose.model('Login', loginSchema);

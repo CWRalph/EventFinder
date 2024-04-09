@@ -58,9 +58,9 @@ export class EventEffects {
           switchMap((createdEvent) =>
             this.store.select(selectUser).pipe(
               map((user) => {
-                EventActions.saveEvent({ event: createdEvent, role: 'owner' });
+                this.store.dispatch(EventActions.saveEvent({ event: createdEvent, role: 'owner' }));
                 this.eventCreationService.closeDialog();
-                return EventActions.createEventSuccess({ event: createdEvent });
+                return EventActions.createEventSuccess({ event: createdEvent })
               }),
               catchError(() => of(EventActions.saveEventFailure())),
             ),
@@ -104,7 +104,6 @@ export class EventEffects {
       switchMap((user) =>
         this.eventMembershipService.getEventMembershipsByUser(user?._id).pipe(
           switchMap((memberships) => {
-            const eventIds = memberships.map((membership) => membership.event);
             return this.eventService.getEvents().pipe(
               map((events) => ({ events, memberships })),
               catchError(() => of({ events: [], memberships })),
@@ -115,16 +114,22 @@ export class EventEffects {
       map(({ events, memberships }) =>
         memberships.map((membership) => {
           const event = events.find((e) => e._id === membership.event);
+          console.log("Getting user events",events, memberships)
           if (!event) {
-            throw new Error(`Event with ID ${membership.event} not found`);
+            //throw new Error(`Event with ID ${membership.event} not found`);
+            //TODO fix this
+            return null;
           }
           return { ...event, role: membership.role };
         }),
       ),
-      switchMap((eventsWithRoles) => {
-        const ownerEvents = eventsWithRoles.filter(
-          (event) => event.role === 'owner',
-        );
+      switchMap((e) => {
+        const eventsWithRoles:Event[] = e.filter((event) => event) as any;
+
+        const ownerEvents = eventsWithRoles
+          .filter(
+            (event) => event.role === 'owner',
+          );
         const participantEvents = eventsWithRoles.filter(
           (event) => event.role === 'participant',
         );
@@ -133,7 +138,10 @@ export class EventEffects {
           EventActions.getSavedEventsSuccess({ events: participantEvents }),
         ];
       }),
-      catchError(() => of(EventActions.mapMembershipsToEventsFailure())),
+      catchError((error) => {
+        console.log(error)
+        return of(EventActions.mapMembershipsToEventsFailure())
+      }),
     ),
   );
 

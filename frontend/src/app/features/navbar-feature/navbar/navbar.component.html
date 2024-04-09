@@ -10,6 +10,7 @@
     <button class="navbar-button" (click)="createGroup()">
       Create Group
     </button>
+    <app-user-icon class="absolute right-[120px]"></app-user-icon>
   </div>
   <ng-template #loggedOutNavbar>
     <div class="navbar-button-container">
@@ -22,6 +23,5 @@
       <button class="navbar-button" (click)="login()">Login</button>
       <button class="navbar-button" (click)="register()">Register</button>
     </div>
-    <app-user-icon class="absolute right-[120px]"></app-user-icon>
   </ng-template>
 </div>

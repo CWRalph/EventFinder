@@ -3,7 +3,7 @@
 }
 
 .event-sidebar-tabs{
-  @apply tabs tabs-lifted w-full;
+  @apply tabs tabs-lifted w-full text-nowrap;
 }
 
 
