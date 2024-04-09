@@ -13,7 +13,6 @@ export const EventReducer = createReducer(
   on(EventActions.createEventSuccess, (state, { event }) => ({
     ...state,
     events: [...state.events, event],
-    myEvents: [...state.myEvents, event],
   })),
   on(EventActions.getEventsSuccess, (state, { events }) => ({
     ...state,
@@ -35,13 +34,11 @@ export const EventReducer = createReducer(
     ...state,
     queriedEvents: events,
   })),
-  on(EventActions.saveEventSuccess, (state, { event, role }) => {
-    return ({
+  on(EventActions.saveEventSuccess, (state, { event, role }) =>({
       ...state,
       savedEvents: (role == 'participant')? [...state.savedEvents, event] : [...state.savedEvents],
       myEvents: (role == 'owner')? [...state.myEvents, event] : [...state.myEvents],
-    })
-  }),
+  })),
   on(EventActions.unsaveEventSuccess, (state, { event }) => ({
     ...state,
     savedEvents: state.savedEvents.filter((e: Event) => e._id !== event._id),
@@ -57,6 +54,8 @@ export const EventReducer = createReducer(
     ...state,
     events: state.events.filter((e: Event) => e._id !== event._id),
     myEvents: state.myEvents.filter((e: Event) => e._id !== event._id),
+    savedEvents: state.savedEvents.filter((e: Event) => e._id !== event._id),
+    queriedEvents: state.queriedEvents.filter((e: Event) => e._id !== event._id),
   })),
 );
 

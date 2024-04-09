@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/abstract-sidebar/abstract-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/abstract-sidebar/abstract-sidebar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,24 +29,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/cwr/WebstormProjects/EventBriterParent/EventFinder",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\frontend\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;search-events&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/cwr/WebstormProjects/EventBriterParent/EventFinder&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/cwr/WebstormProjects/EventBriterParent/EventFinder/frontend/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/cwr/WebstormProjects/EventBriterParent/EventFinder/frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\colwy\WebstormProjects\CMPT372FinalProject\EventFinder\frontend\src\app\shared" />
@@ -92,6 +86,8 @@
       <workItem from="1712469042600" duration="2042000" />
       <workItem from="1712527323496" duration="9000000" />
       <workItem from="1712553810689" duration="6822000" />
+      <workItem from="1712643422019" duration="24000" />
+      <workItem from="1712691983328" duration="6751000" />
     </task>
     <servers />
   </component>

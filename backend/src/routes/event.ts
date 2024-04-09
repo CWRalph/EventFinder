@@ -71,7 +71,7 @@ eventRouter.get('/search', async (req, res) => {
                     ],
                 }
             },
-        },
+        }
     ];
 
     //Sort descending order

@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { EventActions } from '@state/event/eventActions';
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
 import {selectMyEvents, selectSavedEvents} from "@state/event/eventReducer";
-import {takeUntil, tap} from "rxjs";
 
 @Component({
   selector: 'app-event-info',

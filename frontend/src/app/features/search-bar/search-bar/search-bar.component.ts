@@ -29,20 +29,22 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   @ViewChild('searchDropdown') dropdown!: ElementRef;
   private _value: string = '';
   private isFocused: boolean = false;
+
+  public results: string[] = [];
+
   private isLoggedIn: boolean = false;
   private isDialogOpen: boolean = false;
 
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private searchBarService: SearchBarService) 
+    private searchBarService: SearchBarService)
     {
     super();
   }
 
 
   @Input() placeholder: string = 'Search';
-  @Input() results: string[] = [];
   @Output() onFocus: EventEmitter<void> = new EventEmitter<void>();
   @Output() onBlur: EventEmitter<void> = new EventEmitter<void>();
   @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
@@ -53,6 +55,9 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   ngOnInit(): void {
     this.unsubscribeOnDestroy(this.searchBarService.getQuery()).subscribe(
       (query) => (this._value = query),
+    );
+    this.unsubscribeOnDestroy(this.searchBarService.getRecommendations()).subscribe(
+      (recommendations) => (this.results = recommendations),
     );
 
     this.store.select(selectIsLoggedIn).subscribe(login => {
@@ -71,7 +76,7 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
 
   public set value(value: string) {
     this._value = value;
-    this.onChange.emit(value);
+    this.searchBarService.setQuery(value)
   }
 
   public get inputPlaceholder(): string {
@@ -109,11 +114,6 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
     this.searchInput.nativeElement.blur();
   }
 
-  public change() {
-    this.onChange.emit(this.value);
-    this.searchBarService.setQuery(this.value);
-  }
-
   public clearInput(): void {
     this.value = '';
     this.onClear.emit();
@@ -129,6 +129,6 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   public onDropdownItemClicked(item: string) {
     this.onDropdownClick.emit(item);
     this.blurSearchBar();
-    this.searchBarService.setQuery(item);
+    this.value = item;
   }
 }
