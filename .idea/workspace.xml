@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/navbar/navbar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-info/event-info.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar/info-sidebar/info-sidebar.component.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +87,7 @@
       <workItem from="1712527323496" duration="9000000" />
       <workItem from="1712553810689" duration="6822000" />
       <workItem from="1712643422019" duration="24000" />
-      <workItem from="1712691983328" duration="5393000" />
+      <workItem from="1712691983328" duration="6751000" />
     </task>
     <servers />
   </component>
