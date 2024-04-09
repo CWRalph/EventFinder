@@ -5,11 +5,12 @@ import { FriendInfoComponent } from "../friend-info/friend-info.component";
 import { Friendship } from '@app/core/models/friendship';
 import { User } from '@app/core/models/user';
 import { selectFriendships, selectMyFriendships, selectPendingFriendships } from '@app/state/friendship/friendshipReducer';
-import { selectUser } from '@app/state/user/userReducer';
+import { selectIsLoggedIn, selectUser } from '@app/state/user/userReducer';
 import { select } from '@ngrx/store';
 import { selectQueriedUsers, selectUsers } from '@app/state/users/usersReducer';
 import { UsersActions } from '@app/state/users/usersActions';
 import { Status } from '@app/core/models/event';
+import { takeUntil } from 'rxjs';
 
 export enum FriendType {
     MyFriends = "MyFriends",
@@ -45,10 +46,17 @@ implements OnInit{
     
     userID: string = '';
     private user?: User;
+    public isLoggedIn: boolean = false;
 
     private searchQuery: string = "";
 
     ngOnInit() {
+
+        this.store
+        .select(selectIsLoggedIn)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn));
+        
         this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
             this.user = user;
         });
@@ -93,27 +101,36 @@ implements OnInit{
         let myFriendshipUserIds: string[] = [];
         let allMyFriends: User[] = [];
         let pendingFriendIds: string[] = this.myPendingFriendsList.map(friend => friend._id);
-        this.myFriendships.forEach(friendship => {
+        
+        if (this.user) {
+            this.myFriendships.forEach(friendship => {
 
-            // Check user1
-            if (!myFriendshipUserIds.includes(friendship.user1._id)) {
-                allMyFriends.push(friendship.user1);
-                myFriendshipUserIds.push(friendship.user1._id);
-            }
+                // Verify that the user is in the friendship
+                if (friendship.user1._id == this.user?._id || friendship.user2._id == this.user?._id ) {
+                    // Check user1
+                    if (!myFriendshipUserIds.includes(friendship.user1._id)) {
+                        allMyFriends.push(friendship.user1);
+                        myFriendshipUserIds.push(friendship.user1._id);
+                    }
+        
+                    // Check user2
+                    if (!myFriendshipUserIds.includes(friendship.user2._id)) {
+                        allMyFriends.push(friendship.user2);
+                        myFriendshipUserIds.push(friendship.user2._id);
+                    }
+                }
+    
+            });
+    
+            this.myFriends = allMyFriends.filter(friend => {
+                // Check if the friend is not in the pending friends list or self
+                return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
+            });
+    
+            return this.myFriends;
+        }
 
-            // Check user2
-            if (!myFriendshipUserIds.includes(friendship.user2._id)) {
-                allMyFriends.push(friendship.user2);
-                myFriendshipUserIds.push(friendship.user2._id);
-            }
-        });
-
-        this.myFriends = allMyFriends.filter(friend => {
-            // Check if the friend is not in the pending friends list or self
-            return !pendingFriendIds.includes(friend._id) && friend._id !== this.user?._id;
-        });
-
-        return this.myFriends;
+        return []
     }
 
     get myPendingFriendshipList(): Friendship[] {
@@ -171,7 +188,20 @@ implements OnInit{
         return this.outgoingPendingFriends
     }
 
+    get usersList(): User[] {
+        this.allUsers = this.allUsers.filter(user => {
+            return user._id !== this.user?._id;
+        });
+
+        return this.allUsers;
+    }
+
+
     get queriedUsersList(): User[] {
+
+        if (this.queriedUsers.length == 0) {
+            return this.usersList;
+        }
 
         this.queriedUsers = this.queriedUsers.filter(user => {
             return user._id !== this.user?._id;
