@@ -6,7 +6,6 @@ import {BehaviorSubject, Observable, Subject} from "rxjs";
 })
 export class SearchBarService {
   query: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  searchFired: Subject<void> = new Subject<void>();
   recommendations: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
   constructor() { }
@@ -25,13 +24,5 @@ export class SearchBarService {
 
   public setRecommendations(recommendations: string[]): void {
     this.recommendations.next(recommendations);
-  }
-
-  public getSearchFired(): Observable<void> {
-    return this.searchFired.asObservable();
-  }
-
-  public fireSearch(): void {
-    this.searchFired.next();
   }
 }
