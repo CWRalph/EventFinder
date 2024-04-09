@@ -71,15 +71,6 @@ eventRouter.get('/search', async (req, res) => {
                     ],
                 }
             },
-        },
-        {
-            $project:{
-                _id: 0,
-                score: { $meta: 'searchScore' },
-                name: 1,
-                description: 1,
-                location: 1,
-            }
         }
     ];
 

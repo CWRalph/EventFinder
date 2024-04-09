@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { EventActions } from '@state/event/eventActions';
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
 import {selectMyEvents, selectSavedEvents} from "@state/event/eventReducer";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-event-info',
@@ -46,21 +47,32 @@ export class EventInfoComponent extends SubscriberComponent implements OnChanges
   isSaved: boolean = false;
   isOwner: boolean = false;
 
+  private savedEvents: Event[] = [];
+  private myEvents: Event[] = [];
+
   constructor(private store: Store) {
     super();
   }
 
   ngOnInit() {
     this.unsubscribeOnDestroy(this.store.select(selectSavedEvents)).subscribe((events) => {
-      this.isSaved = events.some((e) => e._id === this.event._id);
+      this.savedEvents = events;
+      this.updateEventDetails();
     });
     this.unsubscribeOnDestroy(this.store.select(selectMyEvents)).subscribe((events) => {
-      this.isOwner = events.some((e) => e._id === this.event._id && e.owner === this.event.owner);
+      this.myEvents = events;
+      this.updateEventDetails();
     });
   }
 
   ngOnChanges() {
     this.setEventDuration();
+    this.updateEventDetails();
+  }
+
+  updateEventDetails(){
+    this.isOwner = this.myEvents.find((event) => event._id === this.event._id) !== undefined;
+    this.isSaved = this.savedEvents.find((event) => event._id === this.event._id) !== undefined;
   }
 
   setEventDuration() {

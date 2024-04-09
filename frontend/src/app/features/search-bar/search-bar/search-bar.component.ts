@@ -25,12 +25,14 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   @ViewChild('searchDropdown') dropdown!: ElementRef;
   private _value: string = '';
   private isFocused: boolean = false;
+
+  public results: string[] = [];
+
   constructor(private searchBarService: SearchBarService) {
     super();
   }
 
   @Input() placeholder: string = 'Search';
-  @Input() results: string[] = [];
   @Output() onFocus: EventEmitter<void> = new EventEmitter<void>();
   @Output() onBlur: EventEmitter<void> = new EventEmitter<void>();
   @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
@@ -41,6 +43,9 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   ngOnInit(): void {
     this.unsubscribeOnDestroy(this.searchBarService.getQuery()).subscribe(
       (query) => (this._value = query),
+    );
+    this.unsubscribeOnDestroy(this.searchBarService.getRecommendations()).subscribe(
+      (recommendations) => (this.results = recommendations),
     );
   }
 

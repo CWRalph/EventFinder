@@ -1,7 +1,5 @@
 <div class="navbar-container">
-  <app-search-bar
-    [results]="recommendations"
-  ></app-search-bar>
+  <app-search-bar></app-search-bar>
 
   <div *ngIf="isLoggedIn; else loggedOutNavbar" class="navbar-button-container">
     <button class="navbar-button" (click)="createEvent()">
