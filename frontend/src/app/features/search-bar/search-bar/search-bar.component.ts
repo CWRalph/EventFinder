@@ -83,8 +83,8 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   }
 
   public change() {
-    this.searchBarService.setQuery(this.value);
     this.onChange.emit(this.value);
+    this.searchBarService.setQuery(this.value);
   }
 
   public clearInput(): void {
@@ -92,19 +92,16 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
     this.onClear.emit();
     this.onChange.emit(this.value);
     this.searchBarService.setQuery(this.value);
-    this.searchBarService.fireSearch();
   }
 
   public onEnterPressed() {
     this.onEnter.emit();
     this.blurSearchBar();
-    this.searchBarService.fireSearch();
   }
 
   public onDropdownItemClicked(item: string) {
     this.onDropdownClick.emit(item);
     this.blurSearchBar();
     this.searchBarService.setQuery(item);
-    this.searchBarService.fireSearch();
   }
 }

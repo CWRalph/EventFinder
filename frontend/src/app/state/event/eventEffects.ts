@@ -170,7 +170,7 @@ export class EventEffects {
         this.eventMembershipService
           .createEventMembership(createGroupMembership(event, user, role))
           .pipe(
-            map(() => EventActions.saveEventSuccess({ event })),
+            map((membership) => EventActions.saveEventSuccess({ event, role: membership.role })),
             catchError(() => of(EventActions.saveEventFailure())),
           ),
       ),

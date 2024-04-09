@@ -35,11 +35,13 @@ export const EventReducer = createReducer(
     ...state,
     queriedEvents: events,
   })),
-  on(EventActions.saveEventSuccess, (state, { event }) => ({
-    ...state,
-    savedEvents: (event.role == 'participant')? [...state.savedEvents, event] : state.savedEvents,
-    myEvents: (event.role == 'owner')? [...state.myEvents, event] : state.myEvents,
-  })),
+  on(EventActions.saveEventSuccess, (state, { event, role }) => {
+    return ({
+      ...state,
+      savedEvents: (role == 'participant')? [...state.savedEvents, event] : [...state.savedEvents],
+      myEvents: (role == 'owner')? [...state.myEvents, event] : [...state.myEvents],
+    })
+  }),
   on(EventActions.unsaveEventSuccess, (state, { event }) => ({
     ...state,
     savedEvents: state.savedEvents.filter((e: Event) => e._id !== event._id),
