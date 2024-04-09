@@ -12,6 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SearchBarService } from '@features/search-bar/search-bar.service';
 import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { selectIsLoggedIn } from '@app/state/user/userReducer';
+import { LoginComponent } from '@core/authentication/login/login.component';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,9 +32,17 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
 
   public results: string[] = [];
 
-  constructor(private searchBarService: SearchBarService) {
+  private isLoggedIn: boolean = false;
+  private isDialogOpen: boolean = false;
+
+  constructor(
+    private store: Store,
+    private dialog: MatDialog,
+    private searchBarService: SearchBarService)
+    {
     super();
   }
+
 
   @Input() placeholder: string = 'Search';
   @Output() onFocus: EventEmitter<void> = new EventEmitter<void>();
@@ -47,6 +59,10 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
     this.unsubscribeOnDestroy(this.searchBarService.getRecommendations()).subscribe(
       (recommendations) => (this.results = recommendations),
     );
+
+    this.store.select(selectIsLoggedIn).subscribe(login => {
+      this.isLoggedIn = login;
+    })
   }
 
   private blurSearchBar() {
@@ -80,17 +96,29 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   public focus(): void {
     this.onFocus.emit();
     this.isFocused = true;
+
+    if (!this.isLoggedIn && this.isFocused && !this.isDialogOpen) {
+      this.isDialogOpen = true;
+      const dialogRef = this.dialog.open(LoginComponent);
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.isDialogOpen = false;
+        this.blur();
+      });
+    }
   }
 
   public blur(): void {
     this.onBlur.emit();
     this.isFocused = false;
+    this.searchInput.nativeElement.blur();
   }
 
   public clearInput(): void {
     this.value = '';
     this.onClear.emit();
     this.onChange.emit(this.value);
+    this.searchBarService.setQuery(this.value);
   }
 
   public onEnterPressed() {

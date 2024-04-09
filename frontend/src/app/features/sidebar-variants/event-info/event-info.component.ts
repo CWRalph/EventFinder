@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '@app/services/UserService';
 import { Event } from '@core/models/event';
@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { EventActions } from '@state/event/eventActions';
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
 import {selectMyEvents, selectSavedEvents} from "@state/event/eventReducer";
-import {take} from "rxjs";
 
 @Component({
   selector: 'app-event-info',
@@ -17,6 +16,8 @@ import {take} from "rxjs";
 })
 export class EventInfoComponent extends SubscriberComponent implements OnChanges, OnInit {
   @Input() event!: Event;
+  private myEvents: Event[] = [];
+  private savedEvents: Event[] = [];
 
   ownerName: string = '';
   daysOfWeek = [
@@ -47,32 +48,33 @@ export class EventInfoComponent extends SubscriberComponent implements OnChanges
   isSaved: boolean = false;
   isOwner: boolean = false;
 
-  private savedEvents: Event[] = [];
-  private myEvents: Event[] = [];
-
-  constructor(private store: Store) {
+  constructor(private store: Store, private cdr:ChangeDetectorRef) {
     super();
   }
 
   ngOnInit() {
-    this.unsubscribeOnDestroy(this.store.select(selectSavedEvents)).subscribe((events) => {
-      this.savedEvents = events;
-      this.updateEventDetails();
-    });
     this.unsubscribeOnDestroy(this.store.select(selectMyEvents)).subscribe((events) => {
       this.myEvents = events;
-      this.updateEventDetails();
+      this.checkEventStatus();
+      this.cdr.detectChanges();
     });
+    this.unsubscribeOnDestroy(this.store.select(selectSavedEvents)).subscribe((events) => {
+      this.savedEvents = events;
+      this.checkEventStatus();
+      this.cdr.detectChanges();
+    });
+    this.checkEventStatus();
   }
 
   ngOnChanges() {
     this.setEventDuration();
-    this.updateEventDetails();
+    this.checkEventStatus();
   }
 
-  updateEventDetails(){
-    this.isOwner = this.myEvents.find((event) => event._id === this.event._id) !== undefined;
+  checkEventStatus(){
+    console.log(this.event);
     this.isSaved = this.savedEvents.find((event) => event._id === this.event._id) !== undefined;
+    this.isOwner = this.myEvents.find((event) => event._id === this.event._id) !== undefined;
   }
 
   setEventDuration() {

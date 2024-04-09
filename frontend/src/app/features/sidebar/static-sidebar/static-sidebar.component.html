@@ -17,9 +17,13 @@
         <app-group-button [infoType]="groupType"></app-group-button>
 
         <!-- group memberships -->
-        <div class="group-btn" *ngFor="let membership of groupMemberships">
-            <app-group-button [groupMembership]="membership" [infoType]="membershipType"></app-group-button>
+        <div class="group-btn" *ngFor="let group of userOwnedGroups">
+            <app-group-button [group]="group" [infoType]="membershipType"></app-group-button>
         </div>
+        <div class="group-btn" *ngFor="let group of userFollowedGroups">
+          <app-group-button [group]="group" [infoType]="membershipType"></app-group-button>
+      </div>
+
     </div>
 
 </div>

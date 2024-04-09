@@ -25,6 +25,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class GroupCreationDialogComponent {
   public groupData!: Group;
   public isEditing: boolean = false;
+  selectedColor: string = '#00b5ff';
 
   constructor(
     private groupCreationService: GroupCreationService,
@@ -43,11 +44,17 @@ export class GroupCreationDialogComponent {
   }
 
   onSubmit() {
+    this.groupData.colour = this.selectedColor
+    console.log(this.groupData)
     if (this.isEditing) {
       this.groupCreationService.updateGroup(this.groupData);
     } else {
       this.groupCreationService.createGroup(this.groupData);
     }
+  }
+
+  onColorChange(event: any) {
+    this.selectedColor = event.target.value;
   }
 
 
