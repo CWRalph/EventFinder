@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SidebarService, SidebarType} from '@app/services/SidebarService';
 import {Group, GroupMembership} from "@core/models/group";
@@ -11,29 +11,42 @@ import {Group, GroupMembership} from "@core/models/group";
     imports: [CommonModule]
 })
 export class GroupButtonComponent {
-  @Input() groupMembership!: GroupMembership;
+  @Input() group!: Group;
   @Input() infoType: string = "";
 
   displayStyle = "none";
-  colours = ["info", "success", "error"];
-  groupColour: string = "";
-  groups: Group[] = [];
+  acronym: string = '';
 
   constructor(private sidebarService: SidebarService) {}
 
   ngOnInit() {
-    this.generateGroupColour();
+    this.acronym = this.createAcronym();
   }
 
   toggleSidebar(sidebarType:SidebarType) {
-    this.sidebarService.toggleSidebar(sidebarType);
+    this.sidebarService.toggleSidebar(sidebarType, this.group);
   }
 
-  // TODO: do we want to store the colour somewhere so the user doesn't get the new colours everytime? LocalStorage?
-  // should users be able to customize the group's colour?
-  generateGroupColour() {
-    let index = Math.floor(Math.random() * this.colours.length);
-    this.groupColour = "bg-" + this.colours[index];
+  createAcronym(): string {
+    if (this.group) {
+      const words: string[] = this.group.groupName.split(" ");
+
+      const capitalizedWords: string[] = words.map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      });
+
+      const firstLetters: string[] = capitalizedWords.map(word => word.charAt(0));
+
+      const groupAcronym: string = firstLetters.join("");
+
+      if (groupAcronym.length > 3) {
+        return groupAcronym.slice(0, 3)
+      }
+      
+      return groupAcronym;
+    }
+
+    return this.acronym
   }
 
   public readonly SidebarType = SidebarType;

@@ -112,10 +112,10 @@ groupRouter.get('/user/:userId/nonmember', async (req, res) => {
 // });
 
 groupRouter.post('/', async (req, res) => {
-    const { groupName, description, visibility, userID } = req.body;
+    const { groupName, description, visibility, userID, colour } = req.body;
 
     try {
-        const newGroup = new Group({ groupName, description, visibility });
+        const newGroup = new Group({ groupName, description, visibility, colour });
         const savedGroup = await newGroup.save();
 
         // Create a new membership entry with the current user as the owner

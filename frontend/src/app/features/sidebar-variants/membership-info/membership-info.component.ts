@@ -29,18 +29,18 @@ export class MembershipInfoComponent {
               private router: Router) {}
 
   ngOnInit() {
-    this.groupService.getGroupbyId(this.groupMembership.group).subscribe(group => {
-      this.groupName = group.groupName;
-      this.groupDescription = group.description;
-    });
+    // this.groupService.getGroupbyId(this.groupMembership.group).subscribe(group => {
+    //   this.groupName = group.groupName;
+    //   this.groupDescription = group.description;
+    // });
 
-    this.eventService.getEvents().subscribe(events => {
-      for (let i = 0; i < events.length; i++) {
-        if (events[i].group == this.groupMembership.group) {
-          this.groupEvents.push(events[i]);
-        }
-      }
-    })
+    // this.eventService.getEvents().subscribe(events => {
+    //   for (let i = 0; i < events.length; i++) {
+    //     if (events[i].group == this.groupMembership.group) {
+    //       this.groupEvents.push(events[i]);
+    //     }
+    //   }
+    // })
   }
 
   leaveGroup() {

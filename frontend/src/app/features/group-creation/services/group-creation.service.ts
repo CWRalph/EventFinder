@@ -45,7 +45,8 @@ export class GroupCreationService {
       groupName: "Untitled Group",
       owner: this.currentUserId,
       description: "Lorem Ipsum",
-      visibility: "Public" as Visibility
+      visibility: "Public" as Visibility,
+      colour: "#00b5ff"
     }
   }
 
