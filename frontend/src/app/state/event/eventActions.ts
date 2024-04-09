@@ -24,7 +24,7 @@ export const EventActions = createActionGroup({
     'Query Events Failure': emptyProps(),
 
     'Save Event': props<{ event: Event, role: EventRole }>(),
-    'Save Event Success': props<{ event: Event }>(),
+    'Save Event Success': props<{ event: Event, role: EventRole }>(),
     'Save Event Failure': emptyProps(),
 
     'Unsave Event': props<{ event: Event }>(),

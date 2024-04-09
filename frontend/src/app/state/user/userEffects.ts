@@ -105,6 +105,8 @@ export class UserEffects {
 
             this.store.dispatch(UsersActions.getUsers());
 
+            this.store.dispatch(EventActions.getEvents());
+
 
             return UserActions.loginUserSuccess({ user })
           }),

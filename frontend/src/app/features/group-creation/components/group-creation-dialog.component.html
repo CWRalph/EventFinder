@@ -13,6 +13,14 @@
         <option value="Private" [selected]="groupData.visibility === 'Private'">Private</option>
       </select>
     </div>
+    <div>
+      <input 
+      type="color" 
+      id="colorpicker" 
+      (input)="onColorChange($event)"
+      [style.background]="selectedColor"
+      value="#00b5ff">
+    </div>
   </form><br><br>
   <button class="btn btn-error w-full" [disabled]="myForm.invalid" (click)="onSubmit()">Save</button>
   <button class="btn btn-primary w-full" (click)="cancel()">Cancel</button>

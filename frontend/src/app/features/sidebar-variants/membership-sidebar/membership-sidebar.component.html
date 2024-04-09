@@ -1,1 +1,15 @@
-<p>membership-sidebar works!</p>
+<div class="friend-sidebar">
+    <h1 class="text-2xl font-bold mb-5">{{ group?.groupName }}</h1>
+    <div role="tablist" class="friend-sidebar-tabs">
+      <input type="radio" name="my_tabs_2" role="tab" class="tab" aria-label="Events" checked/>
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+        <div *ngIf="groupEventsList.length > 0; else showNoEventsMessage">
+            <app-event-info *ngFor="let event of groupEventsList" [event]="event"></app-event-info>
+            
+        </div>
+        <ng-template #showNoEventsMessage>
+            <p>No Group Events</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>

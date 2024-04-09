@@ -18,6 +18,6 @@ export class IconButtonComponent {
   constructor(private sidebarService: SidebarService) {}
 
   toggleSidebar() {
-      this.sidebarService.toggleSidebar(this.sidebarType);
+    this.sidebarService.toggleSidebar(this.sidebarType);
   }
 }
