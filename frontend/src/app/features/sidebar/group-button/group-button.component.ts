@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {SidebarService, SidebarType} from '@app/services/SidebarService';
 import {Group, GroupMembership} from "@core/models/group";
@@ -17,38 +17,36 @@ export class GroupButtonComponent {
   displayStyle = "none";
   acronym: string = '';
 
-
   constructor(private sidebarService: SidebarService) {}
 
   ngOnInit() {
-    console.log(this.group)
     this.acronym = this.createAcronym();
-    console.log(this.acronym)
-
-
   }
 
   toggleSidebar(sidebarType:SidebarType) {
-    this.sidebarService.toggleSidebar(sidebarType);
+    this.sidebarService.toggleSidebar(sidebarType, this.group);
   }
 
   createAcronym(): string {
-    const words: string[] = this.group.groupName.split(" ");
+    if (this.group) {
+      const words: string[] = this.group.groupName.split(" ");
 
-    const capitalizedWords: string[] = words.map(word => {
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    });
+      const capitalizedWords: string[] = words.map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      });
 
-    const firstLetters: string[] = capitalizedWords.map(word => word.charAt(0));
+      const firstLetters: string[] = capitalizedWords.map(word => word.charAt(0));
 
-    const groupAcronym: string = firstLetters.join("");
+      const groupAcronym: string = firstLetters.join("");
 
-    if (groupAcronym.length > 3) {
-      return groupAcronym.slice(0, 3)
+      if (groupAcronym.length > 3) {
+        return groupAcronym.slice(0, 3)
+      }
+      
+      return groupAcronym;
     }
-    
-    return groupAcronym;
 
+    return this.acronym
   }
 
   public readonly SidebarType = SidebarType;

@@ -7,6 +7,7 @@ import {EventSidebarComponent} from "@features/sidebar-variants/event-sidebar/ev
 import {GroupSidebarComponent} from "@features/sidebar-variants/group-sidebar/group-sidebar.component";
 import {MembershipSidebarComponent} from "@features/sidebar-variants/membership-sidebar/membership-sidebar.component";
 import { FriendSidebarComponent } from "../../sidebar-variants/friend-sidebar/friend-sidebar.component";
+import { Group } from '@app/core/models/group';
 
 @Component({
     selector: 'app-info-sidebar',
