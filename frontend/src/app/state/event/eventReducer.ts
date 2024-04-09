@@ -37,7 +37,8 @@ export const EventReducer = createReducer(
   })),
   on(EventActions.saveEventSuccess, (state, { event }) => ({
     ...state,
-    savedEvents: [...state.savedEvents, event],
+    savedEvents: (event.role == 'participant')? [...state.savedEvents, event] : state.savedEvents,
+    myEvents: (event.role == 'owner')? [...state.myEvents, event] : state.myEvents,
   })),
   on(EventActions.unsaveEventSuccess, (state, { event }) => ({
     ...state,

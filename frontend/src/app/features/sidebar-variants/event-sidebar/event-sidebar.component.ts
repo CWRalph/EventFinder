@@ -4,6 +4,7 @@ import { Event } from '@core/models/event';
 import { EventInfoComponent } from '@features/sidebar-variants/event-info/event-info.component';
 import { CommonModule } from '@angular/common';
 import {
+  selectEvents,
   selectMyEvents,
   selectQueriedEvents,
   selectSavedEvents,
@@ -34,12 +35,24 @@ export class EventSidebarComponent
   private searchQuery: string = '';
 
   ngOnInit() {
+    this.unsubscribeOnDestroy(this.store.select(selectEvents)).subscribe(
+      (events) => this.searchbarService.fireSearch(),
+    );
+
     this.unsubscribeOnDestroy<Event[]>(
       this.store.select(selectMyEvents),
-    ).subscribe((events) => (this.myEvents = events));
+    ).subscribe((events) => {
+      console.log("My events: ", events);
+      this.myEvents = events
+      this.searchbarService.fireSearch();
+    });
     this.unsubscribeOnDestroy<Event[]>(
       this.store.select(selectSavedEvents),
-    ).subscribe((events) => (this.savedEvents = events));
+    ).subscribe((events) => {
+      console.log("Saved events: ", events);
+      this.savedEvents = events;
+      this.searchbarService.fireSearch();
+    });
     this.unsubscribeOnDestroy<Event[]>(
       this.store.select(selectQueriedEvents),
     ).subscribe((events) => {
@@ -60,7 +73,7 @@ export class EventSidebarComponent
       (recommendations) => (this.queriedEvents = this.autoCompleteEvents),
     );
 
-    this.searchbarService.fireSearch();
+    this.searchbarService.fireSearch()
   }
 
   get savedEventsList(): Event[] {

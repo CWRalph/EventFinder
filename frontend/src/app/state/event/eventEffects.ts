@@ -112,12 +112,12 @@ export class EventEffects {
         ),
       ),
       map(({ events, memberships }) =>
-        memberships.map((membership) => {
-          const event = events.find((e) => e._id === membership.event);
-          console.log("Getting user events",events, memberships)
-          if (!event) {
+        events.map((event) => {
+          const membership = memberships.find((m) => m.event === event._id);
+          if (!membership) {
             //throw new Error(`Event with ID ${membership.event} not found`);
             //TODO fix this
+            console.log("Failed membership")
             return null;
           }
           return { ...event, role: membership.role };

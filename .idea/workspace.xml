@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/map/map-component/map.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/map/map-component/map.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/event-sidebar/event-sidebar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventEffects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
