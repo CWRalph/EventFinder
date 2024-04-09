@@ -29,9 +29,7 @@ export class EventSidebarComponent
 {
   private savedEvents: Event[] = [];
   private myEvents: Event[] = [];
-  private autoCompleteEvents: Event[] = [];
   private queriedEvents: Event[] = [];
-  private searchQuery: string = '';
 
   ngOnInit() {
     this.unsubscribeOnDestroy<Event[]>(
@@ -43,10 +41,10 @@ export class EventSidebarComponent
     this.unsubscribeOnDestroy<Event[]>(
       this.store.select(selectQueriedEvents),
     ).subscribe((events) => {
-      this.autoCompleteEvents = events;
+      this.queriedEvents = events;
       this.setRecommendations(
-        this.autoCompleteEvents.length > 0
-          ? this.autoCompleteEvents.map((event) => event.name).slice(0, 5)
+        this.queriedEvents.length > 0
+          ? this.queriedEvents.map((event) => event.name).slice(0, 5)
           : ['No results found, please modify query.'],
       );
     });
@@ -54,13 +52,7 @@ export class EventSidebarComponent
       this.searchbarService.getQuery(),
     ).subscribe((query) => {
       this.store.dispatch(EventActions.queryEvents({ query }));
-      this.searchQuery = query;
     });
-    this.unsubscribeOnDestroy(this.searchbarService.getSearchFired()).subscribe(
-      (recommendations) => (this.queriedEvents = this.autoCompleteEvents),
-    );
-
-    this.searchbarService.fireSearch();
   }
 
   get savedEventsList(): Event[] {

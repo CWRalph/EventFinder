@@ -54,6 +54,7 @@ export const EventReducer = createReducer(
     ...state,
     events: state.events.filter((e: Event) => e._id !== event._id),
     myEvents: state.myEvents.filter((e: Event) => e._id !== event._id),
+    queriedEvents: state.queriedEvents.filter((e: Event) => e._id !== event._id),
   })),
 );
 
