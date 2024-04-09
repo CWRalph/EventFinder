@@ -129,7 +129,6 @@ export class GroupInfoComponent extends SubscriberComponent {
       this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: this.user?._id??"" }));
       this.fetchMembershipsAndCheck();
       this.fetchOwnershipsAndCheck();
-      this.sbs.fireSearch();
       this.sbs.setQuery("");
       // Trigger change detection to update the UI
       this.cdr.detectChanges();
