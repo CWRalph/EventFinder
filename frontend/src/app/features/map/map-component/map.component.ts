@@ -107,7 +107,7 @@ export class MapComponent implements OnInit, OnChanges {
       const marker = L.marker([
         event?.coordinates?.x??0,
         event?.coordinates?.y??0,
-      ]).bindPopup(`${event.name} - ${event.eventType}`);
+      ]).bindPopup(`${event.name}`);
       marker.addTo(this.map);
       this.markers.push(marker);
     });
