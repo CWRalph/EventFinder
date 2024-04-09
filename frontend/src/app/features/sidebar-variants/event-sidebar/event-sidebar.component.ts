@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractSidebarComponent } from '@features/sidebar-variants/abstract-sidebar/abstract-sidebar.component';
 import { Event } from '@core/models/event';
 import { EventInfoComponent } from '@features/sidebar-variants/event-info/event-info.component';

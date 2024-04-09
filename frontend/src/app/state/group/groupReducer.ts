@@ -57,10 +57,10 @@ export const GroupReducer = createReducer(
     ...state,
     followedGroups: groups,
   })),  
-  on(GroupActions.getUserNonMemberGroupsSuccess, (state, { groups }) => ({
-    ...state,
-    queriedGroups: groups,
-  })),
+  // on(GroupActions.getUserNonMemberGroupsSuccess, (state, { groups }) => ({
+  //   ...state,
+  //   queriedGroups: groups,
+  // })),
   on(GroupActions.getUserOwnedGroupsSuccess, (state, { groups }) => ({
     ...state,
     myGroups: groups,
