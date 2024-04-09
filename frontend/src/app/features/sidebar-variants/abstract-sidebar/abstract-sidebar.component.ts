@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {SidebarService} from "@services/SidebarService";
 import {Store} from "@ngrx/store";
 import {SubscriberComponent} from "@shared/subscriber/subscriber.component";
@@ -17,7 +17,6 @@ export class AbstractSidebarComponent extends SubscriberComponent{
     protected cdr: ChangeDetectorRef,
     protected searchbarService: SearchBarService,
     protected store: Store,
-    protected cdr: ChangeDetectorRef,
   ) {
     super();
     this.setRecommendations([]);
