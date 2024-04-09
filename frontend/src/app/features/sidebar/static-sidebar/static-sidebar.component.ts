@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { IconButtonComponent } from "../icon-button/icon-button.component";
 import { CommonModule } from '@angular/common';
 import { GroupButtonComponent } from "../group-button/group-button.component";
-import { GroupMembershipService } from '@app/services/GroupMembershipService';
 import {SidebarType} from "@services/SidebarService";
-import {GroupMembership} from "@core/models/group";
+import {Group, GroupMembership} from "@core/models/group";
+import { selectIsLoggedIn, selectUser } from '@app/state/user/userReducer';
+import { Store, select } from '@ngrx/store';
+import { User } from '@app/core/models/user';
+import { GroupMemberService } from '@app/core/services/GroupMemberService';
+import { Observable } from 'rxjs';
+import { selectFollowedGroups, selectMyGroups, selectQueriedGroups } from '@app/state/group/groupReducer';
+import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
 
 @Component({
     selector: 'app-static-sidebar',
@@ -13,23 +19,55 @@ import {GroupMembership} from "@core/models/group";
     styleUrl: './static-sidebar.component.css',
     imports: [CommonModule, IconButtonComponent, GroupButtonComponent]
 })
-export class StaticSidebarComponent {
+export class StaticSidebarComponent 
+extends SubscriberComponent {
   userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to get the user's userId
-  groupMemberships: GroupMembership[] = [];
+  followedGroups: Group[] = [];
+  ownedGroups: Group[] = [];
   membershipType = "Membership";
   groupType = "Group";
+  isLoggedIn: boolean = false;
+  user?: User;
 
-  constructor(private groupMembershipService: GroupMembershipService) {}
+  constructor(
+    private store: Store
+    ) {
+    super();
+  }
 
   ngOnInit() {
-    // TODO: get the current user's userId, then check their memberships
-    // this.groupMembershipService.getGroupMemberships().subscribe(memberships => {
-    //   for (let i = 0; i < memberships.length; i++) {
-    //     if (memberships[i].user == this.userID) {
-    //       this.groupMemberships.push(memberships[i]);
-    //     }
-    //   }
-    // });
+    this.store
+      .select(selectIsLoggedIn)
+      .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn)
+    );
+        
+    this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
+        this.user = user;
+    });
+
+    this.unsubscribeOnDestroy<Group[]>(this.store.select(selectMyGroups)).subscribe(
+      (groups) => this.ownedGroups = groups
+    );
+
+    this.unsubscribeOnDestroy<Group[]>(this.store.select(selectMyGroups)).subscribe(
+      (groups) => console.log(groups)
+    );
+
+    this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
+      (groups) => this.followedGroups = groups
+    );
+
+    this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
+      (groups) => console.log(groups)
+    );
+  }
+
+  get userOwnedGroups(): Group[] {
+    return this.ownedGroups
+  }
+
+  get userFollowedGroups(): Group[] {
+    return this.followedGroups;
   }
 
   protected readonly SidebarType = SidebarType;

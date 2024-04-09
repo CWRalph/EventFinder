@@ -20,6 +20,7 @@ const groupSchema = new mongoose.Schema({
     groupName: {type: String, required: true},
     description: {type: String},
     visibility: {type: String, enum: ['Public', 'Private'], default: 'Public'},
+    colour: {type: String}
 });
 
 // Indicates what fields should be indexed for text search

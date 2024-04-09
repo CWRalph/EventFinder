@@ -6,8 +6,15 @@
     </div>
 
     <ng-template #showMembershipIcon>
-        <button class="btn " [ngClass]="groupColour" (click)="toggleSidebar(SidebarType.Membership)">
-            <i class="fa-solid fa-people-group text-neutral"></i>
+        <button class="btn text-center text-neutral" [style.backgroundColor]="group.colour" (click)="toggleSidebar(SidebarType.Membership)">
+            <div *ngIf="acronym != ''; else showIcon">
+                <h1>{{ acronym }}</h1>
+            </div>
+
+            <ng-template #showIcon>
+                <i class="fa-solid fa-people-group text-neutral"></i>
+            </ng-template>
+            
         </button>
     </ng-template>
 </div>
