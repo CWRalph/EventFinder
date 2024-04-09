@@ -3,6 +3,7 @@ import {Group, Membership, User} from "../database/schema";
 import {catchError, notFound} from "../error";
 
 const groupMembershipRouter = express.Router();
+
 groupMembershipRouter.get('/', async (req, res) => {
     try {
         const memberships = await Membership.find();

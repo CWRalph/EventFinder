@@ -15,6 +15,7 @@ import { GroupService } from './core/services/GroupService';
 import { Group } from './core/models/group';
 import { FriendshipService } from './services/FriendshipService';
 import { Friendship } from './core/models/friendship';
+import {EventMemberService} from "@core/services/EventMemberService";
 
 @Component({
   selector: 'app-root',
@@ -33,36 +34,36 @@ import { Friendship } from './core/models/friendship';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  events: Event[] = [];
-  groups: Group[] = [];
-  friendships: Friendship[] = [];
 
   constructor(
     private eventService: EventService,
     private groupService: GroupService,
     private friendshipService: FriendshipService,
+    private eventMembershipService: EventMemberService,
     private store: Store,
   ) {}
 
   ngOnInit(): void {
+
+    //TODO remove all debugging console logs
     this.eventService.getEvents().subscribe((events) => {
-      this.events = events;
-      console.log('the events are: ', this.events);
+      console.log('the events are: ', events);
     });
 
     this.groupService.getGroups().subscribe((groups) => {
-      this.groups = groups;
-      console.log('Groups are: ', this.groups);
+      console.log('Groups are: ', groups);
     });
 
     this.friendshipService.getFriendships().subscribe((friendships) => {
-      this.friendships = friendships;
-      console.log('Friendships are: ', this.friendships);
+      console.log('Friendships are: ', friendships);
     });
+
+    this.eventMembershipService.getEventMemberships().subscribe((eventMembers) => {
+      console.log('Event Members are: ', eventMembers);
+    });
+
     //Log the user in if cookie exists
     this.store.dispatch(UserActions.authenticateUser());
 
-    //TODO remove this, only used for debugging purposes
-    // this.eventService.clearEvents().subscribe();
   }
 }

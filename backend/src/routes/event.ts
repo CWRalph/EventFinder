@@ -52,29 +52,39 @@ eventRouter.get('/search', async (req, res) => {
 
     const pipeline = [
         {
-        $search:{
-            index: 'EventSearchIndex',
-            text: {
-                query,
-                path:['name', 'description'],
-                fuzzy:{}
-            }
-        }
+            $search: {
+                index: "EventAutoComplete",
+                compound: {
+                    should: [
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "name"
+                            }
+                        },
+{
+                            autocomplete: {
+                                query: query,
+                                path: "description"
+                            }
+                        }
+                    ],
+                }
+            },
         },
         {
             $project:{
-               _id: 0,
-               score: { $meta: 'searchScore' },
+                _id: 0,
+                score: { $meta: 'searchScore' },
                 name: 1,
                 description: 1,
                 location: 1,
             }
         }
-    ]
+    ];
 
     //Sort descending order
     const result = await Event.aggregate(pipeline).sort({score:-1});
-    console.log("Search results: ", result);
     res.status(200).json(result);
 });
 
@@ -108,14 +118,14 @@ eventRouter.put('/:id', async (req, res) => {
 });
 
 eventRouter.delete('/:id', async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
     try {
-        const deletedEvent = await Event.findByIdAndDelete(id);
+        const deletedEvent = await Event.findOneAndDelete({ _id: id });
         if (!deletedEvent) {
             return notFound(res, 'Event');
         }
-        res.json({message: 'Event deleted'});
+        res.json({ message: 'Event deleted' });
     } catch (e) {
         catchError(e, res);
     }

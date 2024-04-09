@@ -3,5 +3,10 @@
 }
 
 .event-sidebar-tabs{
-  @apply tabs tabs-lifted w-full;
+  @apply tabs tabs-lifted w-full text-nowrap;
+}
+
+
+.event-sidebar .event-tab-content{
+  @apply bg-base-100 border-base-300 rounded-box p-6 w-fit;
 }
