@@ -9,7 +9,7 @@ const verify = require('./verifyToken');
 
 const friendshipRouter = express.Router();
 
-const hitNotifier = async (user1Id: string, user2Id: string, url: string, res: express.Response) => {
+const hitNotifier = async (user1Id: string, user2Id: string, url: string, res: express.Response, currentUrl: string) => {
     const user1 = await User.findById(user1Id);
     const user2 = await User.findById(user2Id);
 
@@ -26,6 +26,7 @@ const hitNotifier = async (user1Id: string, user2Id: string, url: string, res: e
             userEmail: user1.email,
             friend: user2.username,
             username: user1.username,
+            currentUrl,
         }),
     });
 }
@@ -42,7 +43,7 @@ friendshipRouter.get('/', async (req, res) => {
 // This will deny access if user isn't verified
 // friendshipRouter.post('/', verify , async (req, res) => {
 friendshipRouter.post('/', async (req, res) => {
-    const {user1: user1Id, user2: user2Id, status} = req.body;
+    const {user1: user1Id, user2: user2Id, status, currentUrl} = req.body;
 
     try {
         const user1 = await User.findById(user1Id);
@@ -61,7 +62,7 @@ friendshipRouter.post('/', async (req, res) => {
         /**
          * NOTE: we are assuming that user1 is the one receiving the friend request and user2 is the one sending it
          */
-        await hitNotifier(user1Id, user2Id, 'http://localhost:4000/friendship/request', res).then(() => {
+        await hitNotifier(user1Id, user2Id, 'http://localhost:4000/friendship/request', res, currentUrl).then(() => {
             console.log('Email sent');
         }, (e: Error) => {
             catchError(e, res);
@@ -104,7 +105,7 @@ friendshipRouter.get('/user/:userId', async (req, res) => {
 
 friendshipRouter.put('/:id/update-status', async (req, res) => {
     const {id} = req.params;
-    const {status} = req.body;
+    const {status, currentUrl} = req.body;
 
     const friendship = await Friendship.findByIdAndUpdate(id, {status}, {new: true});
 
@@ -134,7 +135,7 @@ friendshipRouter.put('/:id/update-status', async (req, res) => {
 
             res.json(friendship);
 
-            hitNotifier(friendship.user2.toString(), friendship.user1.toString(), 'http://localhost:4000/friendship/accept', res).then(() => {
+            hitNotifier(friendship.user2.toString(), friendship.user1.toString(), 'http://localhost:4000/friendship/accept', res, currentUrl).then(() => {
                 console.log('Email sent');
             }, (e: Error) => {
                 catchError(e, res);
@@ -147,7 +148,7 @@ friendshipRouter.put('/:id/update-status', async (req, res) => {
             res.json({message: 'Friendship deleted'});
 
             // Hit the notifier endpoint to send an email
-            await hitNotifier(user2._id.toString(), user1._id.toString(), 'http://localhost:4000/friendship/reject', res).then(() => {
+            await hitNotifier(user2._id.toString(), user1._id.toString(), 'http://localhost:4000/friendship/reject', res, currentUrl).then(() => {
                 console.log('Email sent');
             }, (e: Error) => {
                 catchError(e, res);
