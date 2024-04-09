@@ -1,14 +1,16 @@
-import {Inject, Injectable} from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Friendship } from "@app/core/models/friendship";
-import {DOCUMENT} from "@angular/common";
+import { Inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Friendship } from '@app/core/models/friendship';
+import { DOCUMENT } from '@angular/common';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FriendshipService {
-
   //TODO: Change this URL according to your backend
-  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private http: HttpClient,
+  ) {}
 
   private readonly LOCAL_URL = 'http://localhost:3000/friendships';
   private readonly PROD_URL = this.document.location.origin + '/friendships';
@@ -27,15 +29,23 @@ export class FriendshipService {
   }
 
   createFriendship(friendship: Friendship): Observable<Friendship> {
-    return this.http.post<Friendship>(this.URL, friendship);
+    const currentUrl = this.document.location.origin;
+    return this.http.post<Friendship>(this.URL, { ...friendship, currentUrl });
   }
 
   updateFriendship(friendship: Friendship): Observable<Friendship> {
-    console.log(friendship)
-    return this.http.put<Friendship>(this.URL + '/' + friendship._id + '/update-status', { status: friendship.status });
+    console.log(friendship);
+    const currentUrl = this.document.location.origin;
+    return this.http.put<Friendship>(this.URL + '/' + friendship._id, {
+      ...friendship,
+      currentUrl,
+    });
   }
 
   deleteFriendship(friendshipId: string): Observable<Friendship> {
-    return this.http.delete<Friendship>(this.URL + '/' + friendshipId);
+    const currentUrl = this.document.location.origin;
+    return this.http.delete<Friendship>(this.URL + '/' + friendshipId, {
+      params: { currentUrl },
+    });
   }
 }
