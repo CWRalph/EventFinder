@@ -1,7 +1,17 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {MatIcon} from "@angular/material/icon";
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SearchBarService } from '@features/search-bar/search-bar.service';
+import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from '@app/state/user/userReducer';
@@ -14,16 +24,22 @@ import { LoginComponent } from '@core/authentication/login/login.component';
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',
 })
-export class SearchBarComponent {
+export class SearchBarComponent extends SubscriberComponent implements OnInit {
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('searchDropdown') dropdown!: ElementRef;
   private _value: string = '';
   private isFocused: boolean = false;
   private isLoggedIn: boolean = false;
   private isDialogOpen: boolean = false;
+
   constructor(
     private store: Store,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog,
+    private searchBarService: SearchBarService) 
+    {
+    super();
+  }
+
 
   @Input() placeholder: string = 'Search';
   @Input() results: string[] = [];
@@ -34,13 +50,17 @@ export class SearchBarComponent {
   @Output() onEnter: EventEmitter<void> = new EventEmitter<void>();
   @Output() onDropdownClick: EventEmitter<string> = new EventEmitter<string>();
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.unsubscribeOnDestroy(this.searchBarService.getQuery()).subscribe(
+      (query) => (this._value = query),
+    );
+
     this.store.select(selectIsLoggedIn).subscribe(login => {
       this.isLoggedIn = login;
     })
   }
 
-  private blurSearchBar(){
+  private blurSearchBar() {
     this.searchInput?.nativeElement?.blur();
     this.dropdown?.nativeElement?.blur();
   }
@@ -90,6 +110,7 @@ export class SearchBarComponent {
   }
 
   public change() {
+    this.searchBarService.setQuery(this.value);
     this.onChange.emit(this.value);
   }
 
@@ -97,15 +118,20 @@ export class SearchBarComponent {
     this.value = '';
     this.onClear.emit();
     this.onChange.emit(this.value);
+    this.searchBarService.setQuery(this.value);
+    this.searchBarService.fireSearch();
   }
 
-  public onEnterPressed(){
+  public onEnterPressed() {
     this.onEnter.emit();
     this.blurSearchBar();
+    this.searchBarService.fireSearch();
   }
 
-  public onDropdownItemClicked(item: string){
+  public onDropdownItemClicked(item: string) {
     this.onDropdownClick.emit(item);
     this.blurSearchBar();
+    this.searchBarService.setQuery(item);
+    this.searchBarService.fireSearch();
   }
 }

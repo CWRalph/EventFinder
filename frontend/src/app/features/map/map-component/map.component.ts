@@ -30,12 +30,14 @@ Marker.prototype.options.icon = iconDefault;
 })
 export class MapComponent implements OnInit, OnChanges {
   @ViewChild('eventMap') mapElement!: ElementRef;
-  @Input() events: Event[] = [];
+
   private map!: L.Map;
   private markers: L.Marker[] = [];
 
   //Variables for location listening
   private isListeningForLocation = false;
+
+  public events: Event[] = [];
 
   constructor(
     private store:Store,
@@ -54,7 +56,10 @@ export class MapComponent implements OnInit, OnChanges {
       });
 
     this.store.select(selectEvents).subscribe(
-      (events:Event[])=>this.events = events
+      (events:Event[])=> {
+        this.events = events;
+        this.updateMarkers();
+      }
     )
   }
 
@@ -102,7 +107,7 @@ export class MapComponent implements OnInit, OnChanges {
       const marker = L.marker([
         event?.coordinates?.x??0,
         event?.coordinates?.y??0,
-      ]).bindPopup(`${event.name} - ${event.eventType}`);
+      ]).bindPopup(`${event.name}`);
       marker.addTo(this.map);
       this.markers.push(marker);
     });

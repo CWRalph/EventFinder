@@ -15,23 +15,23 @@ export class SearchBarService {
     return this.query.asObservable();
   }
 
-  public getSearchFired(): Observable<void> {
-    return this.searchFired.asObservable();
+  public setQuery(query: string): void {
+    this.query.next(query);
   }
 
   public getRecommendations(): Observable<string[]> {
     return this.recommendations.asObservable();
   }
 
-  public setQuery(query: string): void {
-    this.query.next(query);
+  public setRecommendations(recommendations: string[]): void {
+    this.recommendations.next(recommendations);
+  }
+
+  public getSearchFired(): Observable<void> {
+    return this.searchFired.asObservable();
   }
 
   public fireSearch(): void {
     this.searchFired.next();
-  }
-
-  public setRecommendations(recommendations: string[]): void {
-    this.recommendations.next(recommendations);
   }
 }

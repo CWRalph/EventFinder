@@ -1,11 +1,23 @@
 <div class="card bg-base-100">
-    <!-- TODO: Event image goes here -->
-    <div class="temp-img"></div>
-    <h1 class="event-name">{{ event.name }}</h1>
-    <p class="event-owner">Owned by: {{ ownerName }}</p>
-    <p class="event-duration">{{ eventDuration }} </p>
-    <p class="event-location">{{ event.location }} </p>
+  <!-- TODO: Event image goes here -->
+  <div class="temp-img"></div>
+  <h1 class="event-name">{{ event.name }}</h1>
+  <p class="event-owner">Owned by: {{ ownerName }}</p>
+  <p class="event-duration">{{ eventDuration }}</p>
+  <p class="event-location">{{ event.location }}</p>
 
-    <button class="rsvp-btn text-neutral bg-info">RSVP</button>
-
+  <ng-container *ngIf="isSaved">
+    <button class="event-button btn-primary" (click)="unsaveEvent()">
+      Unsave
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isOwner">
+    <button class="event-button btn-info" (click)="editEvent()">Edit</button>
+    <button class="event-button btn-error" (click)="deleteEvent()">
+      Delete
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!isSaved && !isOwner">
+    <button class="event-button btn-primary" (click)="saveEvent()">RSVP</button>
+  </ng-container>
 </div>
