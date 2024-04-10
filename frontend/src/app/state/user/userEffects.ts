@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { UserActions } from '@app/state/user/userActions';
 import { UserService } from '@core/services/UserService';
 import { User } from '@core/models/user';
@@ -34,11 +34,43 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.authenticateUser),
       map(() => {
-          return UserActions.loginUserWithProps({ email:"", password:"" });
+          return UserActions.loginUserWithToken({ token: localStorage.getItem('token')??"" });
         }
       ),
     ),
   );
+
+  loginUserWithToken$ = createEffect(()=> 
+        this.actions$.pipe(
+          ofType(UserActions.loginUserWithToken),
+          switchMap((token) => this.userService.authenticate().pipe(
+            map((userID:any) => {
+              console.log(userID)
+              console.log(token)
+              this.store.dispatch(EventActions.getEvents());
+              this.store.dispatch(EventActions.mapMembershipsToEvents());
+
+              this.store.dispatch(GroupActions.getGroups());
+
+              // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
+              this.store.dispatch(GroupActions.getUserGroups({ userId: userID }));
+              this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: userID }));
+              this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: userID }));
+
+              this.store.dispatch(FriendshipActions.getFriendships());
+              this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userID }));
+              this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userID }));
+
+              this.store.dispatch(UsersActions.getUsers());
+
+              this.store.dispatch(EventActions.getEvents());
+
+
+              return UserActions.loginUserSuccess({ userID: userID  })
+            })
+          ))
+        )
+  )
 
   //Open an angular dialog box to allow the user to log in
   loginUser$ = createEffect(() =>

@@ -16,5 +16,6 @@ export const UserActions = createActionGroup({
     'Logout User': emptyProps(),
     'Logout User Success': emptyProps(),
     'Logout User Failure': emptyProps(),
+    'Login User With Token': props<{ token: string }>(),
   },
 });

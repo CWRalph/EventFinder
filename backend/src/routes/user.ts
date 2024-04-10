@@ -3,6 +3,7 @@ import {User} from '../database/schema';
 import {catchError, notFound} from "../error";
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const verifyToken = require('./verifyToken');
 
 const userRouter = express.Router();
 
@@ -154,6 +155,21 @@ function authenticateToken(req:any, res:any, next:any) {
       next();
     });
 }
+
+userRouter.get('/authenticate', async(req:any, res:any, next) => {
+    // middleware function to verify whether the user is authenticated
+    const token = req.header('Authorization');
+    if(!token) return res.status(401).send('Access Denied');
+    try {
+        // this line verifies the token and decodes it to get the user information
+        const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
+        const userId = decodedToken._id; // assuming the user ID is stored in the token
+        res.json(userId); // send the user ID in the response
+    } catch (err) {
+        res.status(400).send('Invalid Token');
+    }
+});
+
 
 userRouter.get('/:id', async (req, res) => {
     const {id} = req.params;

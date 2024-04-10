@@ -20,8 +20,9 @@ export class UserService {
 
   //Check if the user has already logged in IE does there exist a cookie with their user ID
   public authenticate(): Observable<any> {
-    return this.http.get(this.URL + '/login');
+    return this.http.get(this.URL + '/authenticate');
   }
+
 
   //Log the user in with username and password
   public loginWithEmailPassword(email: string, password: string,): Observable<any> {
