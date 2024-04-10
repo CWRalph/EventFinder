@@ -1,6 +1,7 @@
 import express from 'express';
 import {Friendship, User} from "../database/schema";
 import {catchError, notFound} from "../error";
+const verifyToken = require('./verifyToken');
 
 // This is how you limit access to verified users
 // this verify function checks whether a user has a valid token

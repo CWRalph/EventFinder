@@ -2,6 +2,8 @@ import express from 'express';
 import {User} from '../database/schema';
 import {catchError, notFound} from "../error";
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res) => {
@@ -129,15 +131,35 @@ userRouter.post('/login', async (req, res) => {
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (!validPass) return res.status(400).send('Invalid password');
 
-    res.json(user);
+    // res.json(user);
 
-    // TODO - remove when auth is done
     // create and assign a token - this is the information we're sending to the frontend
     // so that the frontend knows that the user is logged in - user ID is sent but we can
     // send something else as well - like email or username, email is better for uniqueness
-    // const token = jwt.sign({_id: user._id}, process.env.JWT_TOKEN);
+    const token = jwt.sign({_id: user._id}, process.env.JWT_TOKEN);
     // res.header('auth-token', token).send(token);
+    
+    // send user ID and token to the frontend
+    res.json({ _id: user._id, token });
 });
+
+// Middleware to check if token is valid
+function authenticateToken(req:any, res:any, next:any) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) {
+      return res.sendStatus(401);
+    }
+  
+    jwt.verify(token, 'secret', (err:any, user:any) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      console.log(user);
+      next();
+    });
+}
 
 userRouter.get('/:id', async (req, res) => {
     const {id} = req.params;

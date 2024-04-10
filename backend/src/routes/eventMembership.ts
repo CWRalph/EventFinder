@@ -1,6 +1,7 @@
 import express from 'express';
 import {EventMembership} from "../database/schema";
 import {catchError, notFound} from "../error";
+const verifyToken = require('./verifyToken');
 
 const eventMembershipRouter = express.Router();
 

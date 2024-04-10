@@ -1,6 +1,7 @@
 import express from 'express';
 import {Group, Membership} from '../database/schema';
 import {catchError, notFound} from "../error";
+const verifyToken = require('./verifyToken');
 
 const groupRouter = express.Router();
 
