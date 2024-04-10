@@ -133,29 +133,32 @@ groupRouter.get('/search', async (req, res) => {
 
     const pipeline = [
         {
-        $search:{
-            index: 'GroupAutocompleteIndex',
-            text: {
-                query,
-                path:['groupName', 'description'],
-                fuzzy:{}
+            $search:{
+                index: 'GroupAutocompleteIndex',
+                compound: {
+                    should: [
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "groupName"
+                            }
+                        },
+                        {
+                            autocomplete: {
+                                query: query,
+                                path: "description"
+                            }
+                        }
+                    ],
+                }
             }
         }
-        },
-        {
-            $project:{
-               _id: 0,
-               score: { $meta: 'searchScore' },
-                groupName: 1,
-                description: 1,
-                location: 1,
-            }
-        }
+        
     ]
 
     //Sort descending order
     const result = await Group.aggregate(pipeline).sort({score:-1});
-    console.log("Search results: ", result);
+    // console.log("Search results: ", result);
     res.status(200).json(result);
 });
 

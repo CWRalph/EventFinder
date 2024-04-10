@@ -23,16 +23,23 @@ export class GroupSidebarComponent
   private queriedGroups: Group[] = [];
   private searchQuery: string = "";
 
+
   ngOnInit() {
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectMyGroups)).subscribe(
       (groups) => this.myGroups = groups);
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
       (groups) => this.followedGroups = groups);
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectQueriedGroups)).subscribe(
-      (groups) => this.queriedGroups = groups
-      );
+      (groups) => {
+        this.queriedGroups = groups
+        this.cdr.detectChanges();
+      } 
+    );
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectQueriedGroups)).subscribe(
-      (groups) => console.log(groups)
+      (groups) =>  {
+        console.log(groups)
+        this.cdr.detectChanges();
+      }
     );
     this.unsubscribeOnDestroy<string>(this.searchbarService.getQuery()).subscribe(
       (query) => {
@@ -40,7 +47,10 @@ export class GroupSidebarComponent
         this.searchQuery = query;
       }
     )
+  }
 
+  ngOnChange() {
+    this.cdr.detectChanges();
   }
 
   createGroup() {

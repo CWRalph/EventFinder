@@ -11,6 +11,9 @@ import { User } from '@app/core/models/user';
 import {Group, GroupMembership, Role} from "@core/models/group";
 import {NgIf} from "@angular/common";
 import { GroupActions } from '@app/state/group/groupActions';
+import { SearchBarService } from '@app/features/search-bar/search-bar.service';
+import { SubscriberComponent } from '@app/shared/subscriber/subscriber.component';
+import { selectFollowedGroups, selectMyGroups, selectQueriedGroups } from '@app/state/group/groupReducer';
 
 @Component({
   selector: 'app-group-info',
@@ -19,7 +22,7 @@ import { GroupActions } from '@app/state/group/groupActions';
   templateUrl: './group-info.component.html',
   styleUrl: './group-info.component.css',
 })
-export class GroupInfoComponent {
+export class GroupInfoComponent extends SubscriberComponent {
   @Input() group!: Group;
   @Input() groupMembership!: GroupMembership;
 
@@ -36,8 +39,11 @@ export class GroupInfoComponent {
     private router: Router,
     private store: Store,
     private cdr: ChangeDetectorRef,
-    private groupCreationService: GroupCreationService 
+    private groupCreationService: GroupCreationService ,
+    private sbs: SearchBarService,
+
   ) {
+    super();
     this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
       this.user = user;
     });
@@ -116,13 +122,14 @@ export class GroupInfoComponent {
     let userID = this.user?._id??'';
     this.groupMembershipService.deleteGroupMemberByUserAndGroup(userID, groupID).subscribe(res => {
       // console.log(res);
+      this.isInGroup = false;
       this.store.dispatch(GroupActions.getGroups());
       this.store.dispatch(GroupActions.getUserGroups({ userId: this.user?._id??"" }));
-      this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: this.user?._id??"" }));
+      // this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: this.user?._id??"" }));
       this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: this.user?._id??"" }));
-      this.isInGroup = false;
       this.fetchMembershipsAndCheck();
       this.fetchOwnershipsAndCheck();
+      this.sbs.setQuery("");
       // Trigger change detection to update the UI
       this.cdr.detectChanges();
     })
@@ -154,57 +161,36 @@ export class GroupInfoComponent {
 
   }
 
+  ngOnChange() {
+    this.fetchMembershipsAndCheck();
+    this.fetchOwnershipsAndCheck();
+    this.cdr.detectChanges();
+  }
+
   // TODO: COLWYN - change this joined to be permanent or display
   ngOnInit() {
     this.userID = this.user?._id??''; // Set the current user's ID
-
-    // Fetch user's memberships and check if user is in the group
-    // this.groupMembershipService.getGroupMemberships().subscribe((memberships) => {
-    //   this.groupMemberships = memberships;
-
-    //   const userMembership = memberships.find(
-    //     (membership) =>
-    //       membership.user === this.userID && membership.group === this.group._id
-    //   );
-
-    //   this.isInGroup = !!userMembership; // Set isInGroup based on user's membership
-    // });
+    this.unsubscribeOnDestroy(this.store.select(selectMyGroups)).subscribe(
+      groups => {
+        this.fetchMembershipsAndCheck();
+        this.fetchOwnershipsAndCheck();
+      }
+    )
+    // this.unsubscribeOnDestroy(this.store.select(selectFollowedGroups)).subscribe(
+    //   groups => {
+    //     this.fetchMembershipsAndCheck();
+    //     this.fetchOwnershipsAndCheck();
+    //   }
+    // )
+    // this.unsubscribeOnDestroy(this.store.select(selectQueriedGroups)).subscribe(
+    //   groups => {
+    //     this.fetchMembershipsAndCheck();
+    //     this.fetchOwnershipsAndCheck();
+    //   }
+    // )
     this.fetchMembershipsAndCheck();
     this.fetchOwnershipsAndCheck();
 
   }
 
 }
-
-  // joinGroup() {
-  //   let _id = '';
-  //   let role: Role = 'member';
-  //   let user = this.currentUserId ?? '';
-  //   let group = this.group?._id ?? '';
-  //   let newMembership: GroupMembership = { group, user, role };
-  //   console.log("This is new member:", newMembership);
-  //   this.groupMembershipService
-  //     .createGroupMembership(newMembership)
-  //     .subscribe((res) => {
-  //       console.log(res);
-  //       window.location.reload();
-  //     });
-  // }
-
-  // ngOnInit() {
-
-  //   // TODO: get the current user's userId, then check their memberships
-  //   this.groupMembershipService
-  //     .getGroupMemberships()
-  //     .subscribe((memberships) => {
-  //       for (let i = 0; i < memberships.length; i++) {
-  //         if (
-  //           memberships[i].user == this.userID &&
-  //           memberships[i].group == this.group._id
-  //         ) {
-  //           this.isInGroup = true;
-  //           this.groupMemberships.push(memberships[i]);
-  //         }
-  //       }
-  //     });
-  // }
