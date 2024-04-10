@@ -31,11 +31,15 @@ export class EventSidebarComponent
   private savedEvents: Event[] = [];
   private myEvents: Event[] = [];
   private queriedEvents: Event[] = [];
+  private query: string = '';
 
   ngOnInit() {
     this.unsubscribeOnDestroy<Event[]>(
       this.store.select(selectMyEvents),
-    ).subscribe((events) => (this.myEvents = events));
+    ).subscribe((events) => {
+      this.myEvents = events;
+      this.queryBackend();
+    });
     this.unsubscribeOnDestroy<Event[]>(
       this.store.select(selectSavedEvents),
     ).subscribe((events) => (this.savedEvents = events));
@@ -52,8 +56,13 @@ export class EventSidebarComponent
     this.unsubscribeOnDestroy<string>(
       this.searchbarService.getQuery(),
     ).subscribe((query) => {
-      this.store.dispatch(EventActions.queryEvents({ query }));
+      this.query = query;
+      this.queryBackend();
     });
+  }
+
+  private queryBackend(){
+    this.store.dispatch(EventActions.queryEvents({ query:this.query }));
   }
 
   get savedEventsList(): Event[] {

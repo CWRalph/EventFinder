@@ -1,5 +1,5 @@
 .info-sidebar {
-  @apply h-full absolute top-0 left-[80px] bg-primary px-24 py-8 w-fit;
+  @apply h-full absolute top-0 left-[80px] bg-primary p-8 w-fit min-w-[630px] flex justify-center;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
