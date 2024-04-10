@@ -44,17 +44,19 @@ friendshipRouter.get('/', async (req, res) => {
 // This will deny access if user isn't verified
 // friendshipRouter.post('/', verify , async (req, res) => {
 friendshipRouter.post('/', async (req, res) => {
-    const {user1: user1Id, user2: user2Id, status, currentUrl} = req.body;
-
+    const {user1: user1ID, user1: user2ID, status, currentUrl} = req.body;
+    
     try {
-        const user1 = await User.findById(user1Id);
-        const user2 = await User.findById(user2Id);
+        console.log(req.body);
 
+        const user1 = await User.findById(user1ID);
+        const user2 = await User.findById(user2ID);
+        
         if (!user1 || !user2) {
             return notFound(res, 'One of both users');
         }
 
-        const newFriendship = new Friendship({user1: user1Id, user2: user2Id, status});
+        const newFriendship = new Friendship({user1: user1ID, user2: user2ID, status});
         await newFriendship.save();
 
         res.status(201).json(newFriendship);
@@ -63,7 +65,7 @@ friendshipRouter.post('/', async (req, res) => {
         /**
          * NOTE: we are assuming that user1 is the one receiving the friend request and user2 is the one sending it
          */
-        await hitNotifier(user1Id, user2Id, 'http://localhost:4000/friendship/request', res, currentUrl).then(() => {
+        await hitNotifier(user1ID, user2ID, 'http://localhost:4000/friendship/request', res, currentUrl).then(() => {
             console.log('Email sent');
         }, (e: Error) => {
             catchError(e, res);

@@ -16,6 +16,7 @@ import { Group, GroupMembership } from '@app/core/models/group';
 import { GroupService } from '@app/core/services/GroupService';
 import { GroupMemberService } from '@app/core/services/GroupMemberService';
 import { GroupInfoComponent } from "../group-info/group-info.component";
+import { UserService } from '@app/core/services/UserService';
 
 @Component({
     selector: 'app-friend-info',
@@ -44,7 +45,8 @@ export class FriendInfoComponent {
     private groupService: GroupService,
     private groupMemberService: GroupMemberService,
     private store: Store,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef,
+    private userService: UserService) {
 
       this.store.pipe(select(selectUserId)).subscribe((user?: string) => {
         this.userID = user;
@@ -140,25 +142,29 @@ export class FriendInfoComponent {
   }
 
   sendFriendRequest(friend: User) {
-    // if (!this.userID) {
-    //   return;
-    // }
-    // let user1 = friend; // receiver of friend request
-    // let user2 = this.userID; // sender of friend request
-    // let status: Status = 'Pending'; // initial status until accepted or rejected
-    // let newFriendship: Friendship = { user1, user2, status }
-    //
-    // this.friendshipService.createFriendship(newFriendship).subscribe((res) => {
-    //
-    //   if (this.userID) {
-    //     this.store.dispatch(FriendshipActions.getFriendships());
-    //     this.store.dispatch(UsersActions.getUsers());
-    //     this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
-    //     this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
-    //   }
-    //   this.cdr.detectChanges();
-    //
-    // })
+    if (!this.userID) {
+      return;
+    }
+    let user1 = friend; // receiver of friend request
+    this.userService.getUser(this.userID).subscribe(
+      (user2) => {
+        let status: Status = 'Pending'; // initial status until accepted or rejected
+      let newFriendship: Friendship = { user1, user2, status }
+    
+        this.friendshipService.createFriendship(newFriendship).subscribe((res) => {
+      
+        if (this.userID) {
+          this.store.dispatch(FriendshipActions.getFriendships());
+          this.store.dispatch(UsersActions.getUsers());
+          this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
+          this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
+        }
+        this.cdr.detectChanges();
+      
+        })
+      }
+    );
+    
   }
 
   cancelFriendRequest(friend: User) {
@@ -168,24 +174,30 @@ export class FriendInfoComponent {
 
     let friendshipId: string | undefined;
 
-    this.friendshipService.getFriendshipsByUser(this.userID).subscribe((friendships) => {
-      friendships.forEach(friendship => {
-        if (friendship.user1._id == friend._id || friendship.user2._id == friend._id) {
-          friendshipId = friendship._id;
-        }
-      });
-
-      if (friendshipId) {
-        this.friendshipService.deleteFriendship(friendshipId).subscribe(() => {
-          // After successful deletion, dispatch actions to fetch updated friendships
-          this.store.dispatch(UsersActions.getUsers());
-          this.store.dispatch(FriendshipActions.getFriendships());
-          this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
-          this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
-          this.cdr.detectChanges();
+    this.userService.getUser(this.userID).subscribe(
+      (user2) => {
+        this.friendshipService.getFriendshipsByUser(this.userID).subscribe((friendships) => {
+          friendships.forEach(friendship => {
+            if (friendship.user1._id == friend._id || friendship.user2._id == friend._id) {
+              friendshipId = friendship._id;
+            }
+          });
+    
+          if (friendshipId) {
+            this.friendshipService.deleteFriendship(friendshipId).subscribe(() => {
+              // After successful deletion, dispatch actions to fetch updated friendships
+              this.store.dispatch(UsersActions.getUsers());
+              this.store.dispatch(FriendshipActions.getFriendships());
+              this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
+              this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
+              this.cdr.detectChanges();
+            });
+          }
         });
-      }
-    });
+      
+    })
+
+    
   }
 
   // update the status to accepted

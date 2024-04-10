@@ -14,6 +14,10 @@ export class UserService {
   private readonly PROD_URL = this.document.location.origin + '/users';
   URL = this.LOCAL_URL;
 
+  public getUser(userId: string): Observable<User> {
+    return this.http.get<User>(this.URL + '/' + userId);
+  }
+
   //Check if the user has already logged in IE does there exist a cookie with their user ID
   public authenticate(): Observable<any> {
     return this.http.get(this.URL + '/login');

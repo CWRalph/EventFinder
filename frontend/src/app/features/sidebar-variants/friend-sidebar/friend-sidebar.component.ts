@@ -106,17 +106,17 @@ implements OnInit{
             this.myFriendships.forEach(friendship => {
 
                 // Verify that the user is in the friendship
-                if (friendship.user1._id == this.user || friendship.user2._id == this.user ) {
+                if (friendship.user1?._id == this.user || friendship.user2?._id == this.user ) {
                     // Check user1
-                    if (!myFriendshipUserIds.includes(friendship.user1._id)) {
-                        allMyFriends.push(friendship.user1);
-                        myFriendshipUserIds.push(friendship.user1._id);
+                    if (!myFriendshipUserIds.includes(friendship.user1?._id!)) {
+                        allMyFriends.push(friendship.user1!);
+                        myFriendshipUserIds.push(friendship.user1?._id!);
                     }
 
                     // Check user2
-                    if (!myFriendshipUserIds.includes(friendship.user2._id)) {
-                        allMyFriends.push(friendship.user2);
-                        myFriendshipUserIds.push(friendship.user2._id);
+                    if (!myFriendshipUserIds.includes(friendship.user2!._id)) {
+                        allMyFriends.push(friendship.user2!);
+                        myFriendshipUserIds.push(friendship.user2!._id);
                     }
                 }
 
@@ -140,10 +140,10 @@ implements OnInit{
     get myPendingFriendsList(): User[] {
         this.pendingFriends = [];
         this.pendingFriendships.forEach(friendship => {
-            if (!this.pendingFriends.includes(friendship.user1) && friendship.user1._id != this.user) {
-                this.pendingFriends.push(friendship.user1);
-            } else if (!this.pendingFriends.includes(friendship.user2) && friendship.user2._id != this.user) {
-                this.pendingFriends.push(friendship.user2);
+            if (!this.pendingFriends.includes(friendship.user1!) && friendship.user1!._id != this.user) {
+                this.pendingFriends.push(friendship.user1!);
+            } else if (!this.pendingFriends.includes(friendship.user2!) && friendship.user2!._id != this.user) {
+                this.pendingFriends.push(friendship.user2!);
             }
 
 
@@ -156,14 +156,14 @@ implements OnInit{
         // should be able to accept or deny the request
 
         this.incomingPendingFriends = [];
-        let incomingFriendshipRequests: Friendship[] = this.pendingFriendships.filter(friendship => friendship.user1._id === this.user);
+        let incomingFriendshipRequests: Friendship[] = this.pendingFriendships.filter(friendship => friendship.user1!._id === this.user);
 
 
         incomingFriendshipRequests.forEach(friendship => {
-            if (!this.incomingPendingFriends.includes(friendship.user1) && friendship.user1._id != this.user) {
-                this.incomingPendingFriends.push(friendship.user1);
-            } else if (!this.incomingPendingFriends.includes(friendship.user2) && friendship.user2._id != this.user) {
-                this.incomingPendingFriends.push(friendship.user2);
+            if (!this.incomingPendingFriends.includes(friendship.user1!) && friendship.user1!._id != this.user) {
+                this.incomingPendingFriends.push(friendship.user1!);
+            } else if (!this.incomingPendingFriends.includes(friendship.user2!) && friendship.user2!._id != this.user) {
+                this.incomingPendingFriends.push(friendship.user2!);
             }
 
 
@@ -174,14 +174,14 @@ implements OnInit{
     get outgoingPendingFriendsList(): User[] {
         // if user2 == current user, then it is an outgoing friend request (the current user is sending the request)
         this.outgoingPendingFriends = [];
-        let outgoingFriendshipRequests: Friendship[] = this.pendingFriendships.filter(friendship => friendship.user2._id === this.user);
+        let outgoingFriendshipRequests: Friendship[] = this.pendingFriendships.filter(friendship => friendship.user2!._id === this.user);
 
 
         outgoingFriendshipRequests.forEach(friendship => {
-            if (!this.outgoingPendingFriends.includes(friendship.user1) && friendship.user1._id != this.user) {
-                this.outgoingPendingFriends.push(friendship.user1);
-            } else if (!this.outgoingPendingFriends.includes(friendship.user2) && friendship.user2._id != this.user) {
-                this.outgoingPendingFriends.push(friendship.user2);
+            if (!this.outgoingPendingFriends.includes(friendship.user1!) && friendship.user1!._id != this.user) {
+                this.outgoingPendingFriends.push(friendship.user1!);
+            } else if (!this.outgoingPendingFriends.includes(friendship.user2!) && friendship.user2!._id != this.user) {
+                this.outgoingPendingFriends.push(friendship.user2!);
             }
 
         });
@@ -213,7 +213,7 @@ implements OnInit{
     getFriendshipStatus(friend: User): Status | undefined {
         for (let i = 0; i < this.myFriendships.length; i++) {
             var friendship = this.myFriendships[i]
-            if ((friendship.user1._id == this.user && friendship.user2._id == friend._id) || (friendship.user1._id == friend._id && friendship.user2._id == this.user)) {
+            if ((friendship.user1!._id == this.user && friendship.user2!._id == friend._id) || (friendship.user1!._id == friend._id && friendship.user2!._id == this.user)) {
                 return friendship.status;
             }
         }

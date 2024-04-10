@@ -6,4 +6,6 @@ export type Friendship = {
     user1: User;
     user2: User;
     status: Status;
+    // user1ID: string;
+    // user2ID: string;
 }
