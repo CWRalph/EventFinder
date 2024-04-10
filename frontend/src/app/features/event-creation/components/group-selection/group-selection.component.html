@@ -1,0 +1,22 @@
+<div class="flex gap-2">
+  <label class="form-control w-full max-w-xs">
+    <div class="label">
+      <span class="label-text">Select a group</span>
+    </div>
+    <select class="select select-bordered w-full max-w-xs" [(ngModel)]="groupId" (ngModelChange)="emitGroupId()">
+      <option disabled selected>Select a Group</option>
+      <option *ngFor="let group of groupList" [value]="group._id">{{ group.groupName }}</option>
+    </select>
+  </label>
+
+  <label class="form-control w-full max-w-xs">
+    <div class="label">
+      <span class="label-text">Select an event type</span>
+    </div>
+    <select class="select select-bordered w-full max-w-xs" [(ngModel)]="eventType" (ngModelChange)="emitEventType()">
+      <option disabled selected>Select an Event Type</option>
+      <option *ngFor="let type of eventTypes" [value]="type">{{ type }}</option>
+    </select>
+  </label>
+</div>
+

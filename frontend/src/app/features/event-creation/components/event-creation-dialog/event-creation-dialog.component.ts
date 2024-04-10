@@ -1,18 +1,19 @@
-import { Component, Inject } from '@angular/core';
-import { Event } from '@core/models/event';
-import { FormsModule } from '@angular/forms';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { Event, EventType } from '@core/models/event';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
-  MatNativeDateModule,
   MAT_DATE_LOCALE,
+  MatNativeDateModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
 import { EventCreationService } from '@features/event-creation/services/event-creation.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { GroupSelectionComponent } from '@features/event-creation/components/group-selection/group-selection.component';
 
 function formatDateToTimeString(date: Date): string {
   let hours = date.getHours();
@@ -54,6 +55,7 @@ function parseTimeStringToDate(timeString: string, currentDate: Date): Date {
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
+    GroupSelectionComponent,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' }, // Optional: Set the default locale
@@ -63,6 +65,7 @@ function parseTimeStringToDate(timeString: string, currentDate: Date): Date {
   styleUrls: ['./event-creation-dialog.component.css'],
 })
 export class EventCreationDialogComponent {
+  @ViewChild('myForm') myForm!: NgForm;
   private isEditing: boolean = false;
   public eventData!: Event;
 
@@ -144,11 +147,31 @@ export class EventCreationDialogComponent {
     );
   }
 
+  public get eventType(): EventType {
+    return this.eventData.eventType??EventType.Other;
+  }
+
+  public set eventType(value: string) {
+    this.eventData.eventType = value as any;
+  }
+
+  public get groupId(): string {
+    return this.eventData.group??"";
+  }
+
+  public set groupId(value: string) {
+    this.eventData.group = value;
+  }
+
   cancel() {
     this.dialogRef.close();
   }
 
   onSubmit() {
+    if (this.myForm.invalid) {
+      console.log("Invalid form");
+      return;
+    }
     if (this.isEditing) {
       this.eventCreationService.updateEvent(this.eventData);
     } else this.eventCreationService.createEvent(this.eventData);

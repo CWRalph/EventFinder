@@ -9,14 +9,15 @@ export type Status = 'Pending' | 'Accepted' | 'Blocked'
 
 export type Visibility = 'Public' | 'Private';
 
-export type EventType =
-  | 'Birthday'
-  | 'Wedding'
-  | 'Concert'
-  | 'Conference'
-  | 'Sport'
-  | 'School'
-  | 'Other';
+export enum EventType {
+  Birthday = 'Birthday',
+  Wedding = 'Wedding',
+  Concert = 'Concert',
+  Conference = 'Conference',
+  Sport = 'Sport',
+  School = 'School',
+  Other = 'Other'
+}
 
 export type EventRole = 'owner' | 'participant';
 
