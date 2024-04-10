@@ -4,9 +4,9 @@ import {UserActions} from "@app/state/user/userActions";
 
 export const UserReducer = createReducer(
   initialUserState,
-  on(UserActions.loginUserSuccess, (state, {user}) => ({
+  on(UserActions.loginUserSuccess, (state, {userID}) => ({
     ...state,
-    user: user,
+    userID: userID,
     isLoggedIn: true
   })),
   on(UserActions.loginUserFailure, (state) => ({

@@ -4,10 +4,12 @@ export interface UserState{
   user?: User;
   isLoggedIn: boolean;
   token?: string;
+  userID?:string;
 }
 
 export const initialUserState : UserState = {
   user: undefined,
   isLoggedIn: false,
   token: undefined,
+  userID: undefined,
 }

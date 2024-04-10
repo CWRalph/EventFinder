@@ -83,9 +83,12 @@ export class UserEffects {
       ofType(UserActions.loginUserWithProps),
       mergeMap(({ email, password }) =>
         this.userService.loginWithEmailPassword(email, password).pipe(
-          map((user: User) => {
+
+          map((data: any) => {
             this.dialog.closeAll();
-            setLoginCookies(email, password, user._id);
+            console.log(data);
+            
+            localStorage.setItem('token', data.token);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
 
             this.store.dispatch(EventActions.getEvents());
@@ -94,20 +97,20 @@ export class UserEffects {
             this.store.dispatch(GroupActions.getGroups());
 
             // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
-            this.store.dispatch(GroupActions.getUserGroups({ userId: user._id }));
-            this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: user._id }));
-            this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: user._id }));
+            this.store.dispatch(GroupActions.getUserGroups({ userId: data._id }));
+            this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: data._id }));
+            this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: data._id }));
 
             this.store.dispatch(FriendshipActions.getFriendships());
-            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: user._id }));
-            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: user._id }));
+            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: data._id }));
+            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: data._id }));
 
             this.store.dispatch(UsersActions.getUsers());
 
             this.store.dispatch(EventActions.getEvents());
 
 
-            return UserActions.loginUserSuccess({ user })
+            return UserActions.loginUserSuccess({ userID: data._id  })
           }),
           catchError((error) => {
             this.snackBar.open(error.error ?? "Login unsuccessful", "Dismiss", { duration: 5000 });
