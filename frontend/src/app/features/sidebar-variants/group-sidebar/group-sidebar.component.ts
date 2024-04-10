@@ -5,8 +5,6 @@ import {GroupActions} from "@state/group/groupActions";
 import {Group} from "@core/models/group";
 import {GroupInfoComponent} from "@features/sidebar-variants/group-info/group-info.component";
 import { selectFollowedGroups, selectMyGroups, selectQueriedGroups } from '@app/state/group/groupReducer';
-import { selectUser } from '@app/state/user/userReducer';
-import { User } from '@app/core/models/user';
 @Component({
   selector: 'app-group-sidebar',
   standalone: true,
@@ -14,8 +12,8 @@ import { User } from '@app/core/models/user';
   templateUrl: './group-sidebar.component.html',
   styleUrl: './group-sidebar.component.css',
 })
-export class GroupSidebarComponent 
-  extends AbstractSidebarComponent 
+export class GroupSidebarComponent
+  extends AbstractSidebarComponent
   implements OnInit
 {
   private myGroups: Group[] = [];
@@ -33,7 +31,7 @@ export class GroupSidebarComponent
       (groups) => {
         this.queriedGroups = groups
         this.cdr.detectChanges();
-      } 
+      }
     );
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectQueriedGroups)).subscribe(
       (groups) =>  {

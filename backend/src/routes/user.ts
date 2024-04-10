@@ -45,14 +45,6 @@ userRouter.get('/search', async (req, res) => {
                     ],
                 }
             },
-        },
-        {
-            $project: {
-                _id: 1,
-                score: { $meta: 'searchScore' },
-                email: 1,
-                username: 1
-            }
         }
     ];
 
@@ -136,7 +128,9 @@ userRouter.post('/login', async (req, res) => {
     // create and assign a token - this is the information we're sending to the frontend
     // so that the frontend knows that the user is logged in - user ID is sent but we can
     // send something else as well - like email or username, email is better for uniqueness
+    console.log("Worked", user)
     const token = jwt.sign({_id: user._id}, process.env.JWT_TOKEN);
+    console.log(token);
     // res.header('auth-token', token).send(token);
     
     // send user ID and token to the frontend

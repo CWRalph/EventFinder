@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, map, mergeMap, of, switchMap, tap } from "rxjs";
 import { FriendshipService } from "@app/services/FriendshipService";
-import { UserService } from "@app/services/UserService";
 import { FriendshipActions } from "./friendshipActions";
 
 @Injectable()

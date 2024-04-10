@@ -14,9 +14,9 @@ export const UserReducer = createReducer(
     user: undefined,
     isLoggedIn: false
   })),
-  on(UserActions.registerUserSuccess, (state, {user}) => ({
+  on(UserActions.registerUserSuccess, (state, {userID}) => ({
     ...state,
-    user: user,
+    userID: userID,
     isLoggedIn: true
   })),
   on(UserActions.registerUserFailure, (state) => ({
@@ -28,23 +28,15 @@ export const UserReducer = createReducer(
     ...state,
     user: undefined,
     isLoggedIn: false
-  })),
-  on(UserActions.setToken, (state, {token}) => ({
-    ...state,
-    token: token
-  })),
-  on(UserActions.clearToken, (state) => ({
-    ...state,
-    token: undefined
   }))
 )
 
 export const userFeatureKey = 'user';
 export const selectUserFeature = createFeatureSelector<UserState>(userFeatureKey)
 
-export const selectUser = createSelector(
+export const selectUserId = createSelector(
   selectUserFeature,
-  (state:UserState)=>state.user
+  (state:UserState)=>state.userID
 )
 
 export const selectIsLoggedIn = createSelector(

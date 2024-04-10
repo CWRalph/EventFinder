@@ -8,11 +8,11 @@ export const FriendshipActions = createActionGroup({
     'Get Friendships Success': props<{ friendships: Friendship[] }>(),
     'Get Friendships Failure': emptyProps(),
 
-    'Get User Friendships': props<{ userId: string }>(),
+    'Get User Friendships': props<{ userId?: string }>(),
     'Get User Friendships Success': props<{ friendships: Friendship[] }>(),
     'Get User Friendships Failure': emptyProps(),
 
-    'Get Pending Friendships': props<{ userId: string }>(),
+    'Get Pending Friendships': props<{ userId?: string }>(),
     'Get Pending Friendships Success': props<{ friendships: Friendship[] }>(),
     'Get Pending Friendships Failure': emptyProps(),
 

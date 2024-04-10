@@ -7,7 +7,7 @@ import { User } from "@core/models/user";
 import { FriendshipService } from '@app/services/FriendshipService';
 import { Store, select } from '@ngrx/store';
 import { Friendship } from '@app/core/models/friendship';
-import { selectUser } from '@app/state/user/userReducer';
+import { selectUserId } from '@app/state/user/userReducer';
 import { Status } from '@core/models/event';
 import { FriendshipActions } from '@app/state/friendship/friendshipActions';
 import { FriendType } from '../friend-sidebar/friend-sidebar.component';
@@ -32,33 +32,31 @@ export class FriendInfoComponent {
   displayStyle = "none";
   friendEvents: Event[] = [];
 
-  userID: string = '';
-  private user?: User;
+  userID?: string = '';
 
   userGroups: GroupMembership[] = [];
   friendMemberGroups: Group[] = [];
   friendOwnedGroups: Group[] = [];
 
   constructor(
-    private eventService: EventService, 
+    private eventService: EventService,
     private friendshipService: FriendshipService,
     private groupService: GroupService,
     private groupMemberService: GroupMemberService,
     private store: Store,
     private cdr: ChangeDetectorRef) {
 
-      this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
-        this.user = user;
+      this.store.pipe(select(selectUserId)).subscribe((user?: string) => {
+        this.userID = user;
       });
 
     }
 
   ngOnInit() {
-    if (this.user) {
-      let userId: string = this.user._id;
+    if (this.userID) {
       this.groupMemberService.getGroupMemberships().subscribe(memberships => {
         memberships.forEach(membership => {
-          if (membership.user == userId) {
+          if (membership.user == this.userID) {
             this.userGroups.push(membership);
           }
         })
@@ -74,7 +72,7 @@ export class FriendInfoComponent {
               this.friendEvents.push(event)
             }
           })
-    
+
         });
 
         break;
@@ -88,7 +86,7 @@ export class FriendInfoComponent {
                   this.friendEvents.push(event)
                 }
               })
-        
+
             });
             break;
       default:
@@ -98,13 +96,13 @@ export class FriendInfoComponent {
               this.friendEvents.push(event)
             }
           })
-    
+
         });
         break;
     }
 
     // user can see the friends group as long as the group is public
-    // if the group is private, then the user must also be in that group to see it 
+    // if the group is private, then the user must also be in that group to see it
     this.groupService.getUserGroups(this.friend._id).subscribe(groups => {
       groups.forEach(group => {
         if (group.visibility == "Public" || this.isUserInGroup(group)) {
@@ -142,49 +140,48 @@ export class FriendInfoComponent {
   }
 
   sendFriendRequest(friend: User) {
-    if (!this.user) {
-      return;
-    }
-    let user1 = friend; // receiver of friend request
-    let user2 = this.user; // sender of friend request
-    let status: Status = 'Pending'; // initial status until accepted or rejected
-    let newFriendship: Friendship = { user1, user2, status } 
-
-    this.friendshipService.createFriendship(newFriendship).subscribe((res) => {
-
-      if (this.user) {
-        this.store.dispatch(FriendshipActions.getFriendships());
-        this.store.dispatch(UsersActions.getUsers());
-        this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.user?._id }));
-        this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.user?._id }));
-      }
-      this.cdr.detectChanges();
-
-    })
+    // if (!this.userID) {
+    //   return;
+    // }
+    // let user1 = friend; // receiver of friend request
+    // let user2 = this.userID; // sender of friend request
+    // let status: Status = 'Pending'; // initial status until accepted or rejected
+    // let newFriendship: Friendship = { user1, user2, status }
+    //
+    // this.friendshipService.createFriendship(newFriendship).subscribe((res) => {
+    //
+    //   if (this.userID) {
+    //     this.store.dispatch(FriendshipActions.getFriendships());
+    //     this.store.dispatch(UsersActions.getUsers());
+    //     this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
+    //     this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
+    //   }
+    //   this.cdr.detectChanges();
+    //
+    // })
   }
 
   cancelFriendRequest(friend: User) {
-    if (!this.user) {
+    if (!this.userID) {
       return;
     }
-  
+
     let friendshipId: string | undefined;
-    let userId: string = this.user._id;
-  
-    this.friendshipService.getFriendshipsByUser(this.user._id).subscribe((friendships) => {
+
+    this.friendshipService.getFriendshipsByUser(this.userID).subscribe((friendships) => {
       friendships.forEach(friendship => {
         if (friendship.user1._id == friend._id || friendship.user2._id == friend._id) {
           friendshipId = friendship._id;
         }
       });
-  
+
       if (friendshipId) {
         this.friendshipService.deleteFriendship(friendshipId).subscribe(() => {
           // After successful deletion, dispatch actions to fetch updated friendships
           this.store.dispatch(UsersActions.getUsers());
           this.store.dispatch(FriendshipActions.getFriendships());
-          this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userId }));
-          this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userId }));
+          this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
+          this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
           this.cdr.detectChanges();
         });
       }
@@ -193,23 +190,21 @@ export class FriendInfoComponent {
 
   // update the status to accepted
   acceptFriendRequest(friend: User) {
-    if (!this.user) {
+    if (!this.userID) {
       return;
     }
 
-    let userId: string = this.user._id;
-
-    this.friendshipService.getFriendshipsByUser(this.user._id).subscribe((friendships) => {
+    this.friendshipService.getFriendshipsByUser(this.userID).subscribe((friendships) => {
       friendships.forEach((friendship) => {
-        if (friendship.user1._id == this.user?._id && friendship.user2._id == friend._id) {
+        if (friendship.user1._id == this.userID && friendship.user2._id == friend._id) {
           friendship.status = "Accepted";
           this.friendshipService.updateFriendship(friendship).subscribe((res) => {
             console.log(res)
 
             this.store.dispatch(FriendshipActions.getFriendships());
             this.store.dispatch(UsersActions.getUsers());
-            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userId }));
-            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userId }));
+            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: this.userID }));
+            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
             this.cdr.detectChanges();
           })
         }

@@ -15,16 +15,16 @@ import {
 import { EventService } from '@core/services/EventService';
 import { EventMemberService } from '@core/services/EventMemberService';
 import { select, Store } from '@ngrx/store';
-import { selectUser } from '@state/user/userReducer';
+import { selectUserId } from '@state/user/userReducer';
 import { User } from '@core/models/user';
 import { Event, EventMembership, EventRole } from '@core/models/event';
 
 const createGroupMembership = (
   event: Event,
-  user?: User,
+  user?: string,
   role: EventRole = 'participant',
 ): EventMembership => ({
-  user: user?._id ?? '',
+  user: user ?? '',
   event: event?._id ?? '',
   role: role,
 });
@@ -56,8 +56,8 @@ export class EventEffects {
       mergeMap(({ event }) =>
         this.eventService.createEvent(event).pipe(
           switchMap((createdEvent) =>
-            this.store.select(selectUser).pipe(
-              map((user) => {
+            this.store.select(selectUserId).pipe(
+              map((userId) => {
                 this.store.dispatch(EventActions.saveEvent({ event: createdEvent, role: 'owner' }));
                 this.eventCreationService.closeDialog();
                 return EventActions.createEventSuccess({ event: createdEvent })
@@ -100,9 +100,9 @@ export class EventEffects {
   mapMembershipsToEvents = createEffect(() =>
     this.actions$.pipe(
       ofType(EventActions.mapMembershipsToEvents),
-      switchMap(() => this.store.select(selectUser)), // Select user from the store
+      switchMap(() => this.store.select(selectUserId)), // Select user from the store
       switchMap((user) =>
-        this.eventMembershipService.getEventMembershipsByUser(user?._id).pipe(
+        this.eventMembershipService.getEventMembershipsByUser(user).pipe(
           switchMap((memberships) => {
             return this.eventService.getEvents().pipe(
               map((events) => ({ events, memberships })),
@@ -165,7 +165,7 @@ export class EventEffects {
   saveEvent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EventActions.saveEvent),
-      withLatestFrom(this.store.select(selectUser)),
+      withLatestFrom(this.store.select(selectUserId)),
       mergeMap(([{ event, role }, user]) =>
         this.eventMembershipService
           .createEventMembership(createGroupMembership(event, user, role))
@@ -180,10 +180,10 @@ export class EventEffects {
   unsaveEvent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EventActions.unsaveEvent),
-      withLatestFrom(this.store.select(selectUser)),
+      withLatestFrom(this.store.select(selectUserId)),
       mergeMap(([{ event }, user]) =>
         this.eventMembershipService
-          .removeEventMembership(event?._id, user?._id)
+          .removeEventMembership(event?._id, user)
           .pipe(
             map(() => EventActions.unsaveEventSuccess({ event })),
             catchError(() => of(EventActions.unsaveEventFailure())),

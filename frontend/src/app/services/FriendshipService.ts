@@ -20,11 +20,11 @@ export class FriendshipService {
     return this.http.get<Friendship[]>(this.URL);
   }
 
-  getFriendshipByFriendshipId(friendshipId: string): Observable<Friendship[]> {
+  getFriendshipByFriendshipId(friendshipId?: string): Observable<Friendship[]> {
     return this.http.get<Friendship[]>(this.URL + '/' + friendshipId);
   }
 
-  getFriendshipsByUser(userId: string): Observable<Friendship[]> {
+  getFriendshipsByUser(userId?: string): Observable<Friendship[]> {
     return this.http.get<Friendship[]>(this.URL + '/user/' + userId);
   }
 

@@ -8,8 +8,7 @@ import {Actions, ofType} from "@ngrx/effects";
 import {EventActions} from "@state/event/eventActions";
 import {Coordinates, Event} from "@core/models/event";
 import {select, Store} from "@ngrx/store";
-import {selectUser} from "@state/user/userReducer";
-import {User} from "@core/models/user";
+import {selectUserId} from "@state/user/userReducer";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -18,7 +17,7 @@ import {HttpClient} from "@angular/common/http";
 export class EventCreationService {
   private locationListenerSubject:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private eventDraft?:Event;
-  private user?: User;
+  private userId?: string;
   private isEditing: boolean = false;
 
 
@@ -29,14 +28,14 @@ export class EventCreationService {
     private http: HttpClient
   ) {
     this.store.pipe(
-      select(selectUser),
-    ).subscribe((user: User|undefined) => {
-      this.user = user;
+      select(selectUserId),
+    ).subscribe((user?: string) => {
+      this.userId = user;
     });
   }
 
   private get currentUserId(){
-    return this.user?._id;
+    return this.userId;
   }
 
   private get currentEventDraft(){

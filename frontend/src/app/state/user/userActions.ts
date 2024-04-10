@@ -11,12 +11,10 @@ export const UserActions = createActionGroup({
     'Login User Failure': emptyProps(),
     'Register User': emptyProps(),
     'Register User With Props': props<{ username: string; password: string, email: string }>(),
-    'Register User Success': props<{ user: User }>(),
+    'Register User Success': props<{ userID: string }>(),
     'Register User Failure': emptyProps(),
     'Logout User': emptyProps(),
     'Logout User Success': emptyProps(),
     'Logout User Failure': emptyProps(),
-    'Set Token': props<{ token: string }>(),
-    'Clear Token': emptyProps(),
   },
 });

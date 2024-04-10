@@ -6,7 +6,7 @@ import { GroupCreationService } from '@app/features/group-creation/services/grou
 import { Router } from '@angular/router';
 
 import { Store, select } from '@ngrx/store';
-import { selectUser } from '@app/state/user/userReducer';
+import { selectUserId } from '@app/state/user/userReducer';
 import { User } from '@app/core/models/user';
 import {Group, GroupMembership, Role} from "@core/models/group";
 import {NgIf} from "@angular/common";
@@ -31,7 +31,7 @@ export class GroupInfoComponent extends SubscriberComponent {
   isInGroup: Boolean = false;
   isGroupOwner: Boolean = false;
 
-  private user?: User;
+  private user?: string;
 
   constructor(
     private groupService: GroupService,
@@ -44,7 +44,7 @@ export class GroupInfoComponent extends SubscriberComponent {
 
   ) {
     super();
-    this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
+    this.store.pipe(select(selectUserId)).subscribe((user?: string) => {
       this.user = user;
     });
   }
@@ -58,18 +58,18 @@ export class GroupInfoComponent extends SubscriberComponent {
   }
 
   private get currentUserId() {
-    return this.user?._id;
+    return this.user;
   }
 
   fetchMembershipsAndCheck() {
     if (!this.user) {
       return;
     }
-    
+
     this.groupMembershipService.getGroupMemberships().subscribe((memberships) => {
       const userMembership = memberships.find(
         (membership) =>
-          membership.user === this.user?._id && membership.group === this.group._id && membership.role === 'member'
+          membership.user === this.user && membership.group === this.group._id && membership.role === 'member'
       );
 
       this.isInGroup = !!userMembership;
@@ -82,11 +82,11 @@ export class GroupInfoComponent extends SubscriberComponent {
     if (!this.user) {
       return;
     }
-    
+
     this.groupMembershipService.getGroupMemberships().subscribe((memberships) => {
       const userMembership = memberships.find(
         (membership) =>
-          membership.user === this.user?._id && membership.group === this.group._id && membership.role === 'owner'
+          membership.user === this.user && membership.group === this.group._id && membership.role === 'owner'
       );
 
       this.isGroupOwner = !!userMembership;
@@ -102,7 +102,7 @@ export class GroupInfoComponent extends SubscriberComponent {
     }
 
     let role: Role = 'member';
-    let user = this.user._id;
+    let user = this.user;
     let group = this.group._id??'';
     let newMembership: GroupMembership = { group, user, role };
 
@@ -111,22 +111,21 @@ export class GroupInfoComponent extends SubscriberComponent {
 
       // Update the UI after joining the group
       this.isInGroup = true;
-      this.store.dispatch(GroupActions.getUserGroups({ userId: this.user?._id??"" }));
+      this.store.dispatch(GroupActions.getUserGroups({ userId: this.user??"" }));
       // Trigger change detection to update the UI
       this.cdr.detectChanges();
-    }); 
+    });
   }
 
   leaveGroup() {
     let groupID = this.group._id??'';
-    let userID = this.user?._id??'';
+    let userID = this.user??'';
     this.groupMembershipService.deleteGroupMemberByUserAndGroup(userID, groupID).subscribe(res => {
       // console.log(res);
       this.isInGroup = false;
       this.store.dispatch(GroupActions.getGroups());
-      this.store.dispatch(GroupActions.getUserGroups({ userId: this.user?._id??"" }));
-      // this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: this.user?._id??"" }));
-      this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: this.user?._id??"" }));
+      this.store.dispatch(GroupActions.getUserGroups({ userId: this.user??"" }));
+      this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: this.user??"" }));
       this.fetchMembershipsAndCheck();
       this.fetchOwnershipsAndCheck();
       this.sbs.setQuery("");
@@ -149,9 +148,9 @@ export class GroupInfoComponent extends SubscriberComponent {
     // TODO - on cascade, delete all relations from the groupMembership table that contain the groupID
     this.groupService.deleteGroup(groupID).subscribe(res => {
       this.store.dispatch(GroupActions.getGroups());
-      this.store.dispatch(GroupActions.getUserGroups({ userId: this.user?._id??"" }));
-      this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: this.user?._id??"" }));
-      this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: this.user?._id??"" }));
+      this.store.dispatch(GroupActions.getUserGroups({ userId: this.user??"" }));
+      this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: this.user??"" }));
+      this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: this.user??"" }));
       this.isGroupOwner = false;
       this.fetchMembershipsAndCheck();
       this.fetchOwnershipsAndCheck();
@@ -169,7 +168,7 @@ export class GroupInfoComponent extends SubscriberComponent {
 
   // TODO: COLWYN - change this joined to be permanent or display
   ngOnInit() {
-    this.userID = this.user?._id??''; // Set the current user's ID
+    this.userID = this.user??''; // Set the current user's ID
     this.unsubscribeOnDestroy(this.store.select(selectMyGroups)).subscribe(
       groups => {
         this.fetchMembershipsAndCheck();

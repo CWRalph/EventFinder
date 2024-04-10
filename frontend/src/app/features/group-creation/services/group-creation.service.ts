@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import { GroupCreationDialogComponent } from '../components/group-creation-dialog.component';
-import {BehaviorSubject, map, Observable, of, Subject, switchMap, take} from "rxjs";
-import {Actions, ofType} from "@ngrx/effects";
+import {Actions} from "@ngrx/effects";
 import {GroupActions} from "@state/group/groupActions";
 import {Group, Visibility} from "@core/models/group";
 import {select, Store} from "@ngrx/store";
-import {selectUser} from "@state/user/userReducer";
+import {selectUserId} from "@state/user/userReducer";
 import {User} from "@core/models/user";
 import {HttpClient} from "@angular/common/http";
 
@@ -15,7 +14,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class GroupCreationService {
   private groupDraft?:Group;
-  private user?: User;
+  private userId?: string;
 
 
   constructor(
@@ -25,14 +24,14 @@ export class GroupCreationService {
     private http: HttpClient
   ) {
     this.store.pipe(
-      select(selectUser),
-    ).subscribe((user: User|undefined) => {
-      this.user = user;
+      select(selectUserId),
+    ).subscribe((user?: string) => {
+      this.userId = user;
     });
   }
 
   private get currentUserId(){
-    return this.user?._id;
+    return this.userId;
   }
 
   private get currentGroupDraft(){

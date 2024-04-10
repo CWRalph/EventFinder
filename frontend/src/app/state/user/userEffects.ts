@@ -14,27 +14,6 @@ import { GroupActions } from '../group/groupActions';
 import { FriendshipActions } from '../friendship/friendshipActions';
 import { UsersActions } from '../users/usersActions';
 
-//TODO remove these in favour of storing an auth token cookie
-const getLoginCookies = () => {
-  return {
-    email: localStorage.getItem('email')??"",
-    password: localStorage.getItem('pw')??"",
-    userID: localStorage.getItem('userID')??""
-  }
-}
-const setLoginCookies = (email:string, password:string, userID: string) => {
-  localStorage.setItem('email', email);
-  localStorage.setItem('pw', password);
-  localStorage.setItem('userID', userID);
-}
-
-const clearLoginCookies = () => {
-  localStorage.removeItem('email');
-  localStorage.removeItem('pw');
-  localStorage.removeItem('userID');
-}
-/////////////////////////////////////////////////////////////////
-
 @Injectable()
 export class UserEffects {
   constructor(
@@ -55,8 +34,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.authenticateUser),
       map(() => {
-          const { email, password } = getLoginCookies();
-          return UserActions.loginUserWithProps({ email, password });
+          return UserActions.loginUserWithProps({ email:"", password:"" });
         }
       ),
     ),
@@ -83,11 +61,10 @@ export class UserEffects {
       ofType(UserActions.loginUserWithProps),
       mergeMap(({ email, password }) =>
         this.userService.loginWithEmailPassword(email, password).pipe(
-
           map((data: any) => {
             this.dialog.closeAll();
             console.log(data);
-            
+
             localStorage.setItem('token', data.token);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
 
@@ -140,11 +117,11 @@ export class UserEffects {
       ofType(UserActions.registerUserWithProps),
       mergeMap(({ username, password, email }) =>
         this.userService.register(username, password, email).pipe(
-          map((user: User) => {
+          map((data: any) => {
+            localStorage.setItem('token', data.token);
             this.dialog.closeAll();
-            setLoginCookies(email, password, user._id);
             this.snackBar.open("Registration Successful", "Dismiss", { duration: 5000 });
-            return UserActions.registerUserSuccess({ user })
+            return UserActions.registerUserSuccess({ userID: data._id })
           }),
           catchError((error) => {
             this.snackBar.open(error.error ?? "Registration unsuccessful", "Dismiss", { duration: 5000 });
@@ -159,7 +136,6 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.logoutUser),
       map(() => {
-        clearLoginCookies();
         return UserActions.logoutUserSuccess();
       }),
     ),

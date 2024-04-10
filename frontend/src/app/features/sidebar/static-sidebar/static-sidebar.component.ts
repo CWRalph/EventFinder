@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GroupButtonComponent } from "../group-button/group-button.component";
 import {SidebarType} from "@services/SidebarService";
 import {Group, GroupMembership} from "@core/models/group";
-import { selectIsLoggedIn, selectUser } from '@app/state/user/userReducer';
+import { selectIsLoggedIn, selectUserId } from '@app/state/user/userReducer';
 import { Store, select } from '@ngrx/store';
 import { User } from '@app/core/models/user';
 import { GroupMemberService } from '@app/core/services/GroupMemberService';
@@ -27,7 +27,7 @@ extends SubscriberComponent {
   membershipType = "Membership";
   groupType = "Group";
   isLoggedIn: boolean = false;
-  user?: User;
+  userId?: string;
 
   constructor(
     private store: Store
@@ -41,8 +41,8 @@ extends SubscriberComponent {
       .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn)
     );
 
-    this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
-        this.user = user;
+    this.store.pipe(select(selectUserId)).subscribe((user?: string) => {
+        this.userId = user;
     });
 
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectMyGroups)).subscribe(
