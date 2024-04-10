@@ -18,7 +18,7 @@ export class SidebarService {
   private sidebarType = new BehaviorSubject<SidebarType>(SidebarType.Event);
   private sidebarVisibility: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
-  private group: BehaviorSubject<Group> = new BehaviorSubject<Group>({ "groupName":"", "description":"", "visibility":"Private"} );;
+  private group: BehaviorSubject<Group> = new BehaviorSubject<Group>({ "groupName":"", "description":"", "visibility":"Private"} );
 
   constructor() {}
 
@@ -40,7 +40,7 @@ export class SidebarService {
       this.sidebarVisibility.next(!this.sidebarVisibility.value);
     }
   }
-  
+
   assignGroup(group: Group) {
     this.group.next(group);
   }

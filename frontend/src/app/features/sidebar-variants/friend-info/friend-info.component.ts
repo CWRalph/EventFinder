@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import { Event } from "@core/models/event";
 import { EventInfoComponent } from "../event-info/event-info.component";
 import { CommonModule } from '@angular/common';
@@ -25,7 +25,7 @@ import { UserService } from '@app/core/services/UserService';
     styleUrl: './friend-info.component.css',
     imports: [CommonModule, EventInfoComponent, GroupInfoComponent]
 })
-export class FriendInfoComponent {
+export class FriendInfoComponent implements OnInit, OnChanges{
   @Input() friend!: User;
   @Input() tabType: FriendType = FriendType.MyFriends;
   @Input() status?: Status;
@@ -46,13 +46,18 @@ export class FriendInfoComponent {
     private groupMemberService: GroupMemberService,
     private store: Store,
     private cdr: ChangeDetectorRef,
-    private userService: UserService) {
-
+    private userService: UserService
+  ) {
       this.store.pipe(select(selectUserId)).subscribe((user?: string) => {
         this.userID = user;
       });
+  }
 
-    }
+  ngOnChanges(){
+    this.cdr.detectChanges();
+    console.log("Status", this.status)
+  }
+
 
   ngOnInit() {
     if (this.userID) {
@@ -150,9 +155,9 @@ export class FriendInfoComponent {
       (user2) => {
         let status: Status = 'Pending'; // initial status until accepted or rejected
       let newFriendship: Friendship = { user1, user2, status }
-    
+
         this.friendshipService.createFriendship(newFriendship).subscribe((res) => {
-      
+
         if (this.userID) {
           this.store.dispatch(FriendshipActions.getFriendships());
           this.store.dispatch(UsersActions.getUsers());
@@ -160,11 +165,11 @@ export class FriendInfoComponent {
           this.store.dispatch(FriendshipActions.getUserFriendships({ userId: this.userID }));
         }
         this.cdr.detectChanges();
-      
+
         })
       }
     );
-    
+
   }
 
   cancelFriendRequest(friend: User) {
@@ -182,7 +187,7 @@ export class FriendInfoComponent {
               friendshipId = friendship._id;
             }
           });
-    
+
           if (friendshipId) {
             this.friendshipService.deleteFriendship(friendshipId).subscribe(() => {
               // After successful deletion, dispatch actions to fetch updated friendships
@@ -194,10 +199,10 @@ export class FriendInfoComponent {
             });
           }
         });
-      
+
     })
 
-    
+
   }
 
   // update the status to accepted

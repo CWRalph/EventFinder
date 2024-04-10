@@ -12,6 +12,6 @@ export class GroupService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/groups';
   private readonly PROD_URL = this.document.location.origin + '/groups';
-  URL = this.LOCAL_URL;
+  URL = this.PROD_URL;
 
 }
