@@ -11,7 +11,7 @@ export class GroupMemberService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/group-memberships';
   private readonly PROD_URL = this.document.location.origin + '/group-memberships';
-  URL = this.LOCAL_URL;
+  URL = this.PROD_URL;
 
 
   getGroupMembers(): Observable<Group[]> {
@@ -40,7 +40,7 @@ export class GroupMemberService {
   }
 
 
-  // additional - pre merge?? 
+  // additional - pre merge??
   getGroupMemberships(): Observable<GroupMembership[]> {
     return this.http.get<GroupMembership[]>(this.URL);
   }
