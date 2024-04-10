@@ -8,6 +8,9 @@ const verifyToken = require('./verifyToken');
 // Place this anywhere you want to protect routes
 const verify = require('./verifyToken');
 
+const LOCAL_URL = 'http://localhost:4000/friendship/';
+const PROD_URL = 'https://notifier-7f5oz2cytq-uw.a.run.app/friendship/';
+
 const friendshipRouter = express.Router();
 
 const hitNotifier = async (user1Id: string, user2Id: string, url: string, res: express.Response, currentUrl: string) => {
@@ -65,7 +68,7 @@ friendshipRouter.post('/', async (req, res) => {
         /**
          * NOTE: we are assuming that user1 is the one receiving the friend request and user2 is the one sending it
          */
-        await hitNotifier(user1ID, user2ID, 'http://localhost:4000/friendship/request', res, currentUrl).then(() => {
+        await hitNotifier(user1ID, user2ID, PROD_URL + 'request', res, currentUrl).then(() => {
             console.log('Email sent');
         }, (e: Error) => {
             catchError(e, res);
@@ -138,7 +141,7 @@ friendshipRouter.put('/:id/update-status', async (req, res) => {
 
             res.json(friendship);
 
-            hitNotifier(friendship.user2.toString(), friendship.user1.toString(), 'http://localhost:4000/friendship/accept', res, currentUrl).then(() => {
+            hitNotifier(friendship.user2.toString(), friendship.user1.toString(), PROD_URL + 'accept', res, currentUrl).then(() => {
                 console.log('Email sent');
             }, (e: Error) => {
                 catchError(e, res);
@@ -151,7 +154,7 @@ friendshipRouter.put('/:id/update-status', async (req, res) => {
             res.json({message: 'Friendship deleted'});
 
             // Hit the notifier endpoint to send an email
-            await hitNotifier(user2._id.toString(), user1._id.toString(), 'http://localhost:4000/friendship/reject', res, currentUrl).then(() => {
+            await hitNotifier(user2._id.toString(), user1._id.toString(), PROD_URL + 'reject', res, currentUrl).then(() => {
                 console.log('Email sent');
             }, (e: Error) => {
                 catchError(e, res);
