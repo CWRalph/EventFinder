@@ -2,10 +2,11 @@ import express from 'express';
 import {Event} from '../database/schema';
 import {getFuzzyFindQuery} from "../routes/queries";
 import {catchError, notFound} from "../error";
+const verifyToken = require('./verifyToken');
 
 const eventRouter = express.Router();
 
-eventRouter.get('/', async (req, res) => {
+eventRouter.get('/', verifyToken, async (req, res) => {
     try {
         const events = await Event.find();
         res.json(events);

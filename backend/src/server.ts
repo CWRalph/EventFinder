@@ -4,6 +4,12 @@ require('dotenv').config()
 import express from 'express';
 import cors from 'cors';
 import * as mongoose from "mongoose";
+
+// auth imports
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+// routes
 import eventRouter from "./routes/event";
 import friendshipRouter from "./routes/friendship";
 import userRouter from "./routes/user";
@@ -35,6 +41,12 @@ mongoose.connect(process.env.MONGO_URL!, {})
     .catch(err => {
         console.error('Error connecting to the database:', err);
     });
+
+// Generate JWT token
+function generateToken(user:any) {
+    return jwt.sign({ username: user.username }, 'secret', { expiresIn: '1h' });
+}
+
 
 // Setting up routes
 app.use('/groups', groupRouter);
