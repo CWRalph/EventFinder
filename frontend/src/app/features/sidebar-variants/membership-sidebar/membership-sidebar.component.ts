@@ -18,8 +18,8 @@ import { EventInfoComponent } from "../event-info/event-info.component";
     styleUrl: './membership-sidebar.component.css',
     imports: [EventInfoComponent, CommonModule, NgForOf]
 })
-export class MembershipSidebarComponent 
-extends AbstractSidebarComponent 
+export class MembershipSidebarComponent
+extends AbstractSidebarComponent
 implements OnInit
 {
   private allEvents: Event[] = [];
@@ -29,9 +29,6 @@ implements OnInit
   ngOnInit() {
     this.unsubscribeOnDestroy<Event[]>(this.store.select(selectEvents)).subscribe(
       (events) => this.allEvents = events);
-
-    this.unsubscribeOnDestroy<Event[]>(this.store.select(selectEvents)).subscribe(
-      (events) => console.log(events));
 
     this.sidebarService.getGroup().subscribe(group => {
       this.group = group,
@@ -49,8 +46,6 @@ implements OnInit
       }
 
     })
-
-    console.log(this.groupEvents)
     return this.groupEvents
   }
 
@@ -61,5 +56,5 @@ implements OnInit
 
 
 
-  
+
 }

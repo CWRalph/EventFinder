@@ -28,6 +28,14 @@ export const UserReducer = createReducer(
     ...state,
     user: undefined,
     isLoggedIn: false
+  })),
+  on(UserActions.setToken, (state, {token}) => ({
+    ...state,
+    token: token
+  })),
+  on(UserActions.clearToken, (state) => ({
+    ...state,
+    token: undefined
   }))
 )
 
@@ -42,4 +50,9 @@ export const selectUser = createSelector(
 export const selectIsLoggedIn = createSelector(
   selectUserFeature,
   (state:UserState)=>state.isLoggedIn
+)
+
+export const selectToken = createSelector(
+  selectUserFeature,
+  (state:UserState)=>state.token
 )

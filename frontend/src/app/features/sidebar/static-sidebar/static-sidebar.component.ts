@@ -19,7 +19,7 @@ import { SubscriberComponent } from '@shared/subscriber/subscriber.component';
     styleUrl: './static-sidebar.component.css',
     imports: [CommonModule, IconButtonComponent, GroupButtonComponent]
 })
-export class StaticSidebarComponent 
+export class StaticSidebarComponent
 extends SubscriberComponent {
   userID: string = "65f4d7bea84a230f2d8a73e4" // TODO: change to get the user's userId
   followedGroups: Group[] = [];
@@ -40,7 +40,7 @@ extends SubscriberComponent {
       .select(selectIsLoggedIn)
       .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn)
     );
-        
+
     this.store.pipe(select(selectUser)).subscribe((user: User|undefined) => {
         this.user = user;
     });
@@ -49,16 +49,8 @@ extends SubscriberComponent {
       (groups) => this.ownedGroups = groups
     );
 
-    this.unsubscribeOnDestroy<Group[]>(this.store.select(selectMyGroups)).subscribe(
-      (groups) => console.log(groups)
-    );
-
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
       (groups) => this.followedGroups = groups
-    );
-
-    this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
-      (groups) => console.log(groups)
     );
   }
 

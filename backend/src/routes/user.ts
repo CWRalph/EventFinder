@@ -15,7 +15,6 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.get('/search', async (req, res) => {
     const { query } = req.query as any;
-    console.log(query)
 
     const pipeline = [
         {

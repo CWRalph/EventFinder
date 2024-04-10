@@ -34,7 +34,6 @@ export class FriendshipService {
   }
 
   updateFriendship(friendship: Friendship): Observable<Friendship> {
-    console.log(friendship);
     const currentUrl = this.document.location.origin;
     return this.http.put<Friendship>(this.URL + '/' + friendship._id, {
       ...friendship,

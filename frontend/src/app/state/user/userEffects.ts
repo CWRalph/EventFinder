@@ -88,7 +88,6 @@ export class UserEffects {
             setLoginCookies(email, password, user._id);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
 
-            console.log(user._id);
             this.store.dispatch(EventActions.getEvents());
             this.store.dispatch(EventActions.mapMembershipsToEvents());
 

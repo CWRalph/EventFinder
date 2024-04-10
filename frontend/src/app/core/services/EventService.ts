@@ -40,10 +40,4 @@ export class EventService {
   searchEvents(query: string): Observable<Event[]> {
     return this.http.get<Event[]>(this.URL + '/search', { params: { query } });
   }
-
-  clearEvents() {
-    //TODO remove this
-    console.log('Clearing events');
-    return this.http.delete(this.URL);
-  }
 }

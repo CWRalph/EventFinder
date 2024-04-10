@@ -72,7 +72,6 @@ export class EventInfoComponent extends SubscriberComponent implements OnChanges
   }
 
   checkEventStatus(){
-    console.log(this.event);
     this.isSaved = this.savedEvents.find((event) => event._id === this.event._id) !== undefined;
     this.isOwner = this.myEvents.find((event) => event._id === this.event._id) !== undefined;
   }

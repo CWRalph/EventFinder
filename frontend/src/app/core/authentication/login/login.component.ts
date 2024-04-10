@@ -61,7 +61,6 @@ export class LoginComponent {
   get formTitle(){ return (this.currentFormState == LoginFormState.LOGIN)? "Sign In" : "Register"}
 
   public toggleFormState() {
-    console.log("TOGGLED")
     this.currentFormState =
       this.currentFormState == LoginFormState.LOGIN
         ? LoginFormState.REGISTER
