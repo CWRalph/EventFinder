@@ -15,7 +15,7 @@ export async function sendEmail(subject: string, userName: string, content: stri
     <html lang="en">
         <body>
             <div style="background-color: #333; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0">
-                <h1>Evenfinder</h1>
+                <h1>EventFinder</h1>
             </div>
             <div style="padding: 20px; background-color: #333; color: white; align-content: center; text-align: center">
                 <p>Hi ${userName},</p>
@@ -24,7 +24,7 @@ export async function sendEmail(subject: string, userName: string, content: stri
                    style="background-color: #008CBA;border-radius: 5px ;color: white; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">View in Website</a>
             </div>
             <footer style="background-color: #333; color: white; padding: 10px; text-align: center; border-radius: 0 0 5px 5px">
-                <p>Thank you for using Evenfinder!</p>
+                <p>Thank you for using EventFinder!</p>
             </footer>
         </body>
     </html>
