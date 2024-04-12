@@ -40,7 +40,7 @@ export class UserEffects {
     ),
   );
 
-  loginUserWithToken$ = createEffect(()=> 
+  loginUserWithToken$ = createEffect(()=>
         this.actions$.pipe(
           ofType(UserActions.loginUserWithToken),
           switchMap((token) => this.userService.authenticate().pipe(
@@ -168,6 +168,10 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.logoutUser),
       map(() => {
+        localStorage.removeItem('token');
+        this.store.dispatch(GroupActions.clearGroups());
+        this.store.dispatch(FriendshipActions.clearFriendships());
+        this.store.dispatch(EventActions.clearEvents());
         return UserActions.logoutUserSuccess();
       }),
     ),

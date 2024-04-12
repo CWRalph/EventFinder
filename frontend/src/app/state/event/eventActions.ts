@@ -46,6 +46,8 @@ export const EventActions = createActionGroup({
     'Delete Event Failure': emptyProps(),
 
     'Select Location From Map': props<{ location: Coordinates }>(),
+
+    'Clear Events': emptyProps(),
     'Null Action': emptyProps(),
   },
 });

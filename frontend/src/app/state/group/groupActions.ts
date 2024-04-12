@@ -57,6 +57,7 @@ export const GroupActions = createActionGroup({
     'Unfollow Group Success': props<{ group: Group }>(),
     'Unfollow Group Failure': emptyProps(),
 
+    'Clear Groups': emptyProps(),
     'Null Action': emptyProps(),
   },
 });

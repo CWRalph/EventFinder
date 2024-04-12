@@ -6,7 +6,7 @@ import { Friendship } from "@app/core/models/friendship";
 
 export const FriendshipReducer = createReducer(
   initialFriendshipState,
-  
+
   // Create, Delete reducers for friendships
     on(FriendshipActions.createFriendshipSuccess, (state, {friendship}) => ({
         ...state,
@@ -36,6 +36,14 @@ export const FriendshipReducer = createReducer(
   on(FriendshipActions.getPendingFriendshipsSuccess, (state, {friendships}) => ({
     ...state,
     pendingFriendships: friendships,
+  })),
+
+  on(FriendshipActions.clearFriendships, (state) => ({
+    ...state,
+    friendships: [],
+    myFriendships: [],
+    pendingFriendships: [],
+    queriedFriendships: []
   })),
 )
 

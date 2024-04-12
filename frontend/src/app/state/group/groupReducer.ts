@@ -6,7 +6,7 @@ import { Group } from "@app/core/models/group";
 
 export const GroupReducer = createReducer(
   initialGroupState,
-  
+
   // CRUD
   // Create, Update, Delete reducers for groups
   on(GroupActions.createGroupSuccess, (state, {group}) => ({
@@ -56,7 +56,7 @@ export const GroupReducer = createReducer(
   on(GroupActions.getUserGroupsSuccess, (state, { groups }) => ({
     ...state,
     followedGroups: groups,
-  })),  
+  })),
   // on(GroupActions.getUserNonMemberGroupsSuccess, (state, { groups }) => ({
   //   ...state,
   //   queriedGroups: groups,
@@ -65,7 +65,7 @@ export const GroupReducer = createReducer(
     ...state,
     myGroups: groups,
   })),
-  
+
 
 
   // Following/Unfollowing groups
@@ -78,7 +78,13 @@ export const GroupReducer = createReducer(
     followedGroups: state.followedGroups.filter((g:Group) => g._id !== group._id)
   })),
 
- 
+  on(GroupActions.clearGroups, (state) => ({
+    ...state,
+    groups: [],
+    myGroups: [],
+    followedGroups: [],
+    queriedGroups: []
+  })),
 )
 
 export const groupFeatureKey = 'group';

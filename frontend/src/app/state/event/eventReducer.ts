@@ -57,6 +57,14 @@ export const EventReducer = createReducer(
     savedEvents: state.savedEvents.filter((e: Event) => e._id !== event._id),
     queriedEvents: state.queriedEvents.filter((e: Event) => e._id !== event._id),
   })),
+
+  on(EventActions.clearEvents, (state) => ({
+    ...state,
+    events: [],
+    myEvents: [],
+    savedEvents: [],
+    queriedEvents: [],
+  })),
 );
 
 export const eventFeatureKey = 'event';
