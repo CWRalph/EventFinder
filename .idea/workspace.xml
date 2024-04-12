@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventActions.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/friendship/friendshipActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/friendship/friendshipActions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/friendship/friendshipReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/friendship/friendshipReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/group/groupActions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/group/groupActions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/group/groupReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/group/groupReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -34,6 +34,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.authenticateUser),
       map(() => {
+          this.store.dispatch(EventActions.getEvents());
           return UserActions.loginUserWithToken({ token: localStorage.getItem('token')??"" });
         }
       ),

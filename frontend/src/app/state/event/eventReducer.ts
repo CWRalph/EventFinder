@@ -60,10 +60,8 @@ export const EventReducer = createReducer(
 
   on(EventActions.clearEvents, (state) => ({
     ...state,
-    events: [],
     myEvents: [],
     savedEvents: [],
-    queriedEvents: [],
   })),
 );
 
