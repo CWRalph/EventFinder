@@ -14,7 +14,7 @@ export class FriendshipService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/friendships';
   private readonly PROD_URL = this.document.location.origin + '/friendships';
-  URL = this.PROD_URL;
+  URL = this.LOCAL_URL;
 
   getFriendships(): Observable<Friendship[]> {
     return this.http.get<Friendship[]>(this.URL);

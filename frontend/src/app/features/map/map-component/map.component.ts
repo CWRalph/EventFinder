@@ -86,7 +86,7 @@ export class MapComponent implements OnInit, OnChanges {
     this.map.zoomControl.remove();
 
     L.control.zoom({
-      position: 'topright'
+      position: 'bottomright'
     }).addTo(this.map);
 
     this.map.on("click", e => {
