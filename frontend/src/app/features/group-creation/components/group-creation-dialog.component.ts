@@ -38,6 +38,17 @@ export class GroupCreationDialogComponent {
     this.isEditing = data.isEditing;
   }
 
+  get groupName() {
+    return this.groupData.groupName;
+  }
+
+  set groupName(gn:string) {
+    this.groupData = {
+      ...this.groupData,
+      groupName: gn
+    } 
+  }
+
   cancel() {
     // this.snackbar.open("Cancelled", "OK");
     this.dialogRef.close();

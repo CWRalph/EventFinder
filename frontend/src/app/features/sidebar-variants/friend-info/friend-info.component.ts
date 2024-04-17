@@ -183,7 +183,7 @@ export class FriendInfoComponent implements OnInit, OnChanges{
       (user2) => {
         this.friendshipService.getFriendshipsByUser(this.userID).subscribe((friendships) => {
           friendships.forEach(friendship => {
-            if (friendship.user1._id == friend._id || friendship.user2._id == friend._id) {
+            if (friendship.user1 && friendship.user2 && friendship.user1._id == friend._id || friendship.user2._id == friend._id) {
               friendshipId = friendship._id;
             }
           });
@@ -213,7 +213,7 @@ export class FriendInfoComponent implements OnInit, OnChanges{
 
     this.friendshipService.getFriendshipsByUser(this.userID).subscribe((friendships) => {
       friendships.forEach((friendship) => {
-        if (friendship.user1._id == this.userID && friendship.user2._id == friend._id) {
+        if (friendship.user1 && friendship.user2 && friendship.user1._id == this.userID && friendship.user2._id == friend._id) {
           friendship.status = "Accepted";
           this.friendshipService.updateFriendship(friendship).subscribe((res) => {
             console.log(res)
