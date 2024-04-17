@@ -124,7 +124,9 @@ implements OnInit{
 
             this.myFriends = allMyFriends.filter(friend => {
                 // Check if the friend is not in the pending friends list or self
-                return !pendingFriendIds.includes(friend._id) && friend._id !== this.user;
+                
+                return friend && !pendingFriendIds.includes(friend._id) && friend._id !== this.user; 
+                
             });
 
             return this.myFriends;
@@ -213,9 +215,12 @@ implements OnInit{
     getFriendshipStatus(friend: User): Status | undefined {
         for (let i = 0; i < this.myFriendships.length; i++) {
             var friendship = this.myFriendships[i]
-            if ((friendship.user1!._id == this.user && friendship.user2!._id == friend._id) || (friendship.user1!._id == friend._id && friendship.user2!._id == this.user)) {
-                return friendship.status;
+            if (friendship.user1 && friendship.user2) {
+                if ((friendship.user1!._id == this.user && friendship.user2!._id == friend._id) || (friendship.user1!._id == friend._id && friendship.user2!._id == this.user)) {
+                    return friendship.status;
+                }
             }
+           
         }
         return undefined
     }

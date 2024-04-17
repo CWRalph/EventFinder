@@ -1,4 +1,4 @@
-<div class="sidenav bg-base-100">
+<div [ngStyle]="{'display':displayStyle}" class="sidenav bg-base-100">
     <div class="icon-btn-container">
       <app-icon-button button="Friends" [sidebarType]="SidebarType.Friend">
         <i class="fa-solid fa-user-group"></i>
