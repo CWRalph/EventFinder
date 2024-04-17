@@ -69,8 +69,8 @@ export class UserEffects {
               console.log(userID)
               console.log(token)
 
-              this.loginSuccessActions(userID);
               this.storeToken(token);
+              this.loginSuccessActions(userID);
 
               return UserActions.loginUserSuccess({ userID: userID  })
             })
@@ -100,8 +100,8 @@ export class UserEffects {
           map((data: any) => {
             this.dialog.closeAll();
 
-            this.loginSuccessActions(data._id);
             this.storeToken(data.token);
+            this.loginSuccessActions(data._id);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
 
             return UserActions.loginUserSuccess({ userID: data._id  })
@@ -137,8 +137,8 @@ export class UserEffects {
           map((data: any) => {
             this.dialog.closeAll();
 
-            this.loginSuccessActions(data._id);
             this.storeToken(data.token);
+            this.loginSuccessActions(data._id);
 
             this.snackBar.open("Registration Successful", "Dismiss", { duration: 5000 });
             return UserActions.registerUserSuccess({ userID: data._id })

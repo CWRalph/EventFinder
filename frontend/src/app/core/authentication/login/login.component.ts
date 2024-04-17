@@ -77,8 +77,10 @@ export class LoginComponent {
 
   public onFormSubmission(form: any) {
     if(this.currentFormState == LoginFormState.LOGIN){
+      if(this.email == "" || this.password == "") return;
       this.store.dispatch(UserActions.loginUserWithProps({email: this.email, password: this.password}));
     }else{
+      if(this.email == "" || this.password == "") return;
       this.store.dispatch(UserActions.registerUserWithProps({username: this.username, password: this.password, email:this.email}))
     }
   }
