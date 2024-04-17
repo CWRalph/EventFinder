@@ -18,6 +18,7 @@ import { select, Store } from '@ngrx/store';
 import { selectUserId } from '@state/user/userReducer';
 import { User } from '@core/models/user';
 import { Event, EventMembership, EventRole } from '@core/models/event';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 const createGroupMembership = (
   event: Event,
@@ -37,6 +38,7 @@ export class EventEffects {
     private eventService: EventService,
     private eventMembershipService: EventMemberService,
     private store: Store,
+    private snackBar: MatSnackBar
   ) {}
 
   createEvent$ = createEffect(
@@ -65,7 +67,10 @@ export class EventEffects {
               catchError(() => of(EventActions.saveEventFailure())),
             ),
           ),
-          catchError(() => of(EventActions.createEventFailure())),
+          catchError(() => {
+            this.snackBar.open("Event with that name already exists", "Dismiss", { duration: 2000 });
+            return of(EventActions.createEventFailure())
+          }),
         ),
       ),
     ),

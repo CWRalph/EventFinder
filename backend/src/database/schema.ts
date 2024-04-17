@@ -25,7 +25,7 @@ const groupSchema = new mongoose.Schema({
 
 
 // Indicates what fields should be indexed for text search
-groupSchema.index({groupName: 'text', description: 'text'});
+groupSchema.index({groupName: 'text'});
 
 // Remove the unique constraint from groupName
 groupSchema.index({ groupName: 1 }, { unique: false });
@@ -69,7 +69,7 @@ const eventMembershipSchema = new mongoose.Schema({
 });
 
 // Indicates what fields should be indexed for text search
-eventSchema.index({name: 'text', description: 'text', location: 'text'});
+eventSchema.index({name: 'text'});
 
 // Define pre-hook middleware for group deletion - this cascades and deletes all references for users too
 groupSchema.pre('deleteOne', {document: true, query: false}, async function (next) {
@@ -119,7 +119,6 @@ eventSchema.pre('findOneAndDelete', { document: false, query: true }, async func
         next(err);
     }
 });
-
 
 
 // Create models

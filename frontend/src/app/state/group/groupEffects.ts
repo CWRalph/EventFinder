@@ -5,7 +5,6 @@ import {GroupActions} from "@state/group/groupActions";
 import {catchError, map, mergeMap, of, switchMap, tap} from "rxjs";
 import {GroupService} from "@core/services/GroupService";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Store} from "@ngrx/store";
 
 @Injectable()
 export class GroupEffects {

@@ -139,25 +139,12 @@ groupRouter.get('/search', async (req, res) => {
         {
             $search:{
                 index: 'GroupAutocompleteIndex',
-                compound: {
-                    should: [
-                        {
-                            autocomplete: {
-                                query: query,
-                                path: "groupName"
-                            }
-                        },
-                        {
-                            autocomplete: {
-                                query: query,
-                                path: "description"
-                            }
-                        }
-                    ],
+                autocomplete: {
+                    query: query,
+                    path: "groupName"
                 }
             }
         }
-        
     ]
 
     //Sort descending order
