@@ -11,7 +11,7 @@ export class GroupMemberService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/group-memberships';
   private readonly PROD_URL = this.document.location.origin + '/group-memberships';
-  URL = this.PROD_URL;
+  URL = this.LOCAL_URL;
 
 
   getGroupMembers(): Observable<Group[]> {

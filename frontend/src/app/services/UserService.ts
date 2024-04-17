@@ -11,7 +11,7 @@ export class UserService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/users';
   private readonly PROD_URL = this.document.location.origin + '/users';
-  URL = this.PROD_URL;
+  URL = this.LOCAL_URL;
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.URL);

@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { UserActions } from '@app/state/user/userActions';
 import { UserService } from '@core/services/UserService';
-import { User } from '@core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '@core/authentication/login/login.component';
 import { DialogStatus } from '@core/authentication/models/dialogStatus';
@@ -16,6 +15,7 @@ import { UsersActions } from '../users/usersActions';
 
 @Injectable()
 export class UserEffects {
+  private readonly TOKEN_KEY = 'token';
   constructor(
     private readonly actions$: Actions,
     private userService: UserService,
@@ -23,6 +23,26 @@ export class UserEffects {
     private snackBar: MatSnackBar,
     private store:Store
   ) {}
+
+  private loginSuccessActions(userId : string){
+    // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
+    this.store.dispatch(GroupActions.getUserGroups({ userId: userId}));
+    this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: userId }));
+    this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: userId }));
+
+    this.store.dispatch(FriendshipActions.getFriendships());
+    this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userId }));
+    this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userId }));
+
+    this.store.dispatch(UsersActions.getUsers());
+    this.store.dispatch(EventActions.getEvents());
+    this.store.dispatch(EventActions.mapMembershipsToEvents());
+    this.store.dispatch(GroupActions.getGroups());
+  }
+
+  private storeToken(token:string){
+    localStorage.setItem(this.TOKEN_KEY, token);
+  }
 
   printer = createEffect(
     () => this.actions$.pipe(tap((action) => console.log(action))),
@@ -44,28 +64,13 @@ export class UserEffects {
   loginUserWithToken$ = createEffect(()=>
         this.actions$.pipe(
           ofType(UserActions.loginUserWithToken),
-          switchMap((token) => this.userService.authenticate().pipe(
+          switchMap(({token}) => this.userService.authenticate().pipe(
             map((userID:any) => {
               console.log(userID)
               console.log(token)
-              this.store.dispatch(EventActions.getEvents());
-              this.store.dispatch(EventActions.mapMembershipsToEvents());
 
-              this.store.dispatch(GroupActions.getGroups());
-
-              // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
-              this.store.dispatch(GroupActions.getUserGroups({ userId: userID }));
-              this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: userID }));
-              this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: userID }));
-
-              this.store.dispatch(FriendshipActions.getFriendships());
-              this.store.dispatch(FriendshipActions.getUserFriendships({ userId: userID }));
-              this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: userID }));
-
-              this.store.dispatch(UsersActions.getUsers());
-
-              this.store.dispatch(EventActions.getEvents());
-
+              this.loginSuccessActions(userID);
+              this.storeToken(token);
 
               return UserActions.loginUserSuccess({ userID: userID  })
             })
@@ -96,29 +101,10 @@ export class UserEffects {
         this.userService.loginWithEmailPassword(email, password).pipe(
           map((data: any) => {
             this.dialog.closeAll();
-            console.log(data);
 
-            localStorage.setItem('token', data.token);
+            this.loginSuccessActions(data._id);
+            this.storeToken(data.token);
             this.snackBar.open("Login Successful", "Dismiss", { duration: 5000 });
-
-            this.store.dispatch(EventActions.getEvents());
-            this.store.dispatch(EventActions.mapMembershipsToEvents());
-
-            this.store.dispatch(GroupActions.getGroups());
-
-            // TODO: this can trigger a 404 error sometimes that says no groups found if user has none
-            this.store.dispatch(GroupActions.getUserGroups({ userId: data._id }));
-            this.store.dispatch(GroupActions.getUserNonMemberGroups({ userId: data._id }));
-            this.store.dispatch(GroupActions.getUserOwnedGroups({ userId: data._id }));
-
-            this.store.dispatch(FriendshipActions.getFriendships());
-            this.store.dispatch(FriendshipActions.getUserFriendships({ userId: data._id }));
-            this.store.dispatch(FriendshipActions.getPendingFriendships({ userId: data._id }));
-
-            this.store.dispatch(UsersActions.getUsers());
-
-            this.store.dispatch(EventActions.getEvents());
-
 
             return UserActions.loginUserSuccess({ userID: data._id  })
           }),
@@ -151,8 +137,11 @@ export class UserEffects {
       mergeMap(({ username, password, email }) =>
         this.userService.register(username, password, email).pipe(
           map((data: any) => {
-            localStorage.setItem('token', data.token);
             this.dialog.closeAll();
+
+            this.loginSuccessActions(data._id);
+            this.storeToken(data.token);
+
             this.snackBar.open("Registration Successful", "Dismiss", { duration: 5000 });
             return UserActions.registerUserSuccess({ userID: data._id })
           }),

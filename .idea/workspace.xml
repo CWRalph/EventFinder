@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/event/eventReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/EventMemberService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/EventMemberService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/GroupMemberService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/GroupMemberService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/GroupService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/GroupService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/UserService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/event-creation/services/event-creation.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/event-creation/services/event-creation.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/search-bar/search-bar/search-bar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/FriendshipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/FriendshipService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/UserService.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,13 +46,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/cwr/WebstormProjects/EventBriterParent/EventFinder",
+    "last_opened_file_path": "C:/Users/colwy/WebstormProjects/CMPT372FinalProject/EventFinder",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/cwr/WebstormProjects/EventBriterParent/EventFinder/frontend/node_modules/prettier",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\frontend\\node_modules\\prettier",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "C:\\Users\\colwy\\WebstormProjects\\CMPT372FinalProject\\EventFinder\\backend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -87,6 +100,9 @@
       <workItem from="1712643422019" duration="24000" />
       <workItem from="1712691983328" duration="10570000" />
       <workItem from="1712724917496" duration="1141000" />
+      <workItem from="1712937659349" duration="735000" />
+      <workItem from="1713061648979" duration="20000" />
+      <workItem from="1713388145891" duration="1968000" />
     </task>
     <servers />
   </component>

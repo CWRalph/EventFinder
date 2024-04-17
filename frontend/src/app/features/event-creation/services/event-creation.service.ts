@@ -10,6 +10,7 @@ import {Coordinates, Event} from "@core/models/event";
 import {select, Store} from "@ngrx/store";
 import {selectUserId} from "@state/user/userReducer";
 import {HttpClient} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,8 @@ export class EventCreationService {
     private dialog: MatDialog,
     private readonly actions$: Actions,
     private store: Store,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackbar: MatSnackBar,
   ) {
     this.store.pipe(
       select(selectUserId),
@@ -92,6 +94,7 @@ export class EventCreationService {
   public chooseLocation(location?:Coordinates)  {
     if(!this.isListeningForLocation) return;
     this.isListeningForLocation = false;
+    this.snackbar.dismiss();
 
     if(location){
       this.openEventCreatorDialog({

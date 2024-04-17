@@ -37,20 +37,20 @@ loginRouter.post('/api/register', async (req, res) => {
     }
 });
 
-loginRouter.post('/api/check_username_availability', function(req, res) {
-    checkUsernameAvailability(req.body.username, res);
-})
-
-//Check The Username 
-function checkUsernameAvailability(username:string, res:any) {
-    Login.find({'username': username}, function(err: any, reply: string){
-    if(reply == ''){
-            res.send({availability: 'available'});
-        } else {
-            res.send({availability: 'unavailable'});
-        }
-    })
-}
+// loginRouter.post('/api/check_username_availability', function(req, res) {
+//     checkUsernameAvailability(req.body.username, res);
+// })
+//
+// //Check The Username
+// function checkUsernameAvailability(username:string, res:any) {
+//     Login.find({'username': username}, function(err: any, reply: string){
+//     if(reply == ''){
+//             res.send({availability: 'available'});
+//         } else {
+//             res.send({availability: 'unavailable'});
+//         }
+//     })
+// }
 
 loginRouter.post('/login', async (req, res) => {
 

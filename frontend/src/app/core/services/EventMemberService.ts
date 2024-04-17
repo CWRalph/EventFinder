@@ -15,7 +15,7 @@ export class EventMemberService {
   private readonly LOCAL_URL = 'http://localhost:3000/event-memberships';
   private readonly PROD_URL =
     this.document.location.origin + '/event-memberships';
-  URL = this.PROD_URL;
+  URL = this.LOCAL_URL;
 
   getEventMemberships() {
     return this.http.get<EventMembership[]>(this.URL);

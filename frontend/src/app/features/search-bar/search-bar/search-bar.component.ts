@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -38,8 +39,9 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private searchBarService: SearchBarService)
-    {
+    private searchBarService: SearchBarService,
+    private cdr: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -84,6 +86,7 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   }
 
   public get dropdownContent(): string[] {
+    this.cdr.markForCheck();
     return (this.results?.length ?? 0) > 0
       ? this.results
       : ['No results found'];

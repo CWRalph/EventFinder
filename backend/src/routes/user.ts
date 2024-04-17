@@ -93,26 +93,27 @@ userRouter.post('/register', async (req, res) => {
 
     try {
         const newUser = await user.save();
-        res.status(201).json(newUser);
+        const token = jwt.sign({_id: newUser._id}, process.env.JWT_TOKEN);
+        res.status(201).json({_id: newUser._id, token});
     } catch (e) {
         catchError(e, res);
     }
 });
 
-userRouter.post('/check_username_availability', function(req, res) {
-    checkUsernameAvailability(req.body.username, res);
-})
-
-//Check The Username 
-function checkUsernameAvailability(username:string, res:any) {
-    User.find({'username': username}, function(err: any, reply: string){
-    if(reply == ''){
-            res.send({availability: 'available'});
-        } else {
-            res.send({availability: 'unavailable'});
-        }
-    })
-}
+// userRouter.post('/check_username_availability', function(req, res) {
+//     checkUsernameAvailability(req.body.username, res);
+// })
+//
+// //Check The Username
+// function checkUsernameAvailability(username:string, res:any) {
+//     User.find({'username': username}, function(err: any, reply: string){
+//     if(reply == ''){
+//             res.send({availability: 'available'});
+//         } else {
+//             res.send({availability: 'unavailable'});
+//         }
+//     })
+// }
 
 userRouter.post('/login', async (req, res) => {
 

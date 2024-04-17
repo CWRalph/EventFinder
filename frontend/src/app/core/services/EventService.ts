@@ -15,7 +15,7 @@ export class EventService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/events';
   private readonly PROD_URL = this.document.location.origin + '/events';
-  URL = this.PROD_URL;
+  URL = this.LOCAL_URL;
 
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>(this.URL);
