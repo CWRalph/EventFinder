@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IconButtonComponent } from "../icon-button/icon-button.component";
 import { CommonModule } from '@angular/common';
 import { GroupButtonComponent } from "../group-button/group-button.component";
-import {SidebarType} from "@services/SidebarService";
+import {SidebarService, SidebarType} from "@services/SidebarService";
 import {Group, GroupMembership} from "@core/models/group";
 import { selectIsLoggedIn, selectUserId } from '@app/state/user/userReducer';
 import { Store, select } from '@ngrx/store';
@@ -28,9 +28,11 @@ extends SubscriberComponent {
   groupType = "Group";
   isLoggedIn: boolean = false;
   userId?: string;
+  displayStyle: string = "none"
 
   constructor(
-    private store: Store
+    private store: Store,
+    private sidebarService: SidebarService
     ) {
     super();
   }
@@ -38,7 +40,10 @@ extends SubscriberComponent {
   ngOnInit() {
     this.store
       .select(selectIsLoggedIn)
-      .subscribe((isLoggedIn: boolean) => (this.isLoggedIn = isLoggedIn)
+      .subscribe((isLoggedIn: boolean) => (
+        this.isLoggedIn = isLoggedIn,
+        this.toggleSidebar(isLoggedIn)
+      )
     );
 
     this.store.pipe(select(selectUserId)).subscribe((user?: string) => {
@@ -52,6 +57,15 @@ extends SubscriberComponent {
     this.unsubscribeOnDestroy<Group[]>(this.store.select(selectFollowedGroups)).subscribe(
       (groups) => this.followedGroups = groups
     );
+  }
+
+  toggleSidebar(isLoggedIn: boolean) {
+    if (isLoggedIn) {
+      this.displayStyle = "block"
+    } else {
+      this.displayStyle = "none"
+      this.sidebarService.closeSidebar();
+    }
   }
 
   get userOwnedGroups(): Group[] {
