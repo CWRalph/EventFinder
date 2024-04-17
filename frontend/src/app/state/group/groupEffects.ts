@@ -13,6 +13,7 @@ export class GroupEffects {
     private readonly actions$: Actions,
     private groupCreationService: GroupCreationService,
     private groupService: GroupService,
+    private snackBar: MatSnackBar
   ) {}
 
   openCreateGroupDialog$ = createEffect(() =>
@@ -33,7 +34,11 @@ export class GroupEffects {
           this.groupCreationService.closeDialog();
           return GroupActions.createGroupSuccess({group})
         }),
-        catchError((error)=>of(GroupActions.createGroupFailure()))
+        catchError((error)=>{
+          this.snackBar.open(error.error ?? "Group name must be unique!", "Dismiss", { duration: 5000 });
+          console.log(error);
+          return of(GroupActions.createGroupFailure());
+        })
       ))
     ),
   )

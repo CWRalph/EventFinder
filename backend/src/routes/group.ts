@@ -115,6 +115,9 @@ groupRouter.get('/user/:userId/nonmember', async (req, res) => {
 groupRouter.post('/', async (req, res) => {
     const { groupName, description, visibility, userID, colour } = req.body;
 
+    const groupExist = await Group.findOne({groupName: req.body.groupName});
+    if (groupExist) return res.status(400).send('Group Name already exists');
+
     try {
         const newGroup = new Group({ groupName, description, visibility, colour });
         const savedGroup = await newGroup.save();

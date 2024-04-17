@@ -17,14 +17,18 @@ const loginSchema = new mongoose.Schema({
 });
 
 const groupSchema = new mongoose.Schema({
-    groupName: {type: String, required: true},
+    groupName: {type: String, required: true, unique: false},
     description: {type: String},
     visibility: {type: String, enum: ['Public', 'Private'], default: 'Public'},
     colour: {type: String}
 });
 
+
 // Indicates what fields should be indexed for text search
 groupSchema.index({groupName: 'text', description: 'text'});
+
+// Remove the unique constraint from groupName
+groupSchema.index({ groupName: 1 }, { unique: false });
 
 // For defining the relationship between userSchema and groupSchema
 const groupMembershipSchema = new mongoose.Schema({
