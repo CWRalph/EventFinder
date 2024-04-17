@@ -17,14 +17,15 @@ const loginSchema = new mongoose.Schema({
 });
 
 const groupSchema = new mongoose.Schema({
-    groupName: {type: String, required: true},
+    groupName: {type: String, required: true, unique: false},
     description: {type: String},
     visibility: {type: String, enum: ['Public', 'Private'], default: 'Public'},
     colour: {type: String}
 });
 
+
 // Indicates what fields should be indexed for text search
-groupSchema.index({groupName: 'text', description: 'text'});
+groupSchema.index({groupName: 'text'});
 
 // For defining the relationship between userSchema and groupSchema
 const groupMembershipSchema = new mongoose.Schema({
@@ -65,7 +66,7 @@ const eventMembershipSchema = new mongoose.Schema({
 });
 
 // Indicates what fields should be indexed for text search
-eventSchema.index({name: 'text', description: 'text', location: 'text'});
+eventSchema.index({name: 'text'});
 
 // Define pre-hook middleware for group deletion - this cascades and deletes all references for users too
 groupSchema.pre('deleteOne', {document: true, query: false}, async function (next) {
@@ -115,7 +116,6 @@ eventSchema.pre('findOneAndDelete', { document: false, query: true }, async func
         next(err);
     }
 });
-
 
 
 // Create models

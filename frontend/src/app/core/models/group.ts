@@ -1,5 +1,3 @@
-import { User } from '@core/models/user';
-
 export type Role = 'owner' | 'admin' | 'member'
 
 export type Visibility = 'Public' | 'Private';

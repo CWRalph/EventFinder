@@ -91,8 +91,6 @@ export class UserEffects {
     ),
   );
 
-  // NOTE TO TJ: ALWAYS ADD THE THING YOU'RE LOOKING FOR HERE. LIKE THE DATA YOU WANT FOR USER!
-  // FOR EXAMPLE, their groups, their friends etc.
   //Attempt to log the user in, getting a bad response from the backend represents a failed login attempt
   loginUserWithProps$ = createEffect(() =>
     this.actions$.pipe(

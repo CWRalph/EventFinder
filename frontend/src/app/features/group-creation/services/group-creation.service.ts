@@ -68,12 +68,12 @@ export class GroupCreationService {
 
 
   public createGroup(group: Group): void {
-    group.userID = localStorage.getItem('userID')??'';
+    group.userID = this.currentUserId;
     this.store.dispatch(GroupActions.createGroupWithProps({group}));
   }
 
   public updateGroup(group: Group): void {
-    group.userID = localStorage.getItem('userID') ?? '';
+    group.userID = this.currentUserId;
     this.store.dispatch(GroupActions.updateGroup({ group }));
     this.closeDialog();
   }

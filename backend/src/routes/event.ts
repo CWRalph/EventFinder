@@ -55,21 +55,9 @@ eventRouter.get('/search', async (req, res) => {
         {
             $search: {
                 index: "EventAutoComplete",
-                compound: {
-                    should: [
-                        {
-                            autocomplete: {
-                                query: query,
-                                path: "name"
-                            }
-                        },
-{
-                            autocomplete: {
-                                query: query,
-                                path: "description"
-                            }
-                        }
-                    ],
+                autocomplete: {
+                    query: query,
+                    path: "name"
                 }
             },
         }
