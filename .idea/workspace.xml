@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/database/schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/database/schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/group-creation/components/group-creation-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/group-creation/components/group-creation-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-info/group-info.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-info/group-info.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-sidebar/group-sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/sidebar-variants/group-sidebar/group-sidebar.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +90,7 @@
       <workItem from="1712724917496" duration="1141000" />
       <workItem from="1712937659349" duration="735000" />
       <workItem from="1713061648979" duration="20000" />
-      <workItem from="1713388145891" duration="4291000" />
+      <workItem from="1713388145891" duration="6506000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 // import { GroupService } from '@app/services/GroupService';
 import { GroupService } from '@app/core/services/GroupService';
 import { GroupMemberService } from '@app/core/services/GroupMemberService';
@@ -22,7 +22,7 @@ import { selectFollowedGroups, selectMyGroups, selectQueriedGroups } from '@app/
   templateUrl: './group-info.component.html',
   styleUrl: './group-info.component.css',
 })
-export class GroupInfoComponent extends SubscriberComponent {
+export class GroupInfoComponent extends SubscriberComponent implements OnInit, OnChanges{
   @Input() group!: Group;
   @Input() groupMembership!: GroupMembership;
 
@@ -65,35 +65,16 @@ export class GroupInfoComponent extends SubscriberComponent {
     if (!this.user) {
       return;
     }
-
-    this.groupMembershipService.getGroupMemberships().subscribe((memberships) => {
-      const userMembership = memberships.find(
-        (membership) =>
-          membership.user === this.user && membership.group === this.group._id && membership.role === 'member'
-      );
-
-      this.isInGroup = !!userMembership;
-
-      // Trigger change detection to update the UI
-      this.cdr.detectChanges();
-    });
+    console.log(this.group.groupName, this.user, this.groupMemberships);
+    this.isInGroup = !!(this.groupMemberships.find((membership) =>membership.group == this.group._id && membership.role == 'member'));
   }
+
   fetchOwnershipsAndCheck() {
     if (!this.user) {
       return;
     }
 
-    this.groupMembershipService.getGroupMemberships().subscribe((memberships) => {
-      const userMembership = memberships.find(
-        (membership) =>
-          membership.user === this.user && membership.group === this.group._id && membership.role === 'owner'
-      );
-
-      this.isGroupOwner = !!userMembership;
-
-      // Trigger change detection to update the UI
-      this.cdr.detectChanges();
-    });
+    this.isGroupOwner = !!(this.groupMemberships.find((membership) =>membership.group == this.group._id && membership.role === 'owner'));
   }
 
   joinGroup() {
@@ -160,7 +141,8 @@ export class GroupInfoComponent extends SubscriberComponent {
 
   }
 
-  ngOnChange() {
+
+  ngOnChanges() {
     this.fetchMembershipsAndCheck();
     this.fetchOwnershipsAndCheck();
     this.cdr.detectChanges();
@@ -168,28 +150,12 @@ export class GroupInfoComponent extends SubscriberComponent {
 
   // TODO: COLWYN - change this joined to be permanent or display
   ngOnInit() {
-    this.userID = this.user??''; // Set the current user's ID
-    this.unsubscribeOnDestroy(this.store.select(selectMyGroups)).subscribe(
-      groups => {
-        this.fetchMembershipsAndCheck();
-        this.fetchOwnershipsAndCheck();
-      }
-    )
-    // this.unsubscribeOnDestroy(this.store.select(selectFollowedGroups)).subscribe(
-    //   groups => {
-    //     this.fetchMembershipsAndCheck();
-    //     this.fetchOwnershipsAndCheck();
-    //   }
-    // )
-    // this.unsubscribeOnDestroy(this.store.select(selectQueriedGroups)).subscribe(
-    //   groups => {
-    //     this.fetchMembershipsAndCheck();
-    //     this.fetchOwnershipsAndCheck();
-    //   }
-    // )
-    this.fetchMembershipsAndCheck();
-    this.fetchOwnershipsAndCheck();
-
+    this.groupMembershipService.getGroupMemberships().subscribe((memberships) => {
+      this.groupMemberships = memberships.filter((membership)=>membership.user === this.user)
+      this.fetchMembershipsAndCheck();
+      this.fetchOwnershipsAndCheck();
+      this.cdr.detectChanges();
+    });
   }
 
 }
