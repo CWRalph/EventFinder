@@ -12,7 +12,7 @@ export class UserService {
 
   private readonly LOCAL_URL = 'http://localhost:3000/users';
   private readonly PROD_URL = this.document.location.origin + '/users';
-  URL = this.LOCAL_URL;
+  URL = this.PROD_URL;
 
   public getUser(userId: string): Observable<User> {
     return this.http.get<User>(this.URL + '/' + userId);

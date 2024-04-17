@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa99d8b8-af6e-4f8f-87ff-32c448e9c543" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/authentication/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/features/navbar-feature/user-icon/user-icon.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/state/user/userEffects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/EventMemberService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/EventMemberService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/EventService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/GroupMemberService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/GroupMemberService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/GroupService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/GroupService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/core/services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/services/UserService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/FriendshipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/FriendshipService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupMembershipService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/GroupService.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/UserService.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/UserService.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +96,7 @@
       <workItem from="1712724917496" duration="1141000" />
       <workItem from="1712937659349" duration="735000" />
       <workItem from="1713061648979" duration="20000" />
-      <workItem from="1713388145891" duration="7563000" />
+      <workItem from="1713388145891" duration="7646000" />
     </task>
     <servers />
   </component>
