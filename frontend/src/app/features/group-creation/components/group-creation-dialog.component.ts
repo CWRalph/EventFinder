@@ -44,9 +44,11 @@ export class GroupCreationDialogComponent {
   }
 
   onSubmit() {
-    this.groupData.colour = this.selectedColor
     if (this.isEditing) {
-      this.groupCreationService.updateGroup(this.groupData);
+      this.groupCreationService.updateGroup({
+        ...this.groupData,
+        colour: this.selectedColor,
+      });
     } else {
       this.groupCreationService.createGroup(this.groupData);
     }

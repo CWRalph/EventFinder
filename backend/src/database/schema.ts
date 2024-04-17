@@ -27,9 +27,6 @@ const groupSchema = new mongoose.Schema({
 // Indicates what fields should be indexed for text search
 groupSchema.index({groupName: 'text'});
 
-// Remove the unique constraint from groupName
-groupSchema.index({ groupName: 1 }, { unique: false });
-
 // For defining the relationship between userSchema and groupSchema
 const groupMembershipSchema = new mongoose.Schema({
     group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group', required: true},
